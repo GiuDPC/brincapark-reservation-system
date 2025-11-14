@@ -1,14 +1,21 @@
-﻿// src/models/Reservation.js
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 
 const ReservationSchema = new mongoose.Schema({
-  nombre: { type: String, required: true },            // nombre del solicitante
-  contacto: { type: String, required: true },          // email o teléfono
-  fechaVisita: { type: String, required: true },       // YYYY-MM-DD (string para simplicidad)
-  numeroPersonas: { type: Number, required: true },    // número de personas
-  actividad: { type: String, default: '' },            // actividad opcional
-  estado: { type: String, enum: ['pendiente','aprobado','cancelado'], default: 'pendiente' },
-  notas: { type: String, default: '' },
+  nombreCompleto: { type: String, required: true },
+  correo: { type: String, required: true },
+  telefono: { type: String, required: true },
+  paquete: { type: String, required: true },                  // mini, medio, full
+  fechaServicio: { type: String, required: true },            // YYYY-MM-DD
+  ciudad: { type: String, required: true },
+  estadoUbicacion: { type: String, required: true },          // Falcon, Zulia etc...
+  tipoEvento: { type: String, required: true },               // fiesta, escolar...
+
+  estadoReserva: { 
+    type: String,
+    enum: ["pendiente", "aprobado", "cancelado"],
+    default: "pendiente"
+  },
+
   createdAt: { type: Date, default: Date.now }
 });
 

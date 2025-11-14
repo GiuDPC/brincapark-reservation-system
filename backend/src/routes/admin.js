@@ -6,7 +6,7 @@ const adminAuth = require('../middleware/adminAuth');
 
 router.use(adminAuth); // todas las rutas siguientes requieren header secreto
 
-// GET /api/admin/reservas -> listar todas (ordenadas por creación desc)
+// GET /api/admin/reservas -> listar todas (ordenadas por creación en orden descendente)
 router.get('/reservas', async (req, res) => {
   try {
     const all = await Reservation.find().sort({ createdAt: -1 });
