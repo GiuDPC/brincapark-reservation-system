@@ -1,0 +1,1515 @@
+/* Estilos Brincapark  diseño exacto*/
+@font-face {
+  font-family: "Bobby Jones";
+  src: url("../fonts/Bobby Jones Soft.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Outfit", bobby;
+  background: #fffef7;
+  color: #4b0082;
+  overflow-x: hidden;
+  position: relative;
+  padding-top: 0;
+}
+
+/* Estrellas decorativas de fondo */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
+    no-repeat center;
+  background-size: contain;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+body::before {
+  top: 50px;
+  left: -50px;
+  transform: rotate(-15deg);
+}
+
+body::after {
+  top: 200px;
+  right: -50px;
+  transform: rotate(25deg);
+}
+
+/* NAVBAR */
+.navbar {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 1.5rem 2rem;
+  box-shadow: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cambiar el tono del navbar o barra de navegacion cuando se hace scroll para mejor apariencia */
+.navbar.scrolled {
+  background: linear-gradient(135deg,rgba(167, 216, 222, 0.95) 0%,rgba(126, 200, 227, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 2rem;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-logo img {
+  height: 50px;
+  width: auto;
+  transition: all 0.3s;
+}
+
+.navbar.scrolled .navbar-logo img {
+  height: 45px;
+}
+
+.navbar-logo span {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4b0082;
+  text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.8),
+    1px -1px 0 rgba(255, 255, 255, 0.8), -1px 1px 0 rgba(255, 255, 255, 0.8),
+    1px 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.navbar-menu {
+  font-family: "Outfit", sans-serif;
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: #4b0082;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: all 0.3s;
+  position: relative;
+  text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.6),
+    1px -1px 0 rgba(255, 255, 255, 0.6), -1px 1px 0 rgba(255, 255, 255, 0.6),
+    1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.navbar-menu a:hover {
+  color: #ffe55c;
+  text-shadow: -1px -1px 0 #4b0082, 1px -1px 0 #4b0082, -1px 1px 0 #4b0082,
+    1px 1px 0 #4b0082;
+  transform: translateY(-2px);
+}
+
+.navbar-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #ffe55c;
+  transition: width 0.3s;
+}
+
+.navbar-menu a:hover::after {
+  width: 100%;
+}
+
+/*Parte de seccion principal o Hero */
+.hero {
+  background: linear-gradient(180deg, #8cd9ff 0%, #ffffff 100%);
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+}
+
+/* Estrellas decorativas del fondo de inicio */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
+    no-repeat center;
+  background-size: contain;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.hero::before {
+  top: 10%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
+}
+
+.hero::after {
+  bottom: 15%;
+  right: 8%;
+  width: 100px;
+  height: 100px;
+  transform: rotate(25deg);
+}
+
+.hero-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero-logo-stars {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-logo-stars .star {
+  width: 100px;
+  height: 100px;
+  animation: twinkle-star 2s ease-in-out infinite;
+  filter: drop-shadow(0 5px 15px rgba(255, 229, 92, 0.6));
+}
+
+.hero-logo-stars .star-1 {
+  animation-delay: 0s;
+}
+
+.hero-logo-stars .star-2 {
+  animation-delay: 1s;
+}
+
+@keyframes twinkle-star {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15) rotate(10deg);
+    opacity: 0.8;
+  }
+}
+
+.hero-logo-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1rem 2.5rem;
+  border-radius: 60px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: visible;
+}
+
+/* Aqui van las formas de estrallas detras del logo de brincapark */
+.hero-logo-text::before {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L61 38 L90 38 L67 56 L78 84 L50 66 L22 84 L33 56 L10 38 L39 38 Z" fill="%23FFE55C"/></svg>')
+    no-repeat center;
+  background-size: contain;
+  z-index: -2;
+  opacity: 0.9;
+  filter: drop-shadow(0 5px 20px rgba(255, 229, 92, 0.5));
+}
+
+.hero-logo-icon {
+  width: 55px;
+  height: 55px;
+}
+
+.hero-logo-text h1 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #4b0082;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.hero-title {
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgb(255, 255, 255);
+  line-height: 2;
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: -2px -2px 0 #4b0082, 2px -2px 0 #4b0082, -2px 2px 0 #4b0082,
+    2px 2px 0 #4b0082, 0 0 6px rgba(75, 0, 130, 0.12);
+}
+
+.hero-subtitle {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4b0082;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.hero-social {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.social-icon {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.social-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Animacion liquido burbuja */
+@keyframes liquid-bubble {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    background-position: 0% 50%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    background-position: 100% 50%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    background-position: 0% 50%;
+  }
+}
+
+/* Aqui es la seccion de la imagen de la niña con efecto de animacion */
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 15px;
+  /*con background-size se mueven los colores */
+  background: linear-gradient(
+    135deg,
+    #ff6b9d 0%,
+    #c084fc 20%,
+    #60a5fa 40%,
+    #34d399 60%,
+    #fbbf24 80%,
+    #ff6b9d 100%
+  );
+  background-size: 200% 200%;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+  /*Animacion liquida */
+  animation: liquid-bubble 8s ease-in-out infinite;
+}
+
+/*Aqui para que la imagen que esta atras del efecto de burbuja quede encima de ese fondo*/
+.hero-image img {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border: 12px solid white;
+  display: block;
+  position: relative; /* Para que el fondo no se tape con el efecto */
+  z-index: 2;
+}
+
+/* Seccion de los titulos (titulos con estrellas) */
+.section-title {
+  text-align: center;
+  margin: 4rem 0 3rem;
+  position: relative;
+}
+
+.section-title h2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  background: #4b0082;
+  display: inline-block;
+  padding: 1rem 4rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(75, 0, 130, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+/* Estrellas alrededor del título */
+.section-title::before,
+.section-title::after {
+  content: "⭐";
+  position: absolute;
+  font-size: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: twinkle 2s infinite;
+}
+
+.section-title::before {
+  left: calc(50% - 250px);
+}
+
+.section-title::after {
+  right: calc(50% - 250px);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+/* Apartado de acerca de nosotros */
+.nosotros {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.nosotros-intro {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #4b0082;
+}
+
+.nosotros-subtitle {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4b0082;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px #ffe55c;
+}
+
+.nosotros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nosotros-card {
+  background: white;
+  border: 4px solid #4b0082;
+  border-radius: 30px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.nosotros-card:hover {
+  transform: translateY(-10px);
+}
+
+.nosotros-card img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1.5rem;
+  object-fit: contain;
+}
+
+.nosotros-card h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.4rem;
+  color: #4b0082;
+  margin-bottom: 1rem;
+}
+
+.nosotros-card p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* TICKERIA (ENTRADAS) */
+.tickeria {
+  background: white;
+  padding: 4rem 2rem;
+}
+
+.tickeria-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tickeria-subtitle {
+  font-family: "Bobby Jones", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4b0082;
+  text-align: center;
+  margin: 3rem 0 2rem;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+    2px 2px 0 #fff, 3px 3px 0 #fff;
+}
+
+.tickeria-subtitle .clock-icon {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.tickets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+}
+
+.ticket-card {
+  background: #4b0082;
+  color: white;
+  border-radius: 30px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(75, 0, 130, 0.4);
+  transition: transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 229, 92, 0.1) 0%,
+    transparent 70%
+  );
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.ticket-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.ticket-time {
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffe55c;
+  margin-bottom: 1rem;
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-price {
+  font-family: "Fredoka", sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin: 1.5rem 0;
+}
+
+.ticket-features {
+  list-style: none;
+  margin: 2rem 0;
+  font-size: 1.05rem;
+}
+
+.ticket-features li {
+  margin: 0.75rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+/*Paquetes de fiesta */
+.paquetes {
+  background: white;
+  padding: 4rem 2rem;
+}
+
+.paquetes-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.paquetes-intro {
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+  color: #4b0082;
+  margin-bottom: 3rem;
+}
+
+.paquetes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.paquete-card {
+  background: white;
+  border: 5px solid #4b0082;
+  border-radius: 30px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+
+.paquete-card:hover {
+  transform: translateY(-10px);
+}
+
+.paquete-header {
+  background: linear-gradient(135deg, #4b0082 0%, #6b21a8 100%);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.paquete-header h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2rem;
+  color: #ffe55c;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.paquete-personas {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.3rem;
+  color: white;
+  background: #4b0082;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  margin-top: 0.5rem;
+}
+
+.paquete-body {
+  padding: 2rem;
+}
+
+.paquete-features {
+  list-style: none;
+  margin: 0 0 2rem 0;
+}
+
+.paquete-features li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 2px solid #f0f0f0;
+  color: #4b0082;
+  font-weight: 500;
+}
+
+.paquete-features li:last-child {
+  border-bottom: none;
+}
+
+.paquete-features img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.paquete-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem 0 0;
+  border-top: 3px solid #4b0082;
+}
+
+.paquete-price {
+  text-align: center;
+}
+
+.paquete-price-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.paquete-price-value {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  background: #4b0082;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(75, 0, 130, 0.3);
+}
+
+/* Beneficios para reservar */
+.beneficios {
+  background: white;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estrellas decorativas en las esquinas */
+.beneficios::before,
+.beneficios::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
+    no-repeat center;
+  background-size: contain;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.beneficios::before {
+  top: -30px;
+  left: -30px;
+  transform: rotate(-15deg);
+}
+
+.beneficios::after {
+  bottom: -30px;
+  right: -30px;
+  transform: rotate(25deg);
+}
+
+.beneficios-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.beneficios-image {
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.beneficios-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.beneficios-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.beneficios-title {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #4b0082;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+    2px 2px 0 #fff;
+  border-bottom: 4px solid #4b0082;
+  padding-bottom: 1rem;
+}
+
+.beneficios-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.beneficios-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0;
+}
+
+.beneficios-list .star-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.beneficios-list p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4b0082;
+  font-weight: 500;
+}
+
+.beneficios-list strong {
+  font-weight: 700;
+}
+
+.reserva-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffb84d 0%, #ffa726 100%);
+  color: white;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(255, 167, 38, 0.4);
+  transition: all 0.3s;
+  align-self: flex-start;
+  text-transform: lowercase;
+}
+
+.reserva-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 167, 38, 0.6);
+}
+
+/*Formulario de reservacion*/
+.formulario-section {
+  background: linear-gradient(135deg, #c4b5fd 0%, #ddd6fe 50%, #fde68a 100%);
+  padding: 4rem 2rem;
+  position: relative;
+}
+
+.formulario-section::before,
+.formulario-section::after {
+  content: "⭐";
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.6;
+  animation: twinkle 2s infinite;
+}
+
+.formulario-section::before {
+  top: 10%;
+  left: 5%;
+}
+
+.formulario-section::after {
+  top: 20%;
+  right: 5%;
+}
+
+.formulario-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.formulario-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.formulario-header h2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4b0082;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.formulario-header p {
+  font-size: 1.3rem;
+  color: #4b0082;
+  font-weight: 500;
+}
+
+.formulario-content {
+  background: white;
+  border-radius: 30px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.formulario-image {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.formulario-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.formulario-form h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+  color: #4b0082;
+  text-align: center;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.formulario-form h3::before,
+.formulario-form h3::after {
+  content: "⭐";
+  font-size: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4b0082;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.875rem;
+  border: 2px solid #c4b5fd;
+  border-radius: 10px;
+  font-family: "Outfit", sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4b0082;
+}
+
+.form-group input::placeholder {
+  color: #c4b5fd;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1.25rem;
+  background: #4b0082;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: lowercase;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background: #6b21a8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(75, 0, 130, 0.3);
+}
+
+.formulario-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.formulario-footer p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #4b0082;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.formulario-footer p::before {
+  content: "📍";
+  font-size: 1.2rem;
+}
+
+.formulario-footer p:last-child::before {
+  content: "💜";
+}
+
+/* Galeria del parque*/
+.galeria-section {
+  background: white;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estrellas decorativas */
+.galeria-section::before,
+.galeria-section::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
+    no-repeat center;
+  background-size: contain;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.galeria-section::before {
+  top: 5%;
+  left: 3%;
+}
+
+.galeria-section::after {
+  bottom: 5%;
+  right: 3%;
+  transform: rotate(45deg);
+}
+
+.galeria-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.galeria-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #4b0082;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.carousel-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #4b0082 0%, #7b3ff2 100%);
+  padding: 20px;
+  box-shadow: 0 20px 60px rgba(75, 0, 130, 0.3);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.carousel-item {
+  min-width: 100%;
+  position: relative;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.carousel-item.active {
+  display: block;
+  opacity: 1;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 25px;
+  display: block;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4b0082;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Controles del carrusel */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.carousel-control:hover {
+  background: #4b0082;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 30px rgba(75, 0, 130, 0.4);
+}
+
+.carousel-control svg {
+  width: 24px;
+  height: 24px;
+  color: #4b0082;
+  transition: color 0.3s;
+}
+
+.carousel-control:hover svg {
+  color: white;
+}
+
+.carousel-control.prev {
+  left: -60px;
+}
+
+.carousel-control.next {
+  right: -60px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Indicadores */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+.indicator.active {
+  background: white;
+  width: 35px;
+  border-radius: 10px;
+}
+
+/* Horarios de apertura*/
+.horarios {
+  background: white;
+  padding: 4rem 2rem;
+}
+
+.horarios-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.horarios-table {
+  background: white;
+  border: 5px solid #4b0082;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.horarios-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.horarios-table th {
+  background: #4b0082;
+  color: white;
+  padding: 1.5rem;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-right: 3px solid white;
+}
+
+.horarios-table th:last-child {
+  border-right: none;
+}
+
+.horarios-table td {
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: #4b0082;
+  border-bottom: 2px solid #e0e7ff;
+  border-right: 2px solid #e0e7ff;
+  font-size: 1.1rem;
+}
+
+.horarios-table td:last-child {
+  border-right: none;
+}
+
+.horarios-table tr:last-child td {
+  border-bottom: none;
+}
+
+
+.footer {
+  background: #4b0082;
+  color: white;
+  padding: 3rem 2rem 1.5rem;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-logo img {
+  height: 60px;
+  width: 60px;
+  margin-bottom: 0; 
+  filter: brightness(0) invert(1);
+}
+
+.footer_section--brand  h2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: #ffe55c;
+  text-align: center;
+  transform: translateY(-40px);
+  line-height: 1;
+}
+
+
+.footer-section h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #ffe55c;
+}
+
+.footer-section p,
+.footer-section a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin: 0.5rem 0;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #ffe55c;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Responsive cualquier detalle avisar*/
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .section-title h2 {
+    font-size: 2rem;
+    padding: 0.75rem 2rem;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    font-size: 1.5rem;
+  }
+
+  .beneficios-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tickets-grid,
+  .paquetes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero responsive */
+  .hero {
+    min-height: auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-logo-stars {
+    justify-content: center;
+  }
+
+  .hero-logo-stars .star {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hero-logo-text {
+    padding: 0.75rem 2rem;
+  }
+
+  .hero-logo-text::before {
+    width: 130%;
+    height: 130%;
+  }
+
+
+  /* Ajustes para acercar el h2 de marca al logo en el footer */
+  .footer_section--brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* Tirar un poco hacia la izquierda para reducir el espacio con el logo */
+    margin-left: -2rem;
+  }
+
+  .hero-logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-logo-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .hero-social {
+    justify-content: center;
+  }
+
+  .social-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .social-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .hero-image {
+    padding: 10px;
+  }
+
+  .hero-image img {
+    max-width: 350px;
+    border: 8px solid white;
+  }
+
+  .formulario-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* Beneficios responsive */
+  .beneficios-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .beneficios-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .beneficios-list {
+    gap: 1.2rem;
+  }
+
+  .beneficios-list p {
+    font-size: 1rem;
+  }
+
+  .reserva-btn {
+    font-size: 1.5rem;
+    padding: 0.875rem 2.5rem;
+    align-self: center;
+  }
+}
