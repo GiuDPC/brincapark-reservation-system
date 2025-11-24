@@ -318,6 +318,7 @@
           <div class="table-container">
             <div class="table-header">
               <h2>Gestión de Reservas</h2>
+<<<<<<< HEAD
               <div class="table-filters">
                 <label for="filtro-parque">Filtrar por parque:</label>
                 <select id="filtro-parque" class="filter-select">
@@ -326,6 +327,70 @@
                   <option value="Caracas">Caracas</option>
                   <option value="Punto Fijo">Punto Fijo</option>
                 </select>
+=======
+              
+              <!-- BARRA DE BÚSQUEDA Y FILTROS MEJORADOS -->
+              <div class="search-filters-container">
+                <!-- busqueda -->
+                <div class="search-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                  <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Buscar por nombre, teléfono o email..."
+                    class="search-input"
+                  />
+                </div>
+
+                <!-- filtros -->
+                <div class="filters-row">
+                  <div class="filter-group">
+                    <label for="filtro-parque">Parque:</label>
+                    <select id="filtro-parque" class="filter-select">
+                      <option value="">Todos</option>
+                      <option value="Maracaibo">Maracaibo</option>
+                      <option value="Caracas">Caracas</option>
+                      <option value="Punto Fijo">Punto Fijo</option>
+                    </select>
+                  </div>
+
+                  <div class="filter-group">
+                    <label for="filtro-estado">Estado:</label>
+                    <select id="filtro-estado" class="filter-select">
+                      <option value="">Todos</option>
+                      <option value="pendiente">Pendiente</option>
+                      <option value="aprobado">Aprobado</option>
+                      <option value="cancelado">Cancelado</option>
+                    </select>
+                  </div>
+
+                  <div class="filter-group">
+                    <label for="filtro-fecha-desde">Desde:</label>
+                    <input type="date" id="filtro-fecha-desde" class="filter-date" />
+                  </div>
+
+                  <div class="filter-group">
+                    <label for="filtro-fecha-hasta">Hasta:</label>
+                    <input type="date" id="filtro-fecha-hasta" class="filter-date" />
+                  </div>
+
+                  <button id="clear-filters-btn" class="btn-clear-filters" title="Limpiar filtros">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    Limpiar
+                  </button>
+                </div>
+
+                <!-- Contador de resultados -->
+                <div class="results-counter" id="results-counter">
+                  Mostrando <strong id="results-count">0</strong> de <strong id="total-count">0</strong> reservas
+                </div>
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
               </div>
             </div>
             <div class="table-wrapper">

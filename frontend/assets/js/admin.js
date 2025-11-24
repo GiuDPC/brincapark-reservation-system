@@ -273,6 +273,7 @@ function renderStats() {
 }
 
 /**
+<<<<<<< HEAD
  * Renderizar tabla de reservas en el dashboard
  */
 function renderTable() {
@@ -286,6 +287,63 @@ function renderTable() {
     (r) => !filtro || r.parque === filtro
   );
 
+=======
+ * Renderizar tabla de reservas en el dashboard con búsqueda y filtros mejorados
+ */
+function renderTable() {
+  const tbody = document.querySelector("#tabla-reservas tbody");
+  if (!tbody) return;
+
+  // Obtener valores de filtros de barra de búsqueda
+  const searchTerm = (document.getElementById("search-input")?.value || "").toLowerCase().trim();
+  const filtroParque = document.getElementById("filtro-parque")?.value || "";
+  const filtroEstado = document.getElementById("filtro-estado")?.value || "";
+  const filtroFechaDesde = document.getElementById("filtro-fecha-desde")?.value || "";
+  const filtroFechaHasta = document.getElementById("filtro-fecha-hasta")?.value || "";
+
+  tbody.innerHTML = "";
+
+  // Aplicar todos los filtros
+  const reservasFiltradas = reservas.filter((r) => {
+    // filtro de búsqueda nombre, teléfono o email
+    if (searchTerm) {
+      const nombre = (r.nombreCompleto || "").toLowerCase();
+      const telefono = (r.telefono || "").toLowerCase();
+      const email = (r.correo || "").toLowerCase();
+      
+      if (!nombre.includes(searchTerm) && 
+          !telefono.includes(searchTerm) && 
+          !email.includes(searchTerm)) {
+        return false;
+      }
+    }
+
+    // filtro por parque
+    if (filtroParque && r.parque !== filtroParque) {
+      return false;
+    }
+
+    // filtro por estado
+    if (filtroEstado && r.estadoReserva !== filtroEstado) {
+      return false;
+    }
+
+    // filtro por rango de fechas
+    if (filtroFechaDesde && r.fechaServicio < filtroFechaDesde) {
+      return false;
+    }
+    if (filtroFechaHasta && r.fechaServicio > filtroFechaHasta) {
+      return false;
+    }
+
+    return true;
+  });
+
+  // Actualizar contador de resultados
+  updateResultsCounter(reservasFiltradas.length, reservas.length);
+
+  // Mostrar mensaje si no hay resultados
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
   if (reservasFiltradas.length === 0) {
     tbody.innerHTML = `
       <tr>
@@ -293,7 +351,11 @@ function renderTable() {
           ${
             reservas.length === 0
               ? "No hay reservas registradas"
+<<<<<<< HEAD
               : "No hay reservas para este filtro"
+=======
+              : "No se encontraron reservas con los filtros aplicados"
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
           }
         </td>
       </tr>
@@ -301,6 +363,10 @@ function renderTable() {
     return;
   }
 
+<<<<<<< HEAD
+=======
+  // Renderizar filas
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
   reservasFiltradas.forEach((r) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -351,6 +417,40 @@ function renderTable() {
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * Actualizar contador de resultados
+ */
+function updateResultsCounter(filtered, total) {
+  const resultsCount = document.getElementById("results-count");
+  const totalCount = document.getElementById("total-count");
+  
+  if (resultsCount) resultsCount.textContent = filtered;
+  if (totalCount) totalCount.textContent = total;
+}
+
+/**
+ * Limpiar todos los filtros
+ */
+function clearAllFilters() {
+  const searchInput = document.getElementById("search-input");
+  const filtroParque = document.getElementById("filtro-parque");
+  const filtroEstado = document.getElementById("filtro-estado");
+  const filtroFechaDesde = document.getElementById("filtro-fecha-desde");
+  const filtroFechaHasta = document.getElementById("filtro-fecha-hasta");
+
+  if (searchInput) searchInput.value = "";
+  if (filtroParque) filtroParque.value = "";
+  if (filtroEstado) filtroEstado.value = "";
+  if (filtroFechaDesde) filtroFechaDesde.value = "";
+  if (filtroFechaHasta) filtroFechaHasta.value = "";
+
+  renderTable();
+}
+
+
+/**
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
  * Atachar listeners de la tabla
  */
 function attachTableEventListeners() {
@@ -557,6 +657,7 @@ function attachTableEventListeners() {
     });
   });
 
+<<<<<<< HEAD
   // Filtro
   const filtroSelect = document.getElementById("filtro-parque");
   if (filtroSelect) {
@@ -564,6 +665,49 @@ function attachTableEventListeners() {
   }
 }
 
+=======
+  // Event listeners para búsqueda y filtros (solo añadir una vez)
+  const searchInput = document.getElementById("search-input");
+  const filtroParque = document.getElementById("filtro-parque");
+  const filtroEstado = document.getElementById("filtro-estado");
+  const filtroFechaDesde = document.getElementById("filtro-fecha-desde");
+  const filtroFechaHasta = document.getElementById("filtro-fecha-hasta");
+  const clearFiltersBtn = document.getElementById("clear-filters-btn");
+
+  // Remover listeners anteriores si existen
+  if (searchInput && !searchInput.dataset.listenerAttached) {
+    searchInput.addEventListener("input", renderTable);
+    searchInput.dataset.listenerAttached = "true";
+  }
+
+  if (filtroParque && !filtroParque.dataset.listenerAttached) {
+    filtroParque.addEventListener("change", renderTable);
+    filtroParque.dataset.listenerAttached = "true";
+  }
+
+  if (filtroEstado && !filtroEstado.dataset.listenerAttached) {
+    filtroEstado.addEventListener("change", renderTable);
+    filtroEstado.dataset.listenerAttached = "true";
+  }
+
+  if (filtroFechaDesde && !filtroFechaDesde.dataset.listenerAttached) {
+    filtroFechaDesde.addEventListener("change", renderTable);
+    filtroFechaDesde.dataset.listenerAttached = "true";
+  }
+
+  if (filtroFechaHasta && !filtroFechaHasta.dataset.listenerAttached) {
+    filtroFechaHasta.addEventListener("change", renderTable);
+    filtroFechaHasta.dataset.listenerAttached = "true";
+  }
+
+  if (clearFiltersBtn && !clearFiltersBtn.dataset.listenerAttached) {
+    clearFiltersBtn.addEventListener("click", clearAllFilters);
+    clearFiltersBtn.dataset.listenerAttached = "true";
+  }
+}
+
+
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
 /**
  * Renderizar gráfica principal de reservas
  */

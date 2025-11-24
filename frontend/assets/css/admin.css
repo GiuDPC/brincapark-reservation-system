@@ -415,6 +415,7 @@ body {
   color: var(--text-dark);
 }
 
+<<<<<<< HEAD
 .table-filters {
   display: flex;
   align-items: center;
@@ -428,6 +429,74 @@ body {
 }
 
 .filter-select {
+=======
+/*BÚSQUEDA Y FILTROS MEJORADOS */
+.search-filters-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-box {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-box svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-gray);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-gray);
+}
+
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  color: var(--text-gray);
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.filter-select,
+.filter-date {
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
   padding: 0.625rem 1rem;
   border: 2px solid var(--border);
   border-radius: 8px;
@@ -436,6 +505,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   background: white;
+<<<<<<< HEAD
 }
 
 .filter-select:focus {
@@ -443,6 +513,57 @@ body {
   border-color: var(--primary);
 }
 
+=======
+  min-width: 140px;
+}
+
+.filter-select:focus,
+.filter-date:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.btn-clear-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: var(--bg-light);
+  color: var(--text-gray);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-clear-filters:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.2);
+}
+
+.results-counter {
+  padding: 0.75rem 1rem;
+  background: var(--bg-light);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  border: 1px solid var(--border);
+}
+
+.results-counter strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+
+>>>>>>> 5b36241 (feat: implementar sistema de búsqueda y filtros mejorados en panel admin)
 /* TABLAS DE RESERVAS */
 .table-wrapper {
   overflow-x: auto;
