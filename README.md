@@ -11,12 +11,17 @@ BRINCAPARK es una plataforma web integral que permite a los clientes realizar re
 ### Sitio Web Público
 
 - Página principal con información del parque y servicios
+- **Página de Normativas y Políticas** completa con:
+  - Normativas generales del parque
+  - Cronograma de actividades del evento
+  - Servicio de bebidas y pasapalos
+  - Normativas para decoradores
 - Sistema de ticketería con diferentes opciones de tiempo
 - Paquetes de fiesta personalizables (Mini, Mediano, Full)
 - Formulario de reservas en línea
 - Galería de imágenes con carrusel interactivo
 - Información de horarios y ubicaciones
-- Diseño responsive y moderno
+- Diseño responsive y moderno con tipografía Bobby Jones
 
 ### Panel Administrativo
 
@@ -81,6 +86,7 @@ ParqueSistemaIntegralC/
 │   ├── assets/
 │   │   ├── css/
 │   │   │   ├── index.css             # Estilos del sitio público
+│   │   │   ├── normativas.css        # Estilos de normativas
 │   │   │   ├── admin.css             # Estilos del panel admin
 │   │   │   └── variables.css         # Variables CSS
 │   │   ├── js/
@@ -90,6 +96,7 @@ ParqueSistemaIntegralC/
 │   │   ├── img/                      # Imágenes del sitio
 │   │   └── fonts/                    # Fuentes personalizadas
 │   ├── index.html                    # Página principal
+│   ├── normativas.html               # Página de normativas
 │   ├── admin.html                    # Panel administrativo
 │   ├── .gitignore
 │   └── README.md
@@ -102,9 +109,53 @@ ParqueSistemaIntegralC/
 
 ### Requisitos Previos
 
-- Node.js (v14 o superior)
-- MongoDB (local o MongoDB Atlas)
-- pnpm (gestor de paquetes)
+**IMPORTANTE:** Debes tener instalado lo siguiente antes de comenzar:
+
+1. **Node.js** (v14 o superior)
+   - Descargar desde: https://nodejs.org/
+
+2. **MongoDB** (REQUERIDO para el backend)
+   - **Opción 1 - MongoDB Local:**
+     - Windows: https://www.mongodb.com/try/download/community
+     - Mac: `brew install mongodb-community`
+     - Linux: Seguir guía oficial de MongoDB
+   - **Opción 2 - MongoDB Atlas (Cloud):**
+     - Crear cuenta gratuita en: https://www.mongodb.com/cloud/atlas
+     - Crear un cluster gratuito
+     - Obtener la cadena de conexión
+
+3. **pnpm** (gestor de paquetes - opcional, puedes usar npm)
+   ```bash
+   npm install -g pnpm
+   ```
+
+### Pasos de Instalación
+
+#### 1. Clonar el Repositorio
+
+```bash
+git clone https://github.com/GiuDPC/Parque-sistema-integral-V.git
+cd Parque-sistema-integral-V
+```
+
+#### 2. Configurar MongoDB
+
+**Si usas MongoDB Local:**
+- Asegúrate de que MongoDB esté corriendo:
+  ```bash
+  # Windows (en Services o ejecutar):
+  mongod
+  
+  # Mac/Linux:
+  brew services start mongodb-community
+  # o
+  sudo systemctl start mongod
+  ```
+
+**Si usas MongoDB Atlas:**
+- Copia tu cadena de conexión del dashboard de Atlas
+- Ejemplo: `mongodb+srv://usuario:password@cluster.mongodb.net/brincapark`
+
 
 ### Instalación del Backend
 
