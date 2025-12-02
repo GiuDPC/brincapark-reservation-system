@@ -4,7 +4,7 @@ const router = express.Router();
 const Reservation = require("../models/Reservation");
 const adminAuth = require("../middleware/adminAuth");
 
-router.use(adminAuth); // todas las rutas siguientes requieren header secreto
+router.use(adminAuth);
 
 // GET /api/admin/reservas -> listar todas ordernadas por orden de creacion de manera descendente
 router.get("/reservas", async (req, res) => {
@@ -40,7 +40,7 @@ router.patch("/reservas/:id", async (req, res) => {
   }
 });
 
-// DELETE /api/admin/reservas/:id -> eliminar reserva
+// DELETE /api/admin/reservas/:id  eliminar reserva
 router.delete("/reservas/:id", async (req, res) => {
   try {
     const { id } = req.params;

@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
       maxAdultos = 45;
       maxTotal = 85;
     }
-    // Si se envían los campos de cantidad, validar aquí OPCIONAL
+    // Si se envían los campos de cantidad, validar aquí ojo solo es opcional
 
     // Crear la reserva a bases de datos mongoDB
     const nuevaReserva = await Reservation.create({
@@ -133,8 +133,8 @@ router.get("/:id", async (req, res) => {
 });
 
 //PUT /api/reservations/:id
-//Editar datos del formulario (estadoUbicacion, ciudad, paquete, etc.)
-//No toca el estado administrativo.
+//Editar datos del formulario estadoUbicacion, ciudad, paquete, etc
+//No toca el estado administrativo
 
 router.put("/:id", async (req, res) => {
   try {
@@ -241,45 +241,62 @@ router.get("/analytics/stats", async (req, res) => {
 
     // Calcular métricas
     const total = reservas.length;
-    const pendientes = reservas.filter(r => r.estadoReserva === "pendiente").length;
-    const aprobados = reservas.filter(r => r.estadoReserva === "aprobado").length;
-    const cancelados = reservas.filter(r => r.estadoReserva === "cancelado").length;
+    const pendientes = reservas.filter(
+      (r) => r.estadoReserva === "pendiente"
+    ).length;
+    const aprobados = reservas.filter(
+      (r) => r.estadoReserva === "aprobado"
+    ).length;
+    const cancelados = reservas.filter(
+      (r) => r.estadoReserva === "cancelado"
+    ).length;
 
     // Tasa de conversión
-    const tasaConversion = total > 0 ? ((aprobados / total) * 100).toFixed(2) : 0;
+    const tasaConversion =
+      total > 0 ? ((aprobados / total) * 100).toFixed(2) : 0;
 
-    // Calcular ingresos (solo aprobados)
+    // Calcular ingresos esto solo de reservas aprobadas
     let ingresoTotal = 0;
-    const reservasAprobadas = reservas.filter(r => r.estadoReserva === "aprobado");
-    
-    reservasAprobadas.forEach(r => {
+    const reservasAprobadas = reservas.filter(
+      (r) => r.estadoReserva === "aprobado"
+    );
+
+    reservasAprobadas.forEach((r) => {
       const paquete = r.paquete;
       // Parsear fecha manualmente para evitar problemas de zona horaria
-      // Formato: "YYYY-MM-DD"
-      const [year, month, day] = r.fechaServicio.split('-').map(Number);
-      const fecha = new Date(year, month - 1, day); // month - 1 porque en JS los meses son 0-indexed
-      const diaSemana = fecha.getDay(); // 0=domingo, 1=lunes, ..., 5=viernes, 6=sábado
-      // Viernes (5), Sábado (6), Domingo (0) = fin de semana
-      // Lunes (1) a Jueves (4) = día de semana
-      const esFinDeSemana = diaSemana === 0 || diaSemana === 5 || diaSemana === 6;
+      // El formota de la fecha es este YYYY-MM-DD
+      const [year, month, day] = r.fechaServicio.split("-").map(Number);
+      const fecha = new Date(year, month - 1, day); // month - 1 porque en JS los meses son 0 indexed
+      const diaSemana = fecha.getDay(); // 0=domingo, 1=lunes, 5=viernes, 6=sábado
+      // viernes (5) sabado (6) domingo (0) = fin de semana
+      // lunes (1) a jueves (4) = dia de semana
+      const esFinDeSemana =
+        diaSemana === 0 || diaSemana === 5 || diaSemana === 6;
 
       let precio = 0;
       if (paquete === "mini") {
-        precio = esFinDeSemana ? config.paquetes.mini.viernes : config.paquetes.mini.lunes;
+        precio = esFinDeSemana
+          ? config.paquetes.mini.viernes
+          : config.paquetes.mini.lunes;
       } else if (paquete === "mediano") {
-        precio = esFinDeSemana ? config.paquetes.mediano.viernes : config.paquetes.mediano.lunes;
+        precio = esFinDeSemana
+          ? config.paquetes.mediano.viernes
+          : config.paquetes.mediano.lunes;
       } else if (paquete === "full") {
-        precio = esFinDeSemana ? config.paquetes.full.viernes : config.paquetes.full.lunes;
+        precio = esFinDeSemana
+          ? config.paquetes.full.viernes
+          : config.paquetes.full.lunes;
       }
       ingresoTotal += precio;
     });
 
     // Ingreso promedio
-    let ingresoPromedio = reservasAprobadas.length > 0 
-      ? (ingresoTotal / reservasAprobadas.length) 
-      : 0;
+    let ingresoPromedio =
+      reservasAprobadas.length > 0
+        ? ingresoTotal / reservasAprobadas.length
+        : 0;
 
-    // Convertir a Bs si es necesario
+    // Convertir a bolivares solomanete si es necesario
     if (config.moneda === "BS") {
       ingresoTotal = ingresoTotal * config.tasaBCV;
       ingresoPromedio = ingresoPromedio * config.tasaBCV;
@@ -290,42 +307,51 @@ router.get("/analytics/stats", async (req, res) => {
     ingresoPromedio = parseFloat(ingresoPromedio.toFixed(2));
 
     // Día más popular
-    const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const diasSemana = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ];
     const contadorDias = {};
-    reservas.forEach(r => {
-      // Parsear la fecha correctamente (formato YYYY-MM-DD)
-      const [year, month, day] = r.fechaServicio.split('-').map(Number);
-      const fecha = new Date(year, month - 1, day); // month - 1 porque los meses en JS son 0-indexed
+    reservas.forEach((r) => {
+      // Parsear la fecha correctamente en el formato de YYYY-MM-DD
+      const [year, month, day] = r.fechaServicio.split("-").map(Number);
+      const fecha = new Date(year, month - 1, day); // month - 1 porque los meses en JS son 0 indexed
       const dia = diasSemana[fecha.getDay()];
       contadorDias[dia] = (contadorDias[dia] || 0) + 1;
     });
-    
-    // Encontrar el día con más reservas
+
+    // Encontrar el día con mas reservas
     let diaMasPopular = "N/A";
     if (Object.keys(contadorDias).length > 0) {
-      diaMasPopular = Object.keys(contadorDias).reduce((a, b) => 
+      diaMasPopular = Object.keys(contadorDias).reduce((a, b) =>
         contadorDias[a] > contadorDias[b] ? a : b
       );
     }
 
-    // Paquete más vendido
+    // Paquete mas vendido
     const contadorPaquetes = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       contadorPaquetes[r.paquete] = (contadorPaquetes[r.paquete] || 0) + 1;
     });
-    const paqueteMasVendido = Object.keys(contadorPaquetes).reduce((a, b) => 
-      contadorPaquetes[a] > contadorPaquetes[b] ? a : b, "N/A"
+    const paqueteMasVendido = Object.keys(contadorPaquetes).reduce(
+      (a, b) => (contadorPaquetes[a] > contadorPaquetes[b] ? a : b),
+      "N/A"
     );
 
-    // Distribución por parque
+    // Distribucion por parque
     const porParque = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       porParque[r.parque] = (porParque[r.parque] || 0) + 1;
     });
 
-    // Distribución por tipo de evento
+    // Distribucion por tipo de evento
     const porTipoEvento = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       porTipoEvento[r.tipoEvento] = (porTipoEvento[r.tipoEvento] || 0) + 1;
     });
 
@@ -350,7 +376,7 @@ router.get("/analytics/stats", async (req, res) => {
 });
 
 // GET /api/reservations/analytics/monthly
-// Obtener datos mensuales para gráficas (últimos 6 meses)
+// Obtener datos mensuales para graficas de los ultimos 6 meses
 router.get("/analytics/monthly", async (req, res) => {
   try {
     const reservas = await Reservation.find();
@@ -362,40 +388,52 @@ router.get("/analytics/monthly", async (req, res) => {
     const ingresosPorMes = [];
     const reservasPorMes = [];
 
-    // Generar últimos 6 meses
+    // Generar ultimos 6 meses
     for (let i = 5; i >= 0; i--) {
       const fecha = new Date(ahora.getFullYear(), ahora.getMonth() - i, 1);
-      const mesNombre = fecha.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+      const mesNombre = fecha.toLocaleDateString("es-ES", {
+        month: "short",
+        year: "numeric",
+      });
       meses.push(mesNombre);
 
       // Filtrar reservas de ese mes
-      const reservasMes = reservas.filter(r => {
+      const reservasMes = reservas.filter((r) => {
         const fechaReserva = new Date(r.fechaServicio);
-        return fechaReserva.getMonth() === fecha.getMonth() && 
-               fechaReserva.getFullYear() === fecha.getFullYear() &&
-               r.estadoReserva === "aprobado";
+        return (
+          fechaReserva.getMonth() === fecha.getMonth() &&
+          fechaReserva.getFullYear() === fecha.getFullYear() &&
+          r.estadoReserva === "aprobado"
+        );
       });
 
       reservasPorMes.push(reservasMes.length);
 
       // Calcular ingresos del mes
       let ingresoMes = 0;
-      reservasMes.forEach(r => {
+      reservasMes.forEach((r) => {
         const paquete = r.paquete;
         // Parsear fecha manualmente para evitar problemas de zona horaria
-        const [year, month, day] = r.fechaServicio.split('-').map(Number);
+        const [year, month, day] = r.fechaServicio.split("-").map(Number);
         const fechaR = new Date(year, month - 1, day);
         const diaSemana = fechaR.getDay();
-        // Viernes (5), Sábado (6), Domingo (0) = fin de semana
-        const esFinDeSemana = diaSemana === 0 || diaSemana === 5 || diaSemana === 6;
+        // Viernes (5)  Sábado (6) Domingo (0) = fin de semana
+        const esFinDeSemana =
+          diaSemana === 0 || diaSemana === 5 || diaSemana === 6;
 
         let precio = 0;
         if (paquete === "mini") {
-          precio = esFinDeSemana ? config.paquetes.mini.viernes : config.paquetes.mini.lunes;
+          precio = esFinDeSemana
+            ? config.paquetes.mini.viernes
+            : config.paquetes.mini.lunes;
         } else if (paquete === "mediano") {
-          precio = esFinDeSemana ? config.paquetes.mediano.viernes : config.paquetes.mediano.lunes;
+          precio = esFinDeSemana
+            ? config.paquetes.mediano.viernes
+            : config.paquetes.mediano.lunes;
         } else if (paquete === "full") {
-          precio = esFinDeSemana ? config.paquetes.full.viernes : config.paquetes.full.lunes;
+          precio = esFinDeSemana
+            ? config.paquetes.full.viernes
+            : config.paquetes.full.lunes;
         }
         ingresoMes += precio;
       });
@@ -403,10 +441,13 @@ router.get("/analytics/monthly", async (req, res) => {
       ingresosPorMes.push(ingresoMes);
     }
 
-    // Convertir a Bs si es necesario
-    const ingresosConvertidos = config.moneda === "BS" 
-      ? ingresosPorMes.map(ingreso => parseFloat((ingreso * config.tasaBCV).toFixed(2)))
-      : ingresosPorMes.map(ingreso => parseFloat(ingreso.toFixed(2)));
+    // Convertir a bolivares solamente si es necesario
+    const ingresosConvertidos =
+      config.moneda === "BS"
+        ? ingresosPorMes.map((ingreso) =>
+            parseFloat((ingreso * config.tasaBCV).toFixed(2))
+          )
+        : ingresosPorMes.map((ingreso) => parseFloat(ingreso.toFixed(2)));
 
     return res.json({
       meses,
@@ -425,10 +466,10 @@ router.get("/analytics/monthly", async (req, res) => {
 router.get("/analytics/top-clients", async (req, res) => {
   try {
     const reservas = await Reservation.find();
-    
-    // Agrupar por correo (identificador único del cliente)
+
+    // Agrupar por correo es un identificador unico del cliente
     const clientesMap = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       if (!clientesMap[r.correo]) {
         clientesMap[r.correo] = {
           nombre: r.nombreCompleto,
@@ -447,7 +488,7 @@ router.get("/analytics/top-clients", async (req, res) => {
     // Convertir a array y ordenar por total de reservas
     const topClientes = Object.values(clientesMap)
       .sort((a, b) => b.totalReservas - a.totalReservas)
-      .slice(0, 10); // Top 10
+      .slice(0, 10); // Hasta el top 10
 
     return res.json(topClientes);
   } catch (err) {
@@ -464,27 +505,30 @@ router.get("/analytics/cancellations", async (req, res) => {
 
     // Análisis por parque
     const porParque = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       porParque[r.parque] = (porParque[r.parque] || 0) + 1;
     });
 
-    // Análisis por paquete
+    // Analisis por paquete
     const porPaquete = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       porPaquete[r.paquete] = (porPaquete[r.paquete] || 0) + 1;
     });
 
-    // Análisis por tipo de evento
+    // Analisis por tipo de evento
     const porTipoEvento = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       porTipoEvento[r.tipoEvento] = (porTipoEvento[r.tipoEvento] || 0) + 1;
     });
 
-    // Análisis por mes
+    // Analisis por mes
     const porMes = {};
-    reservas.forEach(r => {
+    reservas.forEach((r) => {
       const fecha = new Date(r.fechaServicio);
-      const mes = fecha.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+      const mes = fecha.toLocaleDateString("es-ES", {
+        month: "long",
+        year: "numeric",
+      });
       porMes[mes] = (porMes[mes] || 0) + 1;
     });
 
@@ -494,7 +538,7 @@ router.get("/analytics/cancellations", async (req, res) => {
       porPaquete,
       porTipoEvento,
       porMes,
-      reservas: reservas.map(r => ({
+      reservas: reservas.map((r) => ({
         id: r._id,
         cliente: r.nombreCompleto,
         fecha: r.fechaServicio,

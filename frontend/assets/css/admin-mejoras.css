@@ -1,17 +1,19 @@
-/* ============================================
-   ADMIN PANEL - OPTIMIZADO Y RESPONSIVE
-   BRINCAPARK - Sistema de Gestión
-   ============================================ */
+/* 
+   ADMINISTRATIVO PANEL Y OPTIMIZADO PARA MEJOR RENDIMIENTO ES LOS DIPOSITIVO Y RESPONSIVE TAMBIEN
+*/
 
-/* MEJORAS VISUALES OPTIMIZADAS */
-
-/* ==========================================
-   LOGIN SCREEN - MEJORADO
-   ========================================== */
+/* 
+   LOGIN
+*/
 
 #login-screen {
-  /* Fondo con gradiente vibrante y partículas */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+  /* Esto hace el fondo con gradiente vibrante y partículas */
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 50%,
+    #f093fb 100%
+  ) !important;
   background-size: 400% 400% !important;
   animation: gradientFlow 15s ease infinite !important;
   position: relative !important;
@@ -21,8 +23,13 @@
 
 /* Animación de fondo suave */
 @keyframes gradientFlow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Partículas decorativas en el fondo */
@@ -39,7 +46,11 @@
 #login-screen::before {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 70%
+  );
   top: -200px;
   right: -200px;
   animation: floatParticle 20s ease-in-out infinite;
@@ -48,15 +59,24 @@
 #login-screen::after {
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
   bottom: -150px;
   left: -150px;
   animation: floatParticle 18s ease-in-out infinite reverse;
 }
 
 @keyframes floatParticle {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50% { transform: translate(30px, -30px) scale(1.1) rotate(180deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(30px, -30px) scale(1.1) rotate(180deg);
+  }
 }
 
 /* Container del login */
@@ -88,8 +108,13 @@
 }
 
 @keyframes subtleBounce {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8px) scale(1.05); }
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.05);
+  }
 }
 
 /* Título con efecto Bobby Jones (relieve 3D) */
@@ -98,32 +123,22 @@
   font-weight: 900 !important;
   letter-spacing: 2px !important;
   color: #ffffff !important;
-  text-shadow: 
-    0 1px 0 #ccc,
-    0 2px 0 #c9c9c9,
-    0 3px 0 #bbb,
-    0 4px 0 #b9b9b9,
-    0 5px 0 #aaa,
-    0 6px 1px rgba(0,0,0,.1),
-    0 0 5px rgba(0,0,0,.1),
-    0 1px 3px rgba(0,0,0,.3),
-    0 3px 5px rgba(0,0,0,.2),
-    0 5px 10px rgba(0,0,0,.25),
-    0 10px 20px rgba(0,0,0,.15) !important;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+    0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.15) !important;
   transform: translateY(-2px);
 }
 
-/* Tarjeta de login - GLASSMORPHISM MEJORADO */
+/* Tarjeta de login con efecto de  Glassmorphism  */
 .login-card {
   background: rgba(255, 255, 255, 0.12) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border-radius: 24px !important;
   padding: 3rem 2.5rem !important;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.35),
-    0 10px 30px rgba(124, 58, 237, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35),
+    0 10px 30px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   will-change: transform;
@@ -131,8 +146,7 @@
 
 .login-card:hover {
   transform: translateY(-5px) scale(1.01) !important;
-  box-shadow: 
-    0 25px 70px rgba(0, 0, 0, 0.4),
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4),
     0 15px 40px rgba(124, 58, 237, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
@@ -149,7 +163,7 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Input con glassmorphism */
+/* Input con efecto de glassmorphism */
 .form-group label {
   color: rgba(255, 255, 255, 0.95) !important;
   font-weight: 700 !important;
@@ -178,11 +192,12 @@
 .form-group input:focus {
   background: rgba(255, 255, 255, 0.2) !important;
   border-color: rgba(167, 139, 250, 0.7) !important;
-  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.2), 0 8px 20px rgba(124, 58, 237, 0.2) !important;
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.2),
+    0 8px 20px rgba(124, 58, 237, 0.2) !important;
   transform: translateY(-2px) !important;
 }
 
-/* Botón con gradiente y efectos */
+/* Botón con gradiente y efectos bonitos */
 .btn-primary {
   padding: 1.25rem !important;
   background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%) !important;
@@ -204,7 +219,12 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   transition: left 0.6s;
 }
 
@@ -222,11 +242,11 @@
   transform: translateY(-1px) scale(1.01) !important;
 }
 
-/* ==========================================
-   DASHBOARD - COLORES VIBRANTES
-   ========================================== */
+/* 
+  AQUI TODA LA PARTE DEL DASHBOARD 
+*/
 
-/* Estadísticas con colores más vibrantes y gradientes */
+/* Estadísticas con colores mAS vibrantes y gradientes para dar una mejor apariencia y convinar con la tematica */
 .stat-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   will-change: transform;
@@ -238,57 +258,77 @@
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
 }
 
-.stat-primary { 
+.stat-primary {
   border-color: #8b5cf6 !important;
   background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%) !important;
 }
 
-.stat-success { 
+.stat-success {
   border-color: #10b981 !important;
   background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%) !important;
 }
 
-.stat-warning { 
+.stat-warning {
   border-color: #f59e0b !important;
   background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%) !important;
 }
 
-.stat-info { 
+.stat-info {
   border-color: #3b82f6 !important;
   background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%) !important;
 }
 
-.stat-purple { 
+.stat-purple {
   border-color: #a855f7 !important;
   background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%) !important;
 }
 
-.stat-primary .stat-icon { 
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%) !important;
+.stat-primary .stat-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.2) 0%,
+    rgba(124, 58, 237, 0.2) 100%
+  ) !important;
   color: #7c3aed !important;
   box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
 }
 
-.stat-success .stat-icon { 
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%) !important;
+.stat-success .stat-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.2) 0%,
+    rgba(5, 150, 105, 0.2) 100%
+  ) !important;
   color: #059669 !important;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
-.stat-warning .stat-icon { 
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.2) 100%) !important;
+.stat-warning .stat-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.2) 0%,
+    rgba(217, 119, 6, 0.2) 100%
+  ) !important;
   color: #d97706 !important;
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
-.stat-info .stat-icon { 
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%) !important;
+.stat-info .stat-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(37, 99, 235, 0.2) 100%
+  ) !important;
   color: #2563eb !important;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
-.stat-purple .stat-icon { 
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%) !important;
+.stat-purple .stat-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.2) 0%,
+    rgba(147, 51, 234, 0.2) 100%
+  ) !important;
   color: #9333ea !important;
   box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
 }
@@ -300,9 +340,9 @@
   background-clip: text;
 }
 
-/* ==========================================
-   TABLA DE RESERVAS - ANIMACIONES SUTILES
-   ========================================== */
+/* 
+  TABLA DE RESERVAS
+ */
 
 /* Animación al cargar datos */
 #tabla-reservas tbody tr {
@@ -311,14 +351,30 @@
   transition: all 0.3s ease;
 }
 
-#tabla-reservas tbody tr:nth-child(1) { animation-delay: 0.05s; }
-#tabla-reservas tbody tr:nth-child(2) { animation-delay: 0.1s; }
-#tabla-reservas tbody tr:nth-child(3) { animation-delay: 0.15s; }
-#tabla-reservas tbody tr:nth-child(4) { animation-delay: 0.2s; }
-#tabla-reservas tbody tr:nth-child(5) { animation-delay: 0.25s; }
-#tabla-reservas tbody tr:nth-child(6) { animation-delay: 0.3s; }
-#tabla-reservas tbody tr:nth-child(7) { animation-delay: 0.35s; }
-#tabla-reservas tbody tr:nth-child(8) { animation-delay: 0.4s; }
+#tabla-reservas tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+#tabla-reservas tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+#tabla-reservas tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+#tabla-reservas tbody tr:nth-child(4) {
+  animation-delay: 0.2s;
+}
+#tabla-reservas tbody tr:nth-child(5) {
+  animation-delay: 0.25s;
+}
+#tabla-reservas tbody tr:nth-child(6) {
+  animation-delay: 0.3s;
+}
+#tabla-reservas tbody tr:nth-child(7) {
+  animation-delay: 0.35s;
+}
+#tabla-reservas tbody tr:nth-child(8) {
+  animation-delay: 0.4s;
+}
 
 @keyframes fadeInRow {
   from {
@@ -332,11 +388,15 @@
 }
 
 #tabla-reservas tbody tr:hover {
-  background: linear-gradient(90deg, rgba(124, 58, 237, 0.05) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(124, 58, 237, 0.05) 0%,
+    transparent 100%
+  ) !important;
   transform: translateX(3px);
 }
 
-/* Badges de estado mejorados con gradientes vibrantes */
+/* Badges de estado mejorados con gradientes vibrantes para mejorar aspecto (creo que se puede mejorar) */
 .estado-select {
   font-weight: 700 !important;
   border-radius: 10px !important;
@@ -401,9 +461,9 @@
   background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
 }
 
-/* ==========================================
-   INDICADORES Y NOTIFICACIONES
-   ========================================== */
+/* 
+  INDICADORES Y NOTIFICACIONES
+*/
 
 .notification-badge {
   animation: pulseNotification 2s ease-in-out infinite;
@@ -411,11 +471,12 @@
 }
 
 @keyframes pulseNotification {
-  0%, 100% { 
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
   }
-  50% { 
+  50% {
     transform: scale(1.1);
     box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
   }
@@ -426,10 +487,9 @@
   transform: translateY(-2px) scale(1.05);
 }
 
-/* ==========================================
-   RESPONSIVE - MOBILE FIRST
-   Optimizado para PC y Teléfonos
-   ========================================== */
+/* 
+PARTE RESPONSIVE PARA TELEFONOS Y TABLETS PARA TENER MEJOR RENDIMIENTO
+*/
 
 /* Tablets y pantallas medianas (max-width: 1024px) */
 @media (max-width: 1024px) {
@@ -437,26 +497,26 @@
   .login-container {
     max-width: 420px !important;
   }
-  
+
   .login-logo img {
     width: 95px !important;
     height: 95px !important;
   }
-  
+
   .login-logo h1 {
     font-size: 2.25rem !important;
   }
-  
+
   .login-card {
     padding: 2.5rem 2rem !important;
   }
-  
+
   /* Dashboard */
   .stats-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
     gap: 1.25rem !important;
   }
-  
+
   /* Tabla */
   .table-wrapper {
     overflow-x: auto !important;
@@ -464,136 +524,131 @@
   }
 }
 
-/* Móviles (max-width: 768px) */
+/* Móviles max-width: 768px */
 @media (max-width: 768px) {
   /* Login móvil */
   #login-screen {
     padding: 1.5rem !important;
   }
-  
+
   .login-container {
     max-width: 100% !important;
   }
-  
+
   .login-logo img {
     width: 85px !important;
     height: 85px !important;
   }
-  
+
   .login-logo h1 {
     font-size: 2rem !important;
-    text-shadow: 
-      0 1px 0 #ccc,
-      0 2px 0 #bbb,
-      0 3px 0 #aaa,
-      0 4px 1px rgba(0,0,0,.1),
-      0 0 5px rgba(0,0,0,.1),
-      0 2px 3px rgba(0,0,0,.3),
-      0 4px 8px rgba(0,0,0,.15) !important;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #bbb, 0 3px 0 #aaa,
+      0 4px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+      0 2px 3px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.15) !important;
   }
-  
+
   .login-card {
     padding: 2rem 1.75rem !important;
     border-radius: 20px !important;
   }
-  
+
   .login-card h2 {
     font-size: 1.5rem !important;
   }
-  
+
   .form-group input {
     padding: 1rem 1.125rem !important;
     font-size: 1rem !important;
   }
-  
+
   .btn-primary {
     padding: 1.125rem !important;
     font-size: 1.05rem !important;
   }
-  
-  /* Dashboard móvil */
+
+  /* Dashboard para movil */
   .main-content {
     padding: 1rem !important;
   }
-  
+
   .dashboard-header {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 1rem !important;
     padding: 1.25rem !important;
   }
-  
+
   .header-title h1 {
     font-size: 1.5rem !important;
   }
-  
+
   .header-title p {
     font-size: 0.875rem !important;
   }
-  
-  /* Estadísticas en móvil */
+
+  /* Estadísticas en movil */
   .stats-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
   }
-  
+
   .stat-card {
     padding: 1.25rem !important;
   }
-  
+
   .stat-value {
     font-size: 1.625rem !important;
   }
-  
-  /* Filtros en móvil */
+
+  /* Filtros en movil */
   .search-filters-container {
     padding: 1.25rem !important;
     gap: 1rem !important;
   }
-  
+
   .search-box {
     max-width: 100% !important;
   }
-  
+
   .filters-row {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 0.875rem !important;
   }
-  
+
   .filter-group {
     width: 100% !important;
     flex-direction: column !important;
     align-items: flex-start !important;
   }
-  
+
   .filter-select,
   .filter-date {
     width: 100% !important;
     min-width: 100% !important;
   }
-  
+
   .btn-clear-filters {
     width: 100% !important;
     justify-content: center !important;
   }
-  
+
   /* Tabla en móvil */
   #tabla-reservas {
     font-size: 0.875rem !important;
   }
-  
+
   #tabla-reservas th,
   #tabla-reservas td {
     padding: 0.875rem 0.625rem !important;
     font-size: 0.875rem !important;
   }
-  
+
   .action-buttons {
     flex-direction: column !important;
     gap: 0.5rem !important;
   }
-  
+
   .btn-edit,
   .btn-delete {
     width: 100% !important;
@@ -602,40 +657,40 @@
   }
 }
 
-/* Móviles pequeños (max-width: 480px) */
+/* Móviles pequeños max-width: 480px */
 @media (max-width: 480px) {
   /* Login en móviles pequeños */
   #login-screen {
     padding: 1rem !important;
   }
-  
+
   .login-card {
     padding: 1.75rem 1.5rem !important;
   }
-  
+
   .login-logo img {
     width: 75px !important;
     height: 75px !important;
   }
-  
+
   .login-logo h1 {
     font-size: 1.75rem !important;
   }
-  
-  /* Dashboard en móviles pequeños */
+
+  /* Dashboard en moviles pequeños */
   .stat-icon {
     width: 45px !important;
     height: 45px !important;
   }
-  
+
   .stat-label {
     font-size: 0.875rem !important;
   }
-  
+
   .stat-value {
     font-size: 1.5rem !important;
   }
-  
+
   /* Tabla muy compacta */
   #tabla-reservas th,
   #tabla-reservas td {
@@ -644,11 +699,11 @@
   }
 }
 
-/* ==========================================
-   OPTIMIZACIONES DE RENDIMIENTO
-   ========================================== */
+/* 
+  OPTIMIZACIONES DE RENDIMIENTO
+*/
 
-/* GPU acceleration para animaciones */
+/* GPU acceleration para animaciones todo esto para que todo tenga un mejor rendimiento en dispositivos de gamas un poco mas baja basicas */
 .login-card,
 .stat-card,
 .btn-primary,
@@ -671,7 +726,7 @@
     backdrop-filter: blur(20px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   }
-  
+
   .form-group input {
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
@@ -683,7 +738,7 @@
   .login-card {
     background: rgba(255, 255, 255, 0.15) !important;
   }
-  
+
   .form-group input {
     background: rgba(255, 255, 255, 0.2) !important;
   }

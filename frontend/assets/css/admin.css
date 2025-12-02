@@ -299,7 +299,7 @@ body {
 }
 
 .btn-action::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -343,9 +343,23 @@ body {
 }
 
 @keyframes ring {
-  0%, 100% { transform: rotate(0deg); }
-  10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
-  20%, 40%, 60%, 80% { transform: rotate(10deg); }
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: rotate(-10deg);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: rotate(10deg);
+  }
 }
 
 .btn-refresh {
@@ -365,8 +379,12 @@ body {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .notification-badge {
@@ -390,7 +408,7 @@ body {
   .btn-action .btn-text {
     display: none;
   }
-  
+
   .btn-action {
     padding: 0.75rem;
   }
@@ -513,7 +531,7 @@ body {
   height: 300px;
 }
 
-/* ========== TABLE CONTAINER ========== */
+/*  TABLE CONTAINER (aqui va todo lo que es el diseño de la tabla) */
 .table-container {
   background: white;
   border-radius: 15px;
@@ -579,7 +597,8 @@ body {
 .search-input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1), 0 4px 12px rgba(124, 58, 237, 0.15);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1),
+    0 4px 12px rgba(124, 58, 237, 0.15);
   transform: translateY(-1px);
 }
 
@@ -614,7 +633,6 @@ body {
 
 .filter-select,
 .filter-date {
-
   padding: 0.75rem 1.125rem;
   border: 2px solid var(--border);
   border-radius: 10px;
@@ -698,12 +716,12 @@ body {
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling en iOS */
+  -webkit-overflow-scrolling: touch;
   margin-top: 1.5rem;
 }
 
 #tabla-reservas th {
-  padding: 0.75rem 0.5rem; /* Reducido para ganar espacio */
+  padding: 0.75rem 0.5rem;
   text-align: left;
   font-weight: 600;
   font-size: 0.875rem;
@@ -1226,7 +1244,7 @@ body {
   max-height: 300px;
 }
 
-/* ========== RESPONSIVE UPDATES ========== */
+/*  RESPONSIVE ACTUALIZADO  */
 @media (max-width: 1024px) {
   .dashboard-grid {
     grid-template-columns: 1fr;

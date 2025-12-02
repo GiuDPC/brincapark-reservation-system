@@ -1,24 +1,15 @@
 ﻿/**
- * ============================================
  * MIDDLEWARE DE AUTENTICACIÓN ADMINISTRATIVA
- * ============================================
  * 
  * Este middleware protege las rutas administrativas del backend.
- * Funciona verificando un "secreto" (contraseña) que viene en los headers
- * de la petición HTTP.
+ * Funciona verificando un secreto (contraseña) que viene en los headers
+ * de la petición HTTP
  * 
- * ¿Por qué usamos esto en lugar de JWT o sesiones?
- * - Es simple y suficiente para un panel admin de un solo usuario
- * - No necesitamos gestionar múltiples usuarios con diferentes permisos
- * - Fácil de implementar y mantener
- * 
- * IMPORTANTE: En producción, asegúrate de:
- * 1. Usar HTTPS para que el secreto viaje encriptado
- * 2. Usar un secreto largo y aleatorio (mínimo 32 caracteres)
- * 3. Nunca compartir el secreto en el código (siempre en .env)
- */
+ * Por qué usamos esto en lugar de JWT o sesiones
+ * Es simple y suficiente para un panel admin de un solo usuario
+ * No necesitamos gestionar multiples usuarios con diferentes permisos
+ * Fácil de implementar y mantener
 
-require("dotenv").config();
 
 /**
  * Middleware que verifica si la petición tiene el secreto administrativo correcto
@@ -28,15 +19,15 @@ require("dotenv").config();
  * @param {Function} next - Función para continuar al siguiente middleware/ruta
  */
 function adminAuth(req, res, next) {
-  // Obtenemos el secreto que el cliente envió en los headers
-  // El header se llama "x-admin-secret" (el prefijo x- indica que es personalizado)
+  // Obtenemos el secreto que el cliente envio en los headers
+  // El header se llama x-admin-secret el prefijo x- indica que es personalizado
   const secretFromHeader = req.headers["x-admin-secret"];
-  
+
   // Obtenemos el secreto correcto de las variables de entorno
   const expected = process.env.ADMIN_SECRET;
 
   // Primero verificamos que el secreto esté configurado en el servidor
-  // Si no está, es un error de configuración del servidor
+  // Si no esta es un error de configuración del servidor
   if (!expected) {
     return res
       .status(500) // 500 = Error interno del servidor
@@ -53,13 +44,13 @@ function adminAuth(req, res, next) {
   // Verificamos que el secreto enviado sea correcto
   if (secretFromHeader !== expected) {
     return res
-      .status(403) // 403 = Prohibido (autenticado pero sin permiso)
+      .status(403) // 403 = Prohibido autenticado pero sin permiso
       .json({ error: "Acceso denegado: secreto incorrecto" });
   }
 
-  // ✅ Todo correcto! El secreto es válido
-  // Llamamos a next() para que Express continúe con la siguiente función
-  // (que será la ruta que estamos protegiendo)
+  //Todo correcto el secreto es valido
+  //Llamamos a next() para que Express continue con la siguiente funcion
+  //que sera la ruta que estamos protegiendo
   next();
 }
 

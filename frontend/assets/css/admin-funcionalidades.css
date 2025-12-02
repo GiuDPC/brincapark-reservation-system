@@ -1,8 +1,8 @@
 /* Estilos para las funcionalidades finales del panel administrativo */
 
-/* ==========================================
+/* 
    CONFIGURACIÓN
-   ========================================== */
+ */
 
 .config-container {
   max-width: 1200px;
@@ -110,7 +110,11 @@
 }
 
 .btn-save-config {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-light) 100%
+  );
   color: white;
 }
 
@@ -131,9 +135,9 @@
   border-color: var(--danger);
 }
 
-/* ==========================================
+/* 
    NOTIFICACIONES
-   ========================================== */
+ */
 
 .notification-badge {
   position: absolute;
@@ -152,7 +156,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
   }
@@ -252,44 +257,44 @@
   color: var(--text-gray);
 }
 
-/* ==========================================
-   RESPONSIVE - FUNCIONALIDADES FINALES
-   ========================================== */
+/* 
+  AQUI DISEÑO RESPONSIVE Y FUNCIONALIDADES FINALES
+ */
 
-/* Tablets */
+/* ajuste para las tablets */
 @media (max-width: 1024px) {
   .config-row {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-  
+
   .notifications-panel {
     width: 300px;
   }
 }
 
-/* Móviles */
+/* ajustes para los telefonos */
 @media (max-width: 768px) {
   .config-container {
     padding: 0 1rem;
   }
-  
+
   .config-card {
     padding: 1.5rem;
   }
-  
+
   .config-row {
     grid-template-columns: 1fr;
   }
-  
+
   .config-actions {
     flex-direction: column;
   }
-  
+
   .btn-save-config,
   .btn-reset-config {
     width: 100%;
   }
-  
+
   .notifications-panel {
     width: calc(100% - 40px);
     right: 20px;
