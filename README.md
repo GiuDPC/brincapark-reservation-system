@@ -21,7 +21,7 @@
 
 ---
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
 - [Acerca del Proyecto](#-acerca-del-proyecto)
 - [Características](#-características)
@@ -39,75 +39,75 @@
 
 ---
 
-## 🎯 Acerca del Proyecto
+## Acerca del Proyecto
 
 **BRINCAPARK** es una plataforma web integral diseñada para gestionar reservas de parques de diversiones. El sistema permite a los usuarios realizar reservas de tickets y paquetes de fiestas de manera sencilla, mientras proporciona a los administradores herramientas completas para gestionar reservas, visualizar estadísticas en tiempo real y configurar el sistema.
 
 ### ¿Por qué BRINCAPARK?
 
-- **🎪 Gestión Centralizada**: Administra múltiples parques desde un solo panel
-- **📊 Analytics en Tiempo Real**: Visualiza estadísticas, ingresos y tendencias
-- **💰 Multi-Moneda**: Soporte para USD y Bolívares con conversión automática
-- **📱 100% Responsive**: Funciona perfectamente en móviles, tablets y desktop
-- **🔒 Seguro**: Autenticación administrativa y validación de datos
-- **⚡ Rápido y Eficiente**: Arquitectura optimizada con MongoDB y Express
+- **Gestión Centralizada**: Administra múltiples parques desde un solo panel
+- **Analytics en Tiempo Real**: Visualiza estadísticas, ingresos y tendencias
+- **Multi-Moneda**: Soporte para USD y Bolívares con conversión automática
+- **100% Responsive**: Funciona perfectamente en móviles, tablets y desktop
+- **Seguro**: Autenticación administrativa y validación de datos
+- **Rápido y Eficiente**: Arquitectura optimizada con MongoDB y Express
 
 ---
 
-## ✨ Características
+## Características
 
 ### Para Usuarios (Público)
 
-- ✅ **Reserva de Tickets Individuales**
+- **Reserva de Tickets Individuales**
   - 15 minutos, 30 minutos, 60 minutos
   - Full Day y Combo especial
-- ✅ **Paquetes de Fiestas**
+- **Paquetes de Fiestas**
   - Mini (30 personas), Mediano (60 personas), Full (80 personas)
   - Precios diferenciados entre semana y fin de semana
-- ✅ **Selección de Parque**
+- **Selección de Parque**
   - Maracaibo, Caracas, Punto Fijo
-- ✅ **Formulario Intuitivo**
+- **Formulario Intuitivo**
   - Validación en tiempo real
   - Verificación de disponibilidad de horarios
   - Confirmación inmediata
-- ✅ **Galería de Imágenes**
+- **Galería de Imágenes**
   - Carrusel automático con imágenes del parque
-- ✅ **Información Completa**
+- **Información Completa**
   - Horarios, normativas y precios
 
 ### Para Administradores
 
-- 🎛️ **Panel Administrativo Completo**
+- **Panel Administrativo Completo**
   - Dashboard con métricas en tiempo real
   - Visualización de estadísticas clave
-- 📈 **Analytics Avanzados**
+- **Analytics Avanzados**
   - Gráficas de distribución por parque
   - Ingresos totales y promedios
   - Día más popular
   - Paquete más vendido
   - Análisis mensual
-- 📋 **Gestión de Reservas**
+- **Gestión de Reservas**
   - Aprobar, cancelar o editar reservas
   - Búsqueda y filtrado avanzado
   - Exportación a PDF y Excel
-- 🔔 **Sistema de Notificaciones**
+- **Sistema de Notificaciones**
   - Alertas de reservas pendientes
   - Actualización automática cada 30 segundos
-- 📅 **Calendario Visual**
+- **Calendario Visual**
   - Vista mensual de reservas
   - Navegación intuitiva
-- ⚙️ **Configuración del Sistema**
+- **Configuración del Sistema**
   - Cambio de moneda (USD/Bs)
   - Actualización de tasa BCV
   - Modificación de precios de tickets y paquetes
-- 📊 **Reportes y Exportación**
+- **Reportes y Exportación**
   - Generación de reportes en PDF
   - Exportación de datos a Excel
   - Métricas avanzadas y comparativas
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Frontend
 
@@ -135,7 +135,7 @@
 
 ---
 
-## 🚀 Instalación Rápida
+## Instalación Rápida
 
 ### Prerequisitos
 
@@ -195,7 +195,7 @@ La aplicación estará disponible en `http://localhost:8080`
 
 ---
 
-## 💻 Uso
+## Uso
 
 ### Realizar una Reserva (Usuario)
 
@@ -235,7 +235,7 @@ La aplicación estará disponible en `http://localhost:8080`
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 BRINCAPARK/
@@ -287,7 +287,7 @@ BRINCAPARK/
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Endpoints Públicos
 
@@ -350,7 +350,7 @@ Para documentación completa de la API, consulta [DOCUMENTACION_TECNICA.md](DOCU
 
 ---
 
-## ⚙️ Configuración
+## Configuración
 
 ### Variables de Entorno (Backend)
 
@@ -406,9 +406,9 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
-### Versión 1.0 (Actual) ✅
+### Versión 1.0 (Actual)
 - [x] Sistema de reservas público
 - [x] Panel administrativo completo
 - [x] Analytics y reportes
@@ -432,7 +432,7 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
 
 ---
 
-## 🤝 Contribuir
+## Contribuir
 
 ¡Las contribuciones son bienvenidas! Si quieres mejorar BRINCAPARK:
 
@@ -451,13 +451,13 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
-## 👤 Autor
+## Autor
 
 **Giuseppe**
 
@@ -466,7 +466,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 ---
 
-## 🙏 Agradecimientos
+## Agradecimientos
 
 - [Chart.js](https://www.chartjs.org/) - Gráficas hermosas y responsivas
 - [SweetAlert2](https://sweetalert2.github.io/) - Alertas modernas
@@ -475,7 +475,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 ---
 
-## 📞 Soporte
+## Soporte
 
 Si tienes preguntas o necesitas ayuda:
 
