@@ -395,9 +395,9 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
 
 ---
 
-## 📸 Capturas de Pantalla
+## Capturas de Pantalla
 
-### 🏠 Experiencia de Usuario (Landing Page)
+### Experiencia de Usuario (Landing Page)
 <div align="center">
   <img src="docs/screenshots/Hero-section.jpg" alt="Página Principal" width="80%">
   <p><em>Portada principal con diseño atractivo y responsive para captación de clientes.</em></p>
@@ -408,13 +408,13 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
   <p><em>Formulario de reserva con validaciones de lógica de negocio (aforos y fechas).</em></p>
 </div>
 
-### 📊 Panel Administrativo (Gestión)
+### Panel Administrativo (Gestión)
 <div align="center">
   <img src="docs/screenshots/Dashboard.png" alt="Dashboard Principal" width="100%">
   <p><em>Dashboard con KPIs en tiempo real, control de ingresos y notificaciones de estado.</em></p>
 </div>
 
-### 📅 Herramientas de Análisis
+### Herramientas de Análisis
 <div align="center">
   <img src="docs/screenshots/Calendar.png" alt="Calendario de Reservas" width="45%" style="margin-right: 10px;">
   <img src="docs/screenshots/Graphics.png" alt="Gráficas Estadísticas" width="45%">
