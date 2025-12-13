@@ -1,9 +1,8 @@
 ﻿const mongoose = require("mongoose");
 
-/* El Schema de Reserva define la estructura de cada documento de reserva en MongoDB */
 const ReservationSchema = new mongoose.Schema({
-  // INFORMACIÓN DEL CLIENTE
-  //Por ejemplo nombre completo del cliente
+
+  // Informacion del cliente
   nombreCompleto: {
     type: String,
     required: true,
@@ -97,6 +96,4 @@ const ReservationSchema = new mongoose.Schema({
   },
 });
 
-// Creamos y exportamos el modelo
-// "Reservation" es el nombre del modelo se guardará como "reservations" en MongoDB
 module.exports = mongoose.model("Reservation", ReservationSchema);

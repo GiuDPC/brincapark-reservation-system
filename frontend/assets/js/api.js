@@ -1,5 +1,8 @@
 // api.js - Módulo de comunicación con el backend
-const API_URL = "http://localhost:4000/api";
+
+const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+const API_URL = isLocal ? "http://localhost:4000/api" : "/api";
+console.log("API configurada para:", isLocal ? "Entorno Local" : "Producción");
 
 /**
  * Crear una nueva reserva desde el formulario publico
@@ -126,6 +129,7 @@ async function verificarBackend() {
     const response = await fetch(`${API_URL.replace("/api", "")}/`);
     return response.ok;
   } catch (error) {
+    return false;
   }
 }
 
@@ -254,7 +258,7 @@ async function obtenerTopClientes() {
 
 /**
  * Obtener análisis de cancelaciones
- * @returns {Promise<Object>} Análisis de cancelaciones
+ * @returns {Promise<Object>}
  */
 async function obtenerAnalisisCancelaciones() {
   try {

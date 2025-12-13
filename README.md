@@ -10,6 +10,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v14+-green.svg)](https://nodejs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-v4.4+-brightgreen.svg)](https://www.mongodb.com/)
 [![Express](https://img.shields.io/badge/Express-v5.1-blue.svg)](https://expressjs.com/)
+![Estado](https://img.shields.io/badge/Estado-Terminado%20(MVP)-success)
 
 [Características](#-características) •
 [Demo](#-demo) •
@@ -40,6 +41,8 @@
 ---
 
 ## Acerca del Proyecto
+
+> "Este sistema nace como una solución integral para digitalizar la gestión de 'Brincapark', un parque de atracciones que operaba manualmente. El software resuelve problemas críticos como la duplicidad de reservas, automatiza el cálculo de ingresos diarios y ofrece métricas en tiempo real para la toma de decisiones, transformando procesos manuales en un flujo digital eficiente."
 
 **BRINCAPARK** es una plataforma web integral diseñada para gestionar reservas de parques de diversiones. El sistema permite a los usuarios realizar reservas de tickets y paquetes de fiestas de manera sencilla, mientras proporciona a los administradores herramientas completas para gestionar reservas, visualizar estadísticas en tiempo real y configurar el sistema.
 
@@ -273,7 +276,9 @@ BRINCAPARK/
 │   │   │   ├── admin-funcionalidades.js
 │   │   │   ├── admin-analytics.js
 │   │   │   ├── api.js         # Cliente API
-│   │   │   └── pricing.js     # Cálculos de precios
+│   │   │   ├── pricing.js     # Cálculos de precios
+│   │   │   ├── chart.min.js   # Librería Chart.js
+│   │   │   └── sweetalert2.min.js # Librería SweetAlert2
 │   │   ├── img/               # Imágenes y recursos
 │   │   └── fonts/             # Fuentes personalizadas
 │   ├── index.html             # Página principal
@@ -392,17 +397,29 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
 
 ## 📸 Capturas de Pantalla
 
-### Página Principal
-![Página Principal](docs/screenshots/home.png)
+### 🏠 Experiencia de Usuario (Landing Page)
+<div align="center">
+  <img src="docs/screenshots/Hero-section.jpg" alt="Página Principal" width="80%">
+  <p><em>Portada principal con diseño atractivo y responsive para captación de clientes.</em></p>
+</div>
 
-### Panel Administrativo
-![Dashboard Admin](docs/screenshots/admin-dashboard.png)
+<div align="center">
+  <img src="docs/screenshots/Form.jpg" alt="Formulario de Reserva" width="80%">
+  <p><em>Formulario de reserva con validaciones de lógica de negocio (aforos y fechas).</em></p>
+</div>
 
-### Gestión de Reservas
-![Gestión de Reservas](docs/screenshots/reservations.png)
+### 📊 Panel Administrativo (Gestión)
+<div align="center">
+  <img src="docs/screenshots/Dashboard.png" alt="Dashboard Principal" width="100%">
+  <p><em>Dashboard con KPIs en tiempo real, control de ingresos y notificaciones de estado.</em></p>
+</div>
 
-### Analytics y Reportes
-![Analytics](docs/screenshots/analytics.png)
+### 📅 Herramientas de Análisis
+<div align="center">
+  <img src="docs/screenshots/Calendar.png" alt="Calendario de Reservas" width="45%" style="margin-right: 10px;">
+  <img src="docs/screenshots/Graphics.png" alt="Gráficas Estadísticas" width="45%">
+  <p><em>Visualización de ocupación mensual y métricas comparativas de rendimiento por sede.</em></p>
+</div>
 
 ---
 
@@ -487,8 +504,6 @@ Si tienes preguntas o necesitas ayuda:
 
 <div align="center">
 
-**⭐ Si este proyecto te fue útil, considera darle una estrella en GitHub ⭐**
-
-Hecho con ❤️ por Giuseppe
+Hecho por Giuseppe
 
 </div>

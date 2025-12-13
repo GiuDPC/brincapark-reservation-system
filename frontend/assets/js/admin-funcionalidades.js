@@ -1,9 +1,7 @@
 // Funcionalidades finales del panel administrativo BRINCAPARK
 // Este archivo contiene: Panel de configuración, Sistema de notificaciones y Gráfica de dona
 
-// ==========================================
 // PANEL DE CONFIGURACIÓN
-// ==========================================
 
 // Valores por defecto de precios
 const PRECIOS_DEFAULT = {
@@ -249,9 +247,7 @@ function mostrarNotificaciones() {
   }
 }
 
-// ==========================================
 // GRÁFICA DE DONA - DISTRIBUCIÓN POR PARQUE
-// ==========================================
 
 let parqueChart = null;
 
