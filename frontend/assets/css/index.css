@@ -1842,13 +1842,84 @@ body::after {
     border-radius: 20px;
 }
 
-/* --- REGLAS SOLO PARA MÓVILES Y TABLETS (Menos de 1024px) --- */
+/* =========================================
+   CORRECCIONES VISUALES Y RESPONSIVE (DEFINITIVO)
+   ========================================= */
+
+/* 1. RESET GLOBAL PARA EVITAR CORTES BLANCOS */
+html, body {
+    overflow-x: hidden; /* Esto es CLAVE para evitar el espacio blanco a la derecha/izquierda */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. CORTINA DE TRANSICIÓN BARBA.JS (Estilo Mejorado) */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #4b0082; /* Morado marca */
+    z-index: 99999;
+    transform: translateY(100%);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transition-overlay::before {
+    content: "BRINCAPARK";
+    color: #FFE55C;
+    font-family: "Fredoka", sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* 3. MENÚ HAMBURGUESA (Estilos Base) */
+.menu-toggle {
+    display: none; /* Oculto en PC */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+    padding: 10px;
+    z-index: 2001; /* Encima de todo */
+    background: rgba(255,255,255,0.5); /* Fondo sutil para que se vea siempre */
+    border-radius: 8px;
+}
+
+.menu-toggle .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #4b0082;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Animación del botón al abrir */
+.menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+.menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* 4. SCROLL HORIZONTAL TABLA (Para que no rompa el diseño) */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    padding-bottom: 5px;
+    display: block; /* Asegura que tome el ancho */
+}
+
+/* --- REGLAS PARA TABLETS Y MÓVILES (Menos de 1024px) --- */
 @media (max-width: 1024px) {
     
-    /* MENÚ DESPLEGABLE */
-    .menu-toggle { display: flex; }
-
+    /* MENÚ: Activamos hamburguesa */
     .navbar-menu {
+        display: flex; /* Aseguramos que exista pero oculto */
         position: fixed;
         top: 0;
         left: 0;
@@ -1860,51 +1931,113 @@ body::after {
         align-items: center;
         gap: 2rem;
         z-index: 2000;
-        /* Usamos transform que es más rápido y seguro */
-        transform: translateX(-100%);
-        transition: transform 0.4s ease-in-out;
+        /* Efecto suave de aparición */
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .navbar-menu.active {
-        transform: translateX(0); /* Entra en pantalla */
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .navbar-menu a {
         font-size: 1.8rem;
+        font-weight: 800;
         color: #4b0082;
     }
 
-    /* FOOTER ARREGLADO (Centrado y sin montarse) */
-    .footer { padding: 3rem 1.5rem; text-align: center; }
-    .footer-content { grid-template-columns: 1fr; gap: 2.5rem; }
-    
-    .footer-logo {
-        flex-direction: column; /* Logo arriba, texto abajo */
-        gap: 1rem;
-    }
-    
-    .footer-logo img { margin-bottom: 0; }
-    
-    .footer_section--brand h2 {
-        transform: none; /* Quitamos la subida que tenía */
-        margin: 0;
-        font-size: 2.5rem;
+    .menu-toggle {
+        display: flex; /* FORZAMOS QUE SE VEA EL BOTÓN */
     }
 
-    /* RESTO DE ARREGLOS (Hero, Forms, etc.) */
-    .hero { padding-top: 6rem; padding-bottom: 2rem; }
-    .hero-container { grid-template-columns: 1fr; gap: 2rem; }
+    /* HERO: Restauramos la burbuja pero controlada */
+    .hero {
+        padding-top: 7rem;
+        text-align: center;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
     .hero-content { order: 2; }
-    .hero-image { order: 1; padding: 0; background: none; box-shadow: none; animation: none; }
-    .hero-image img { max-width: 250px; border: 6px solid white; margin: 0 auto; }
     
-    .formulario-content { grid-template-columns: 1fr; padding: 1.5rem; }
+    .hero-image { 
+        order: 1; 
+        margin: 0 auto;
+        padding: 10px;
+        /* RESTAURAMOS TU EFECTO BURBUJA */
+        background: linear-gradient(135deg, #ff6b9d 0%, #c084fc 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #ff6b9d 100%);
+        background-size: 200% 200%;
+        animation: liquid-bubble 8s ease-in-out infinite;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        max-width: 450px; /* Tamaño máximo en tablet */
+    }
+    
+    .hero-image img {
+        border-width: 8px;
+    }
+
+    .section-title h2 {
+        font-size: 2.2rem;
+        padding: 0.8rem 2rem;
+    }
+}
+
+/* --- REGLAS ESPECÍFICAS PARA MÓVILES (Menos de 768px) --- */
+@media (max-width: 768px) {
+    
+    /* Ajustes finos */
+    .hero-title { font-size: 1.8rem; line-height: 1.2; }
+    .hero-subtitle { font-size: 1rem; }
+    
+    .hero-image {
+        max-width: 280px; /* Más pequeño en celular */
+    }
+    
+    /* FORMULARIO: Arreglo de estrellas y espaciado */
+    .formulario-content {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1rem;
+    }
+    
     .formulario-image { display: none; }
+    
+    /* Movemos las estrellas para que no estorben (en vez de borrarlas) */
+    .formulario-section::before { top: 0; left: 0; font-size: 2rem; opacity: 0.3; }
+    .formulario-section::after { bottom: 0; right: 0; font-size: 2rem; top: auto; opacity: 0.3; }
+    
     .form-grid { grid-template-columns: 1fr; }
+
+    /* FOOTER: Arreglo de alineación */
+    .footer { padding: 2rem 1rem; text-align: center; }
+    .footer-content { grid-template-columns: 1fr; gap: 2rem; }
     
-    /* Ocultar estrellas que estorban */
-    .formulario-section::before, .formulario-section::after { display: none; }
-    .formulario-form h3::before, .formulario-form h3::after { display: none; }
+    .footer-logo {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+    }
     
-    .tickets-grid, .paquetes-grid { grid-template-columns: 1fr; }
+    .footer_section--brand h2 {
+        transform: none;
+        margin-top: 10px;
+        font-size: 2rem;
+    }
+    
+    /* TABLA: Forzar scroll si es necesario */
+    .horarios-table table {
+        min-width: 500px; 
+    }
+    
+    /* Ajuste de grids generales */
+    .tickets-grid, .paquetes-grid, .nosotros-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
 }

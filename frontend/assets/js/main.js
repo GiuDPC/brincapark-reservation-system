@@ -1,48 +1,64 @@
-// main.js - Lógica Frontend, Menú y Animaciones
+// main.js - Lógica Frontend + Barba.js Profesional
 
-// Función principal de inicialización
+// 1. INICIALIZADOR DE LA APP
 function initApp() {
-  console.log("Init App ejecutado");
+  console.log("🚀 Init App ejecutado");
 
-  // --- MENÚ HAMBURGUESA (Lógica Simplificada) ---
-  const menuBtn = document.getElementById('mobile-menu');
+  // --- MENÚ HAMBURGUESA (Corrección Lógica) ---
+  // Usamos selectores directos
+  const menuBtn = document.querySelector('.menu-toggle');
   const navMenu = document.querySelector('.navbar-menu');
-  const links = document.querySelectorAll('.navbar-menu a');
+  const navLinks = document.querySelectorAll('.navbar-menu a');
 
-  // Aseguramos que el botón exista antes de agregar evento
-  if (menuBtn && navMenu) {
-    // Limpiamos eventos previos clonando el nodo
+  // Clonamos el botón para eliminar cualquier evento viejo que haya quedado
+  if (menuBtn) {
     const newBtn = menuBtn.cloneNode(true);
     menuBtn.parentNode.replaceChild(newBtn, menuBtn);
-
-    newBtn.addEventListener('click', () => {
+    
+    // Agregamos el evento al nuevo botón
+    newBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Evita que el clic se propague
       navMenu.classList.toggle('active');
       newBtn.classList.toggle('is-active');
     });
 
-    // Cerrar menú al tocar un enlace
-    links.forEach(link => {
+    // Cerrar menú al hacer clic en un enlace
+    navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         newBtn.classList.remove('is-active');
       });
     });
+
+    // Cerrar menú si tocas fuera
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !newBtn.contains(e.target) && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        newBtn.classList.remove('is-active');
+      }
+    });
   }
 
   // --- NAVBAR SCROLL ---
   const navbar = document.querySelector(".navbar");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) navbar.classList.add("scrolled");
-    else navbar.classList.remove("scrolled");
-  });
+  if(navbar) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) navbar.classList.add("scrolled");
+      else navbar.classList.remove("scrolled");
+    });
+  }
 
   // --- RE-INICIALIZAR COMPONENTES ---
-  if (document.getElementById("gallery-carousel")) initCarousel();
+  if (document.getElementById("gallery-carousel")) initCarousel(); 
   if (document.getElementById("reservation-form")) initFormulario();
   if (typeof inicializarPreciosDinamicos === 'function') inicializarPreciosDinamicos();
 }
 
-// Lógica Carrusel
+// ... (MANTÉN TUS FUNCIONES initCarousel e initFormulario AQUÍ IGUAL QUE ANTES) ...
+// Copia aquí las funciones initCarousel e initFormulario del código anterior 
+// (Si las necesitas de nuevo dímelo, pero son las mismas)
+
+// Lógica Carrusel (Resumida para este archivo)
 function initCarousel() {
   const items = document.querySelectorAll(".carousel-item");
   const dots = document.querySelectorAll(".indicator");
@@ -70,7 +86,7 @@ function initCarousel() {
   auto();
 }
 
-// Lógica Formulario
+// Lógica Formulario (Resumida)
 function initFormulario() {
   const form = document.getElementById("reservation-form");
   const dateInput = document.getElementById("date");
@@ -121,41 +137,48 @@ function initFormulario() {
   }
 }
 
-// CONFIGURACIÓN BARBA.JS (Animación)
+// 4. CONFIGURACIÓN BARBA.JS (Animación Suave y Elegante)
 document.addEventListener("DOMContentLoaded", () => {
+  
   if (typeof gsap !== 'undefined' && typeof barba !== 'undefined') {
     
-    // Posición inicial de la cortina (escondida abajo)
+    // Asegurar posición inicial
     gsap.set(".transition-overlay", { y: "100%" });
 
     barba.init({
       sync: true,
       transitions: [{
-        name: 'default-transition',
-        // AL SALIR: Sube la cortina
+        name: 'fade-transition',
+        // SALIDA: Cortina sube suavemente
         leave(data) {
           return gsap.to(".transition-overlay", {
             y: "0%",
-            duration: 0.6,
+            duration: 0.8,
             ease: "power2.inOut"
           });
         },
-        // AL ENTRAR: Baja la cortina hacia arriba (revelando contenido)
+        // ENTRADA: Cortina sigue subiendo (desaparece por arriba)
         enter(data) {
-          initApp(); // Importante: Reiniciar JS
-          window.scrollTo(0, 0); // Subir scroll
+          initApp(); // Reiniciar lógica
+          window.scrollTo(0, 0); 
           
-          return gsap.to(".transition-overlay", {
-            y: "-100%",
-            duration: 1,
-            ease: "power2.inOut",
-            delay: 0.2 // Pequeña pausa para que cargue
-          });
+          return gsap.fromTo(".transition-overlay", 
+            { y: "0%" },
+            { 
+              y: "-100%", 
+              duration: 0.8, 
+              ease: "power2.inOut",
+              delay: 0.1 
+            }
+          );
         }
       }]
     });
+  } else {
+    // Si falla Barba, inicializar normal
+    initApp();
   }
   
-  // Carga inicial
+  // Ejecución inicial obligatoria
   initApp();
 });
