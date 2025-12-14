@@ -1,8 +1,9 @@
 // api.js - Módulo de comunicación con el backend
 
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const API_URL = isLocal ? "http://localhost:4000/api" : "/api";
-console.log("API configurada para:", isLocal ? "Entorno Local" : "Producción");
+const RENDER_URL = "https://brincapark-api.onrender.com/api";
+const API_URL = isLocal ? "http://localhost:4000/api" : RENDER_URL;
+console.log("API configurada para:", isLocal ? "Entorno Local" : "Producción (Render)");
 
 /**
  * Crear una nueva reserva desde el formulario publico

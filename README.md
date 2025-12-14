@@ -399,12 +399,12 @@ Los precios se pueden configurar desde el panel administrativo en la sección "C
 
 ### Experiencia de Usuario (Landing Page)
 <div align="center">
-  <img src="docs/screenshots/Hero-section.jpg" alt="Página Principal" width="80%">
+  <img src="docs/screenshots/Hero-section.png" alt="Página Principal" width="80%">
   <p><em>Portada principal con diseño atractivo y responsive para captación de clientes.</em></p>
 </div>
 
 <div align="center">
-  <img src="docs/screenshots/Form.jpg" alt="Formulario de Reserva" width="80%">
+  <img src="docs/screenshots/Form.png" alt="Formulario de Reserva" width="80%">
   <p><em>Formulario de reserva con validaciones de lógica de negocio (aforos y fechas).</em></p>
 </div>
 
