@@ -1268,3 +1268,28 @@ body {
     gap: 1rem;
   }
 }
+
+/* Menú Admin Móvil */
+.mobile-only { display: none; }
+
+@media (max-width: 1024px) {
+  .mobile-only { display: flex; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--primary); }
+  
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 2000;
+    width: 280px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+  
+  .main-content { margin-left: 0; width: 100%; }
+  
+  /* Ajuste header admin */
+  .dashboard-header { flex-direction: row; align-items: center; justify-content: space-between; }
+  .header-title { display: flex; align-items: center; gap: 10px; }
+}

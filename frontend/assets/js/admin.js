@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarLogin();
   }
 
+  const sidebar = document.querySelector('.sidebar');
+  const openBtn = document.getElementById('open-sidebar');
+  const closeBtn = document.getElementById('close-sidebar');
+
+  if(openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('active'));
+  if(closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+
   // Eventos de botones
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
   document.getElementById("logout-btn")?.addEventListener("click", handleLogout);
