@@ -158,14 +158,16 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         },
         // ENTRADA: Cortina sigue subiendo (desaparece por arriba)
+// Reemplaza SOLO esta parte dentro de barba.init
         enter(data) {
-          initApp(); // Reiniciar lógica
-          window.scrollTo(0, 0); 
+          initApp(); // Reinicia scripts
+          window.scrollTo(0, 0); // Sube al tope
           
+          // Animación suave de subida (efecto telón)
           return gsap.fromTo(".transition-overlay", 
-            { y: "0%" },
+            { y: "0%" }, // Empieza cubriendo la pantalla
             { 
-              y: "-100%", 
+              y: "-100%", // Sube hasta desaparecer
               duration: 0.8, 
               ease: "power2.inOut",
               delay: 0.1 

@@ -1989,55 +1989,83 @@ html, body {
     }
 }
 
-/* --- REGLAS ESPECÍFICAS PARA MÓVILES (Menos de 768px) --- */
+/* =========================================
+   CORRECCIONES VISUALES FINALES
+   ========================================= */
+
+/* 1. AJUSTE CORTINA BARBA (Para que quepa el texto) */
+.transition-overlay::before {
+    /* ... (mismo código anterior) ... */
+    font-size: 2rem; /* Reducir tamaño para móvil */
+    padding: 0 20px; /* Margen lateral para que no toque bordes */
+    text-align: center;
+}
+
+/* Ajuste global para la cortina de carga en móviles */
+.transition-overlay::before {
+    font-size: 2.5rem; /* Texto más pequeño para que quepa */
+    padding: 0 20px;
+    text-align: center;
+}
+
+/* --- TABLETS (Hasta 1024px) --- */
+@media (max-width: 1024px) {
+    /* MENÚ HAMBURGUESA VISIBLE */
+    .menu-toggle { display: flex; z-index: 2002; }
+    
+    .navbar-menu {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        background: rgba(255,255,255,0.98); flex-direction: column;
+        justify-content: center; align-items: center; gap: 2rem;
+        transform: translateY(-100%); transition: 0.4s ease-in-out;
+        z-index: 2000;
+    }
+    .navbar-menu.active { transform: translateY(0); }
+    .navbar-menu a { font-size: 2rem; color: var(--secondary-color); }
+
+    /* FOOTER TABLET (Arreglo de texto ladeado) */
+    .footer_section--brand h2 { transform: none; margin: 0; }
+    
+    /* PRECIOS TABLET */
+    .ticket-card:hover { transform: none; }
+}
+
+/* --- CELULARES (Hasta 768px) --- */
 @media (max-width: 768px) {
     
-    /* Ajustes finos */
-    .hero-title { font-size: 1.8rem; line-height: 1.2; }
-    .hero-subtitle { font-size: 1rem; }
-    
-    .hero-image {
-        max-width: 280px; /* Más pequeño en celular */
-    }
-    
-    /* FORMULARIO: Arreglo de estrellas y espaciado */
-    .formulario-content {
-        grid-template-columns: 1fr;
-        padding: 1.5rem 1rem;
-    }
-    
-    .formulario-image { display: none; }
-    
-    /* Movemos las estrellas para que no estorben (en vez de borrarlas) */
-    .formulario-section::before { top: 0; left: 0; font-size: 2rem; opacity: 0.3; }
-    .formulario-section::after { bottom: 0; right: 0; font-size: 2rem; top: auto; opacity: 0.3; }
-    
-    .form-grid { grid-template-columns: 1fr; }
+    /* 1. HERO CENTRADO Y AJUSTADO */
+    .hero { padding-top: 7rem; padding-bottom: 2rem; }
+    .hero-content { padding: 0 15px; width: 100%; }
+    .hero-title { font-size: 2rem; line-height: 1.2; word-break: break-word; }
+    .hero-image img { max-width: 260px; margin: 0 auto; }
 
-    /* FOOTER: Arreglo de alineación */
-    .footer { padding: 2rem 1rem; text-align: center; }
-    .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+    /* 2. FORMULARIO (Imagen del niño FUERA) */
+    .formulario-container { flex-direction: column; }
+    .formulario-image { display: none; } /* Se va la imagen solo en cel */
+    .formulario-content { padding: 2rem 1.5rem; }
     
-    .footer-logo {
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 0;
+    /* 3. PRECIOS Y PAQUETES (Centrados y sin cortes) */
+    .ticket-price { font-size: 3rem; display: flex; justify-content: center; }
+    .paquete-price-value { 
+        width: 100px; height: 100px; font-size: 1.3rem; 
+        display: flex; align-items: center; justify-content: center;
     }
+    .paquete-footer { gap: 15px; }
+
+    /* 4. FOOTER (Alineación perfecta) */
+    .footer-content { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    .footer-logo { flex-direction: column; align-items: center; margin-bottom: 0; }
+    .footer_section--brand h2 { 
+        font-size: 2rem; 
+        transform: none !important; /* Forza quitar lo ladeado */
+        margin-top: 10px; 
+    }
+
+    /* 5. CARRUSEL (Botones visibles) */
+    .carousel-control { width: 45px; height: 45px; background: rgba(255,255,255,0.8); }
+    .swiper-button-prev { left: 5px; }
+    .swiper-button-next { right: 5px; }
     
-    .footer_section--brand h2 {
-        transform: none;
-        margin-top: 10px;
-        font-size: 2rem;
-    }
-    
-    /* TABLA: Forzar scroll si es necesario */
-    .horarios-table table {
-        min-width: 500px; 
-    }
-    
-    /* Ajuste de grids generales */
-    .tickets-grid, .paquetes-grid, .nosotros-grid {
-        grid-template-columns: 1fr;
-        padding: 0 1rem;
-    }
+    /* Ajustes de espaciado general */
+    .tickets-grid, .paquetes-grid { grid-template-columns: 1fr; padding: 0 10px; }
 }
