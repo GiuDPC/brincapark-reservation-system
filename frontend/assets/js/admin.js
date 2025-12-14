@@ -1,5 +1,7 @@
 // admin.js - Panel administrativo BRINCAPARK
-const API = window.API_BASE_URL || "http://localhost:4000/api"; 
+
+// 1. URL DINÁMICA (Corrección para que funcione en la nube)
+const API = window.API_BASE_URL || "http://localhost:4000/api";
 console.log("Admin conectando a:", API);
 
 // Estado global
@@ -19,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarLogin();
   }
 
+  // --- LÓGICA DEL MENÚ MÓVIL (NUEVO) ---
   const sidebar = document.querySelector('.sidebar');
   const openBtn = document.getElementById('open-sidebar');
   const closeBtn = document.getElementById('close-sidebar');
@@ -30,6 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
   document.getElementById("logout-btn")?.addEventListener("click", handleLogout);
   document.getElementById("refresh-btn")?.addEventListener("click", () => {
+    // Animación de refresco
+    const icon = document.querySelector("#refresh-btn svg");
+    if(icon) {
+        icon.style.transition = "transform 0.5s ease";
+        icon.style.transform = "rotate(360deg)";
+        setTimeout(() => icon.style.transform = "none", 500);
+    }
     console.log("Actualizando datos...");
     cargarReservas();
   });
@@ -43,6 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const section = item.dataset.section;
       cambiarSeccion(section);
+      
+      // Cierre automático del menú en móvil al navegar
+      if (window.innerWidth <= 1024 && sidebar) {
+        sidebar.classList.remove('active');
+      }
     });
   });
 });
@@ -95,7 +110,7 @@ async function handleLogin(e) {
   submitBtn.textContent = "Verificando...";
 
   try {
-    // CORRECCIÓN: Usar API en lugar de localhost
+    // CORRECCIÓN: Usar API
     const response = await fetch(`${API}/admin/reservas`, {
       headers: { "x-admin-secret": secret },
     });
@@ -171,7 +186,7 @@ function mostrarDashboard() {
 async function cargarReservas() {
   try {
     console.log("Cargando reservas...");
-    // CORRECCIÓN: Usar API en lugar de localhost
+    // CORRECCIÓN: Usar API
     const response = await fetch(`${API}/admin/reservas`, {
       headers: { "x-admin-secret": adminSecret },
     });
@@ -243,7 +258,7 @@ async function renderStats() {
   let dinero = 0;
   let moneda = "$";
   try {
-    // CORRECCIÓN: Usar API en lugar de localhost
+    // CORRECCIÓN: Usar API
     const res = await fetch(`${API}/reservations/analytics/stats`, {
       headers: { "x-admin-secret": adminSecret },
     });
@@ -389,10 +404,14 @@ function attachTableEventListeners() {
     sel.addEventListener("change", async (e) => {
       const id = sel.dataset.id;
       const estado = sel.value;
+      
+      // Feedback visual: Deshabilitar mientras carga
+      sel.disabled = true;
+      
       try {
-        // CORRECCIÓN: Usar API en lugar de localhost
+        // CORRECCIÓN CRÍTICA: Ruta correcta para cambiar estado (/reservas/:id/estado)
         const res = await fetch(
-          `${API}/admin/reservas/${id}/estado`,
+          `${API}/reservations/${id}/estado`,
           {
             method: "PUT",
             headers: {
@@ -403,10 +422,31 @@ function attachTableEventListeners() {
           }
         );
         if (res.ok) {
+          // Éxito: recargar para ver cambios (colores, etc)
           cargarReservas();
+          
+          // Toast de éxito (Opcional, pero se ve bien)
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+          Toast.fire({ icon: 'success', title: 'Estado actualizado' });
+          
+        } else {
+            throw new Error("Falló actualización");
         }
       } catch (err) {
         console.error("Error:", err);
+        Swal.fire({
+             text: "No se pudo actualizar el estado",
+             icon: "error",
+             confirmButtonColor: "#7C3AED",
+        });
+        sel.disabled = false; // Reactivar si falló
+        sel.value = reservas.find(r => r._id === id).estadoReserva; // Volver al valor anterior
       }
     });
   });
@@ -428,7 +468,7 @@ function attachTableEventListeners() {
 
       if (result.isConfirmed) {
         try {
-          // CORRECCIÓN: Usar API en lugar de localhost
+          // CORRECCIÓN: Usar API
           const res = await fetch(
             `${API}/admin/reservas/${id}`,
             {
@@ -533,14 +573,14 @@ function attachTableEventListeners() {
 
       if (formValues) {
         try {
-          // CORRECCIÓN: Usar API en lugar de localhost
+          // CORRECCIÓN: Usar API y método PUT para editar datos
           const res = await fetch(
             `${API}/reservations/${id}`,
             {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
-                // "x-admin-secret": adminSecret, // Si tu backend protege esta ruta, descomenta esto
+                // "x-admin-secret": adminSecret, // Descomenta si tu backend lo exige en esta ruta
               },
               body: JSON.stringify(formValues),
             }
@@ -671,14 +711,22 @@ function renderCalendar() {
   });
 
   for (let x = firstDayIndex; x > 0; x--) {
-    html += `<div class="calendar-day other-month">${prevLastDayDate - x + 1}</div>`;
+    html += `<div class="calendar-day other-month">${
+      prevLastDayDate - x + 1
+    }</div>`;
   }
 
   const today = new Date();
   for (let i = 1; i <= lastDayDate; i++) {
-    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2,"0")}-${String(i).padStart(2, "0")}`;
+    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(
+      2,
+      "0"
+    )}-${String(i).padStart(2, "0")}`;
     const hasReservation = reservas.some((r) => r.fechaServicio === dateStr);
-    const isToday = i === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+    const isToday =
+      i === today.getDate() &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear();
 
     let classes = "calendar-day";
     if (hasReservation) classes += " has-reservation";

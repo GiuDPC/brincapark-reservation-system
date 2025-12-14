@@ -1,5 +1,5 @@
 function initApp() {
-  console.log("🚀 Init App");
+  console.log("Init App");
 
   // MENÚ HAMBURGUESA (Delegación de eventos = No falla)
   const body = document.body;
@@ -45,11 +45,6 @@ function initApp() {
   if (document.getElementById("reservation-form")) initFormulario();
   if (typeof inicializarPreciosDinamicos === 'function') inicializarPreciosDinamicos();
 }
-
-// ... (Pega aquí tus funciones initCarousel e initFormulario que ya tenías) ...
-// Si no las tienes a mano, dímelo y te las pego completas aquí también.
-// Asumo que las tienes del paso anterior.
-// --- PEGA AQUÍ TUS FUNCIONES initCarousel e initFormulario ---
 
 // BARBA.JS CONFIGURACIÓN
 document.addEventListener("DOMContentLoaded", () => {
