@@ -1682,7 +1682,7 @@ body::after {
 
 /* Opcional: Poner el logo en la cortina de carga */
 .transition-overlay::after {
-    content: "BRINCAPARK";
+    content: "";
     color: #FFE55C;
     font-family: "Fredoka", sans-serif;
     font-size: 3rem;

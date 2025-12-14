@@ -1,5 +1,7 @@
 // pricing.js - Sistema de precios dinámicos para BRINCAPARK
-// Sincroniza precios con el backend y actualiza la UI en tiempo real
+
+// CORRECCIÓN: Definición segura de la API
+const API_PRICING = window.API_BASE_URL || "http://localhost:4000/api";
 
 let currentConfig = null;
 let pollingInterval = null;
@@ -7,7 +9,9 @@ let pollingInterval = null;
 // Obtener configuración de precios del backend
 async function obtenerConfiguracionPrecios() {
   try {
-    const response = await fetch(`${API_BASE_URL}/config/precios`);
+    // CORRECCIÓN: Usamos API_PRICING y cache: 'no-store' para forzar actualización
+    const response = await fetch(`${API_PRICING}/config/precios`, { cache: 'no-store' });
+    
     if (!response.ok) throw new Error("Error al obtener precios");
     const data = await response.json();
     return data;
