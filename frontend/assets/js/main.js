@@ -1,155 +1,59 @@
-// main.js - Lógica de la landing page
+// main.js - Lógica Frontend + Barba.js Profesional
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("BRINCAPARK Frontend cargado");
+// 1. INICIALIZADOR DE LA APP
+function initApp() {
+  console.log("🚀 Init App ejecutado");
 
-  // FORMULARIO DE RESREVAS PUBLICO (LOGICA)
-  const form = document.getElementById("reservation-form");
-  const horaSelect = document.getElementById("horaReservacion");
-  const parqueSelect = document.getElementById("parque");
+  // --- MENÚ HAMBURGUESA ---
+  const mobileMenuBtn = document.getElementById("mobile-menu");
+  const navbarMenu = document.querySelector(".navbar-menu");
+  const navLinks = document.querySelectorAll(".navbar-menu a");
 
-  // Función para mostrar mensajes con SweetAlert2
-  function mostrarMensaje(mensaje, tipo) {
-    Swal.fire({
-      text: mensaje,
-      icon: tipo,
-      confirmButtonText: "OK",
-      confirmButtonColor: "#7C3AED",
-      timer: tipo === "success" ? 2500 : undefined,
-    });
-  }
-
-  // Actualizar horarios ocupados al cambiar fecha o parque
-  async function actualizarHorariosOcupados() {
-    const fecha = form.querySelector("#date").value;
-    const parque = parqueSelect.value;
-    if (!fecha || !parque) {
-      horaSelect.querySelectorAll("option").forEach((opt) => {
-        opt.disabled = false;
-        opt.textContent = opt.textContent.replace(/\s*\(Ocupado\)/, "");
-      });
-      return;
-    }
-    try {
-      const res = await fetch(
-        `http://localhost:4000/api/reservations/horarios-ocupados?fechaServicio=${fecha}&parque=${parque}`
-      );
-      const data = await res.json();
-      const ocupados = data.horariosOcupados || [];
-      horaSelect.querySelectorAll("option").forEach((opt) => {
-        if (ocupados.includes(opt.value) && opt.value) {
-          opt.disabled = true;
-          opt.textContent =
-            opt.textContent.replace(/\s*\(Ocupado\)/, "") + " (Ocupado)";
-        } else if (opt.value) {
-          opt.disabled = false;
-          opt.textContent = opt.textContent.replace(/\s*\(Ocupado\)/, "");
-        }
-      });
-    } catch (err) {
-      console.error("Error consultando horarios ocupados:", err);
-    }
-  }
-
-  if (form) {
-    // Event listeners para actualizar horarios
-    form
-      .querySelector("#date")
-      .addEventListener("change", actualizarHorariosOcupados);
-    parqueSelect.addEventListener("change", actualizarHorariosOcupados);
-
-    // Manejar envío del formulario
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      // Obtener datos del formulario
-      const formData = new FormData(form);
-      const datos = {
-        nombreCompleto: formData.get("name"),
-        correo: formData.get("email"),
-        telefono: formData.get("phone"),
-        fechaServicio: formData.get("date"),
-        paquete: formData.get("package"),
-        horaReservacion: formData.get("horaReservacion"),
-        parque: formData.get("parque"),
-        estadoUbicacion: "Venezuela",
-        tipoEvento: formData.get("tipoEvento") || formData.get("package"),
-      };
-
-      // Validación básica
-      if (
-        !datos.nombreCompleto ||
-        !datos.correo ||
-        !datos.telefono ||
-        !datos.fechaServicio ||
-        !datos.paquete ||
-        !datos.horaReservacion ||
-        !datos.parque
-      ) {
-        mostrarMensaje(
-          "Por favor completa todos los campos obligatorios",
-          "error"
-        );
-        return;
-      }
-
-      // Validación de teléfono venezolano (11 dígitos)
-      const telefonoLimpio = datos.telefono.replace(/\D/g, ''); // Remover no-dígitos
-      if (telefonoLimpio.length !== 11) {
-        mostrarMensaje(
-          "El número de teléfono debe tener 11 dígitos (ejemplo: 04246888923)",
-          "error"
-        );
-        return;
-      }
-
-      // Deshabilitar botón mientras se envía
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const textoOriginal = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Enviando...";
-
-      try {
-        // Enviar al backend
-        const resultado = await crearReserva(datos);
-        console.log("Reserva creada:", resultado);
-        mostrarMensaje(
-          "¡Reserva enviada con éxito! Nos pondremos en contacto contigo pronto.",
-          "success"
-        );
-        form.reset();
-        actualizarHorariosOcupados();
-      } catch (error) {
-        console.error("Error al crear reserva:", error);
-        mostrarMensaje(
-          "Hubo un error al enviar tu reserva. Por favor intenta nuevamente o contáctanos directamente.",
-          "error"
-        );
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = textoOriginal;
+  // Eliminar listeners viejos clonando el botón
+  if (mobileMenuBtn) {
+    const newBtn = mobileMenuBtn.cloneNode(true);
+    mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
+    
+    newBtn.addEventListener("click", () => {
+      // Toggle clases
+      navbarMenu.classList.toggle("active");
+      newBtn.classList.toggle("is-active");
+      
+      // Animación secuencial de los enlaces (stagger)
+      if (navbarMenu.classList.contains("active")) {
+        navLinks.forEach((link, index) => {
+          link.style.transitionDelay = `${0.1 * (index + 1)}s`;
+        });
+      } else {
+        navLinks.forEach(link => { link.style.transitionDelay = '0s'; });
       }
     });
   }
 
-  // EFECTO SUAVA DE SCROLL DE NAVBAR PARA MEJORAR SU APARENCIA AL BAJAR LA PAGINA
-  const navbar = document.querySelector(".navbar");
-  let lastScrollTop = 0;
-
-  window.addEventListener("scroll", () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Agregar clase 'scrolled' cuando se hace scroll más de 50px
-    if (scrollTop > 50) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-
-    lastScrollTop = scrollTop;
+  // Cerrar menú al navegar
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      navbarMenu.classList.remove("active");
+      const btn = document.getElementById("mobile-menu");
+      if(btn) btn.classList.remove("is-active");
+    });
   });
 
-  // CARRUSEL DE GALERIA DEL PARQUE
+  // --- NAVBAR SCROLL ---
+  const navbar = document.querySelector(".navbar");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) navbar.classList.add("scrolled");
+    else navbar.classList.remove("scrolled");
+  });
+
+  // --- COMPONENTES ---
+  if (document.getElementById("gallery-carousel")) initCarousel();
+  if (document.getElementById("reservation-form")) initFormulario();
+  if (typeof inicializarPreciosDinamicos === 'function') inicializarPreciosDinamicos();
+}
+
+// 2. CARRUSEL
+function initCarousel() {
   const carouselItems = document.querySelectorAll(".carousel-item");
   const indicators = document.querySelectorAll(".indicator");
   const prevBtn = document.getElementById("carousel-prev");
@@ -158,90 +62,126 @@ document.addEventListener("DOMContentLoaded", () => {
   let autoPlayInterval;
 
   function showSlide(index) {
-    // Remover active de todos
-    carouselItems.forEach((item) => item.classList.remove("active"));
-    indicators.forEach((ind) => ind.classList.remove("active"));
-
-    // Agregar active al slide actual
-    if (carouselItems[index]) {
+    carouselItems.forEach(item => item.classList.remove("active"));
+    indicators.forEach(ind => ind.classList.remove("active"));
+    if(carouselItems[index]) {
       carouselItems[index].classList.add("active");
       indicators[index].classList.add("active");
       currentSlide = index;
     }
   }
 
-  function nextSlide() {
-    const next = (currentSlide + 1) % carouselItems.length;
-    showSlide(next);
-  }
+  function nextSlide() { showSlide((currentSlide + 1) % carouselItems.length); }
+  function prevSlide() { showSlide((currentSlide - 1 + carouselItems.length) % carouselItems.length); }
 
-  function prevSlide() {
-    const prev =
-      (currentSlide - 1 + carouselItems.length) % carouselItems.length;
-    showSlide(prev);
-  }
+  if(nextBtn) nextBtn.addEventListener("click", () => { nextSlide(); resetAutoPlay(); });
+  if(prevBtn) prevBtn.addEventListener("click", () => { prevSlide(); resetAutoPlay(); });
+  indicators.forEach((ind, i) => ind.addEventListener("click", () => { showSlide(i); resetAutoPlay(); }));
 
-  // Event listeners
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      nextSlide();
-      resetAutoPlay();
-    });
-  }
+  function startAutoPlay() { autoPlayInterval = setInterval(nextSlide, 5000); }
+  function resetAutoPlay() { clearInterval(autoPlayInterval); startAutoPlay(); }
+  
+  startAutoPlay();
+}
 
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      prevSlide();
-      resetAutoPlay();
-    });
-  }
+// 3. FORMULARIO
+function initFormulario() {
+  const form = document.getElementById("reservation-form");
+  const horaSelect = document.getElementById("horaReservacion");
+  const parqueSelect = document.getElementById("parque");
+  const dateInput = document.getElementById("date");
 
-  // Indicadores
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      showSlide(index);
-      resetAutoPlay();
-    });
-  });
-
-  // Auto-play
-  function startAutoPlay() {
-    autoPlayInterval = setInterval(nextSlide, 5000); // Cambiar cada 5 segundos
-  }
-
-  function resetAutoPlay() {
-    clearInterval(autoPlayInterval);
-    startAutoPlay();
-  }
-
-  // Iniciar auto-play para que se muestre si hay carrusel
-  if (carouselItems.length > 0) {
-    startAutoPlay();
-
-    // Pausar en hover
-    const carouselContainer = document.getElementById("gallery-carousel");
-    if (carouselContainer) {
-      carouselContainer.addEventListener("mouseenter", () => {
-        clearInterval(autoPlayInterval);
+  async function actualizarHorarios() {
+    const fecha = dateInput.value;
+    const parque = parqueSelect.value;
+    if (!fecha || !parque) return;
+    try {
+      const apiUrl = window.API_BASE_URL || "/api"; 
+      const res = await fetch(`${apiUrl}/reservations/horarios-ocupados?fechaServicio=${fecha}&parque=${parque}`);
+      const data = await res.json();
+      const ocupados = data.horariosOcupados || [];
+      horaSelect.querySelectorAll("option").forEach(opt => {
+        if(opt.value) {
+          opt.disabled = ocupados.includes(opt.value);
+          opt.textContent = ocupados.includes(opt.value) ? `${opt.value} (Ocupado)` : opt.value;
+        }
       });
-
-      carouselContainer.addEventListener("mouseleave", () => {
-        startAutoPlay();
-      });
-    }
+    } catch (err) { console.error(err); }
   }
 
-  // SMOOTH SCROLL PARA ENLACES INTERNOS
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
+  if(dateInput) dateInput.addEventListener("change", actualizarHorarios);
+  if(parqueSelect) parqueSelect.addEventListener("change", actualizarHorarios);
+
+  if(form) {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      const btn = form.querySelector('button[type="submit"]');
+      const txt = btn.textContent;
+      btn.disabled = true; btn.textContent = "Enviando...";
+      
+      const formData = new FormData(form);
+      const datos = Object.fromEntries(formData.entries());
+      if(!datos.tipoEvento) datos.tipoEvento = datos.paquete;
+
+      try {
+        if(typeof crearReserva === 'function') {
+          await crearReserva(datos);
+          Swal.fire("¡Éxito!", "Tu reserva ha sido enviada.", "success");
+          form.reset();
+          actualizarHorarios();
+        }
+      } catch (err) {
+        Swal.fire("Error", "No se pudo crear la reserva.", "error");
+      } finally {
+        btn.disabled = false; btn.textContent = txt;
       }
     });
-  });
+  }
+}
+
+// 4. CONFIGURACIÓN BARBA.JS (Animación Profesional)
+document.addEventListener("DOMContentLoaded", () => {
+  
+  if (typeof gsap !== 'undefined' && typeof barba !== 'undefined') {
+    
+    // Configurar posición inicial de la cortina
+    gsap.set(".transition-overlay", { y: "100%" });
+
+    barba.init({
+      sync: true,
+      transitions: [{
+        name: 'page-transition',
+        
+        // AL SALIR (La cortina sube y tapa todo)
+        leave(data) {
+          return gsap.timeline()
+            .to(data.current.container, { opacity: 0, duration: 0.5 })
+            .to(".transition-overlay", { 
+              y: "0%", 
+              duration: 0.8, 
+              ease: "power4.inOut" 
+            }, "-=0.5");
+        },
+
+        // AL ENTRAR (La cortina baja y revela lo nuevo)
+        enter(data) {
+          initApp(); // Reiniciar JS
+          window.scrollTo(0, 0);
+          
+          return gsap.timeline()
+            .from(data.next.container, { opacity: 0, duration: 0.5 })
+            .to(".transition-overlay", { 
+              y: "-100%", 
+              duration: 0.8, 
+              ease: "power4.inOut" 
+            }, "-=0.5");
+        }
+      }]
+    });
+  } else {
+    console.warn("GSAP/Barba no cargados.");
+  }
+
+  // Carga inicial
+  initApp();
 });

@@ -1659,3 +1659,176 @@ body::after {
     align-self: center;
   }
 }
+
+/* =========================================
+   DISEÑO RESPONSIVE Y ANIMACIONES (CORREGIDO)
+   ========================================= */
+
+/* 1. CORTINA DE TRANSICIÓN BARBA.JS (Más visible) */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #4b0082; /* Morado fuerte de la marca */
+    z-index: 99999; /* Por encima de TODO */
+    transform: translateY(100%);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Opcional: Poner el logo en la cortina de carga */
+.transition-overlay::after {
+    content: "BRINCAPARK";
+    color: #FFE55C;
+    font-family: "Fredoka", sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* 2. MENÚ HAMBURGUESA (Estilos Base) */
+.menu-toggle {
+    display: none; /* Se activa en media queries */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+    z-index: 10001; /* Encima del menú desplegable */
+    padding: 10px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 8px;
+}
+
+.menu-toggle .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #4b0082;
+    border-radius: 5px;
+    transition: all 0.4s ease;
+}
+
+/* Animación de la X al abrir */
+.menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+.menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* --- REGLAS PARA TABLETS Y MÓVILES (Hasta 1024px) --- */
+@media (max-width: 1024px) {
+    
+    /* MENÚ: Activamos hamburguesa en Tablets también */
+    .menu-toggle {
+        display: flex;
+    }
+
+    .navbar-menu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 10000;
+        /* Efecto de cortina para el menú */
+        clip-path: circle(0px at 100% 0px); 
+        transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+        pointer-events: none; /* No clickear cuando está cerrado */
+    }
+
+    .navbar-menu.active {
+        clip-path: circle(150% at 100% 0px); /* Se abre el círculo */
+        pointer-events: all;
+    }
+
+    .navbar-menu a {
+        font-size: 2rem;
+        font-weight: 800;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.4s ease;
+    }
+
+    /* Animación de enlaces al abrir */
+    .navbar-menu.active a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* HERO: Ajuste para que la burbuja no sea gigante en Tablet */
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-content { order: 2; }
+    .hero-image { 
+        order: 1; 
+        max-width: 500px; /* Limitamos el ancho en tablets */
+        margin: 0 auto;
+    }
+    
+    .hero-image img {
+        border-width: 8px;
+    }
+
+    .section-title h2 { font-size: 2.5rem; }
+}
+
+/* --- REGLAS SOLO PARA CELULARES (Hasta 768px) --- */
+@media (max-width: 768px) {
+
+    /* HERO */
+    .hero { padding: 6rem 1rem 2rem; }
+    .hero-title { font-size: 2rem; }
+    .hero-image img { max-width: 260px; }
+    
+    /* FORMULARIO */
+    .formulario-content {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+    .formulario-image { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    
+    /* Quitar estrellas molestas del formulario */
+    .formulario-section::before, .formulario-section::after { display: none; }
+    .formulario-form h3::before, .formulario-form h3::after { display: none; }
+
+    /* TABLA (Scroll horizontal) */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 20px;
+    }
+    .horarios-table table {
+        min-width: 500px; /* Fuerza el scroll si la pantalla es chica */
+    }
+
+    /* FOOTER (Arreglo del logo montado) */
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .footer-logo {
+        margin-bottom: 1rem;
+    }
+    
+    .footer_section--brand h2 {
+        transform: none; /* Quitamos la transformación que lo subía */
+        margin-top: 10px;
+        font-size: 2rem;
+    }
+    
+    /* GALERÍA */
+    .carousel-container { padding: 10px; }
+    .carousel-item img { height: 300px; }
+}
