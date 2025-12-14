@@ -1,6 +1,5 @@
 // pricing.js - Sistema de precios dinámicos para BRINCAPARK
 
-// CORRECCIÓN: Definición segura de la API
 const API_PRICING = window.API_BASE_URL || "http://localhost:4000/api";
 
 let currentConfig = null;
@@ -9,8 +8,14 @@ let pollingInterval = null;
 // Obtener configuración de precios del backend
 async function obtenerConfiguracionPrecios() {
   try {
-    // CORRECCIÓN: Usamos API_PRICING y cache: 'no-store' para forzar actualización
-    const response = await fetch(`${API_PRICING}/config/precios`, { cache: 'no-store' });
+    // CORRECCIÓN VITAL: Agregamos timestamp (?t=...) para romper el caché
+    // Esto obliga al navegador a descargar el precio nuevo SÍ o SÍ
+    const urlSinCache = `${API_PRICING}/config/precios?t=${new Date().getTime()}`;
+    
+    const response = await fetch(urlSinCache, { 
+        cache: 'no-store',
+        headers: { 'Pragma': 'no-cache' }
+    });
     
     if (!response.ok) throw new Error("Error al obtener precios");
     const data = await response.json();
@@ -39,13 +44,13 @@ function actualizarPreciosUI(config) {
   currentConfig = config;
   const moneda = config.moneda;
 
-  // Actualizar indicador de moneda si existe
+  // Actualizar indicador de moneda
   const indicadorMoneda = document.getElementById("moneda-actual");
   if (indicadorMoneda) {
     indicadorMoneda.textContent = moneda === "USD" ? "Dólares (USD)" : "Bolívares (Bs)";
   }
 
-  // Actualizar precios de tickets si existen en la página
+  // Actualizar precios de tickets
   const tickets = {
     "precio-15min": config.tickets.min15?.actual,
     "precio-30min": config.tickets.min30?.actual,
@@ -61,7 +66,7 @@ function actualizarPreciosUI(config) {
     }
   });
 
-  // Actualizar precios de paquetes si existen en la página
+  // Actualizar precios de paquetes
   const paquetes = {
     "precio-mini-lunes": config.paquetes.mini?.lunes?.actual,
     "precio-mini-viernes": config.paquetes.mini?.viernes?.actual,
@@ -78,7 +83,7 @@ function actualizarPreciosUI(config) {
     }
   });
 
-  console.log("✅ Precios actualizados:", moneda);
+  console.log("Precios actualizados:", moneda);
 }
 
 // Inicializar sistema de precios dinámicos
@@ -89,7 +94,7 @@ async function inicializarPreciosDinamicos() {
     actualizarPreciosUI(config);
   }
 
-  // Polling cada 30 segundos para detectar cambios
+  // Polling cada 30 segundos
   if (pollingInterval) {
     clearInterval(pollingInterval);
   }
@@ -97,20 +102,19 @@ async function inicializarPreciosDinamicos() {
   pollingInterval = setInterval(async () => {
     const nuevaConfig = await obtenerConfiguracionPrecios();
     if (nuevaConfig) {
-      // Solo actualizar si hay cambios
       if (
         !currentConfig ||
         currentConfig.moneda !== nuevaConfig.moneda ||
         currentConfig.tasaBCV !== nuevaConfig.tasaBCV
       ) {
-        console.log("🔄 Detectado cambio en configuración de precios");
+        console.log("Detectado cambio en configuración de precios");
         actualizarPreciosUI(nuevaConfig);
       }
     }
   }, 30000); // 30 segundos
 }
 
-// Detener polling (útil para cleanup)
+// Detener polling
 function detenerPreciosDinamicos() {
   if (pollingInterval) {
     clearInterval(pollingInterval);

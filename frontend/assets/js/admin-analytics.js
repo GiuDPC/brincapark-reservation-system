@@ -1,16 +1,18 @@
 // admin-analytics.js - Módulo de analytics y métricas avanzadas
 
-// CORRECCIÓN: Usamos un nombre único para evitar choque con admin.js
+// Usamos API_STATS para evitar conflictos con admin.js
 const API_STATS = window.API_BASE_URL || "http://localhost:4000/api";
 
 // Variables globales para charts
 let ingresosMensualesChart = null;
 let tipoEventoChart = null;
 
+// ==========================================
 // MÉTRICAS ADICIONALES PARA DASHBOARD
+// ==========================================
+
 async function renderizarMetricasAdicionales() {
   try {
-    // Usamos API_STATS aquí
     const res = await fetch(`${API_STATS}/reservations/analytics/stats`, {
       headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
@@ -18,6 +20,7 @@ async function renderizarMetricasAdicionales() {
     if (!res.ok) return;
     const stats = await res.json();
     
+    // Crear contenedor si no existe
     let container = document.getElementById("metricas-adicionales");
     if (!container) {
       const statsGrid = document.querySelector(".stats-grid");
@@ -32,6 +35,7 @@ async function renderizarMetricasAdicionales() {
 
     if (!container) return;
 
+    // Renderizar tarjetas con iconos y datos
     container.innerHTML = `
       <div class="stat-card stat-conversion">
         <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
@@ -55,10 +59,12 @@ async function renderizarMetricasAdicionales() {
   }
 }
 
-// Graficas de ingresos mensuales
+// ==========================================
+// GRÁFICAS
+// ==========================================
+
 async function renderizarGraficaIngresosMensuales() {
   try {
-    // Usamos API_STATS
     const res = await fetch(`${API_STATS}/reservations/analytics/monthly`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
@@ -105,10 +111,8 @@ async function renderizarGraficaIngresosMensuales() {
   }
 }
 
-// Grafica de tipo de evento
 async function renderizarGraficaTipoEvento() {
   try {
-    // Usamos API_STATS
     const res = await fetch(`${API_STATS}/reservations/analytics/stats`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
@@ -149,10 +153,12 @@ async function renderizarGraficaTipoEvento() {
   }
 }
 
-// Reportes avanzados
+// ==========================================
+// REPORTES AVANZADOS
+// ==========================================
+
 async function renderizarTopClientes() {
   try {
-    // Usamos API_STATS
     const res = await fetch(`${API_STATS}/reservations/analytics/top-clients`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
@@ -178,7 +184,6 @@ async function renderizarTopClientes() {
 
 async function renderizarAnalisisCancelaciones() {
   try {
-    // Usamos API_STATS
     const res = await fetch(`${API_STATS}/reservations/analytics/cancellations`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
