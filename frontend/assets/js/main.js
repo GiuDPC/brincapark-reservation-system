@@ -1,43 +1,33 @@
-// main.js - Lógica Frontend + Barba.js Profesional
+// main.js - Lógica Frontend, Menú y Animaciones
 
-// 1. INICIALIZADOR DE LA APP
+// Función principal de inicialización
 function initApp() {
-  console.log("🚀 Init App ejecutado");
+  console.log("Init App ejecutado");
 
-  // --- MENÚ HAMBURGUESA ---
-  const mobileMenuBtn = document.getElementById("mobile-menu");
-  const navbarMenu = document.querySelector(".navbar-menu");
-  const navLinks = document.querySelectorAll(".navbar-menu a");
+  // --- MENÚ HAMBURGUESA (Lógica Simplificada) ---
+  const menuBtn = document.getElementById('mobile-menu');
+  const navMenu = document.querySelector('.navbar-menu');
+  const links = document.querySelectorAll('.navbar-menu a');
 
-  // Eliminar listeners viejos clonando el botón
-  if (mobileMenuBtn) {
-    const newBtn = mobileMenuBtn.cloneNode(true);
-    mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
-    
-    newBtn.addEventListener("click", () => {
-      // Toggle clases
-      navbarMenu.classList.toggle("active");
-      newBtn.classList.toggle("is-active");
-      
-      // Animación secuencial de los enlaces (stagger)
-      if (navbarMenu.classList.contains("active")) {
-        navLinks.forEach((link, index) => {
-          link.style.transitionDelay = `${0.1 * (index + 1)}s`;
-        });
-      } else {
-        navLinks.forEach(link => { link.style.transitionDelay = '0s'; });
-      }
+  // Aseguramos que el botón exista antes de agregar evento
+  if (menuBtn && navMenu) {
+    // Limpiamos eventos previos clonando el nodo
+    const newBtn = menuBtn.cloneNode(true);
+    menuBtn.parentNode.replaceChild(newBtn, menuBtn);
+
+    newBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      newBtn.classList.toggle('is-active');
+    });
+
+    // Cerrar menú al tocar un enlace
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        newBtn.classList.remove('is-active');
+      });
     });
   }
-
-  // Cerrar menú al navegar
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      navbarMenu.classList.remove("active");
-      const btn = document.getElementById("mobile-menu");
-      if(btn) btn.classList.remove("is-active");
-    });
-  });
 
   // --- NAVBAR SCROLL ---
   const navbar = document.querySelector(".navbar");
@@ -46,71 +36,66 @@ function initApp() {
     else navbar.classList.remove("scrolled");
   });
 
-  // --- COMPONENTES ---
+  // --- RE-INICIALIZAR COMPONENTES ---
   if (document.getElementById("gallery-carousel")) initCarousel();
   if (document.getElementById("reservation-form")) initFormulario();
   if (typeof inicializarPreciosDinamicos === 'function') inicializarPreciosDinamicos();
 }
 
-// 2. CARRUSEL
+// Lógica Carrusel
 function initCarousel() {
-  const carouselItems = document.querySelectorAll(".carousel-item");
-  const indicators = document.querySelectorAll(".indicator");
-  const prevBtn = document.getElementById("carousel-prev");
-  const nextBtn = document.getElementById("carousel-next");
-  let currentSlide = 0;
-  let autoPlayInterval;
+  const items = document.querySelectorAll(".carousel-item");
+  const dots = document.querySelectorAll(".indicator");
+  const prev = document.getElementById("carousel-prev");
+  const next = document.getElementById("carousel-next");
+  let curr = 0;
+  let interval;
 
-  function showSlide(index) {
-    carouselItems.forEach(item => item.classList.remove("active"));
-    indicators.forEach(ind => ind.classList.remove("active"));
-    if(carouselItems[index]) {
-      carouselItems[index].classList.add("active");
-      indicators[index].classList.add("active");
-      currentSlide = index;
+  function show(i) {
+    items.forEach(el => el.classList.remove("active"));
+    dots.forEach(el => el.classList.remove("active"));
+    if(items[i]) {
+      items[i].classList.add("active");
+      dots[i].classList.add("active");
+      curr = i;
     }
   }
 
-  function nextSlide() { showSlide((currentSlide + 1) % carouselItems.length); }
-  function prevSlide() { showSlide((currentSlide - 1 + carouselItems.length) % carouselItems.length); }
+  function auto() { interval = setInterval(() => show((curr + 1) % items.length), 5000); }
+  function reset() { clearInterval(interval); auto(); }
 
-  if(nextBtn) nextBtn.addEventListener("click", () => { nextSlide(); resetAutoPlay(); });
-  if(prevBtn) prevBtn.addEventListener("click", () => { prevSlide(); resetAutoPlay(); });
-  indicators.forEach((ind, i) => ind.addEventListener("click", () => { showSlide(i); resetAutoPlay(); }));
-
-  function startAutoPlay() { autoPlayInterval = setInterval(nextSlide, 5000); }
-  function resetAutoPlay() { clearInterval(autoPlayInterval); startAutoPlay(); }
+  if(next) next.addEventListener("click", () => { show((curr + 1) % items.length); reset(); });
+  if(prev) prev.addEventListener("click", () => { show((curr - 1 + items.length) % items.length); reset(); });
   
-  startAutoPlay();
+  auto();
 }
 
-// 3. FORMULARIO
+// Lógica Formulario
 function initFormulario() {
   const form = document.getElementById("reservation-form");
-  const horaSelect = document.getElementById("horaReservacion");
-  const parqueSelect = document.getElementById("parque");
   const dateInput = document.getElementById("date");
+  const parqueSelect = document.getElementById("parque");
+  const horaSelect = document.getElementById("horaReservacion");
 
-  async function actualizarHorarios() {
-    const fecha = dateInput.value;
-    const parque = parqueSelect.value;
-    if (!fecha || !parque) return;
+  async function checkHorarios() {
+    if(!dateInput.value || !parqueSelect.value) return;
     try {
-      const apiUrl = window.API_BASE_URL || "/api"; 
-      const res = await fetch(`${apiUrl}/reservations/horarios-ocupados?fechaServicio=${fecha}&parque=${parque}`);
+      const apiUrl = window.API_BASE_URL || "/api";
+      const res = await fetch(`${apiUrl}/reservations/horarios-ocupados?fechaServicio=${dateInput.value}&parque=${parqueSelect.value}`);
       const data = await res.json();
       const ocupados = data.horariosOcupados || [];
+      
       horaSelect.querySelectorAll("option").forEach(opt => {
         if(opt.value) {
           opt.disabled = ocupados.includes(opt.value);
           opt.textContent = ocupados.includes(opt.value) ? `${opt.value} (Ocupado)` : opt.value;
         }
       });
-    } catch (err) { console.error(err); }
+    } catch(e) { console.error(e); }
   }
 
-  if(dateInput) dateInput.addEventListener("change", actualizarHorarios);
-  if(parqueSelect) parqueSelect.addEventListener("change", actualizarHorarios);
+  if(dateInput) dateInput.addEventListener("change", checkHorarios);
+  if(parqueSelect) parqueSelect.addEventListener("change", checkHorarios);
 
   if(form) {
     form.addEventListener("submit", async (e) => {
@@ -120,68 +105,57 @@ function initFormulario() {
       btn.disabled = true; btn.textContent = "Enviando...";
       
       const formData = new FormData(form);
-      const datos = Object.fromEntries(formData.entries());
-      if(!datos.tipoEvento) datos.tipoEvento = datos.paquete;
+      const data = Object.fromEntries(formData.entries());
+      if(!data.tipoEvento) data.tipoEvento = data.paquete;
 
       try {
         if(typeof crearReserva === 'function') {
-          await crearReserva(datos);
-          Swal.fire("¡Éxito!", "Tu reserva ha sido enviada.", "success");
+          await crearReserva(data);
+          Swal.fire("¡Éxito!", "Reserva enviada correctamente", "success");
           form.reset();
-          actualizarHorarios();
+          checkHorarios();
         }
-      } catch (err) {
-        Swal.fire("Error", "No se pudo crear la reserva.", "error");
-      } finally {
-        btn.disabled = false; btn.textContent = txt;
-      }
+      } catch(e) { Swal.fire("Error", "No se pudo enviar", "error"); } 
+      finally { btn.disabled = false; btn.textContent = txt; }
     });
   }
 }
 
-// 4. CONFIGURACIÓN BARBA.JS (Animación Profesional)
+// CONFIGURACIÓN BARBA.JS (Animación)
 document.addEventListener("DOMContentLoaded", () => {
-  
   if (typeof gsap !== 'undefined' && typeof barba !== 'undefined') {
     
-    // Configurar posición inicial de la cortina
+    // Posición inicial de la cortina (escondida abajo)
     gsap.set(".transition-overlay", { y: "100%" });
 
     barba.init({
       sync: true,
       transitions: [{
-        name: 'page-transition',
-        
-        // AL SALIR (La cortina sube y tapa todo)
+        name: 'default-transition',
+        // AL SALIR: Sube la cortina
         leave(data) {
-          return gsap.timeline()
-            .to(data.current.container, { opacity: 0, duration: 0.5 })
-            .to(".transition-overlay", { 
-              y: "0%", 
-              duration: 0.8, 
-              ease: "power4.inOut" 
-            }, "-=0.5");
+          return gsap.to(".transition-overlay", {
+            y: "0%",
+            duration: 0.6,
+            ease: "power2.inOut"
+          });
         },
-
-        // AL ENTRAR (La cortina baja y revela lo nuevo)
+        // AL ENTRAR: Baja la cortina hacia arriba (revelando contenido)
         enter(data) {
-          initApp(); // Reiniciar JS
-          window.scrollTo(0, 0);
+          initApp(); // Importante: Reiniciar JS
+          window.scrollTo(0, 0); // Subir scroll
           
-          return gsap.timeline()
-            .from(data.next.container, { opacity: 0, duration: 0.5 })
-            .to(".transition-overlay", { 
-              y: "-100%", 
-              duration: 0.8, 
-              ease: "power4.inOut" 
-            }, "-=0.5");
+          return gsap.to(".transition-overlay", {
+            y: "-100%",
+            duration: 1,
+            ease: "power2.inOut",
+            delay: 0.2 // Pequeña pausa para que cargue
+          });
         }
       }]
     });
-  } else {
-    console.warn("GSAP/Barba no cargados.");
   }
-
+  
   // Carga inicial
   initApp();
 });
