@@ -1,4 +1,6 @@
 // admin.js - Panel administrativo BRINCAPARK
+const API = window.API_BASE_URL || "http://localhost:4000/api"; 
+console.log("Admin conectando a:", API);
 
 // Estado global
 let adminSecret = sessionStorage.getItem("adminSecret") || "";
@@ -18,25 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Eventos de botones
-  document
-    .getElementById("login-form")
-    ?.addEventListener("submit", handleLogin);
-  document
-    .getElementById("logout-btn")
-    ?.addEventListener("click", handleLogout);
+  document.getElementById("login-form")?.addEventListener("submit", handleLogin);
+  document.getElementById("logout-btn")?.addEventListener("click", handleLogout);
   document.getElementById("refresh-btn")?.addEventListener("click", () => {
     console.log("Actualizando datos...");
     cargarReservas();
   });
-  document
-    .getElementById("notifications-btn")
-    ?.addEventListener("click", mostrarNotificaciones);
-  document
-    .getElementById("export-pdf-btn")
-    ?.addEventListener("click", exportarPDF);
-  document
-    .getElementById("export-excel-btn")
-    ?.addEventListener("click", exportarExcel);
+  document.getElementById("notifications-btn")?.addEventListener("click", mostrarNotificaciones);
+  document.getElementById("export-pdf-btn")?.addEventListener("click", exportarPDF);
+  document.getElementById("export-excel-btn")?.addEventListener("click", exportarExcel);
 
   // Navegación entre secciones de dashboard
   document.querySelectorAll(".nav-item[data-section]").forEach((item) => {
@@ -55,9 +47,7 @@ function cambiarSeccion(seccion) {
   document.querySelectorAll(".nav-item").forEach((item) => {
     item.classList.remove("active");
   });
-  document
-    .querySelector(`.nav-item[data-section="${seccion}"]`)
-    ?.classList.add("active");
+  document.querySelector(`.nav-item[data-section="${seccion}"]`)?.classList.add("active");
 
   document.querySelectorAll(".content-section").forEach((section) => {
     section.classList.add("hidden");
@@ -66,14 +56,10 @@ function cambiarSeccion(seccion) {
 
   if (seccion === "reportes") {
     setTimeout(() => {
-      renderAdvancedMetrics();
-      // Renderizar top clientes y análisis de cancelaciones
-      if (typeof renderizarTopClientes === 'function') {
-        renderizarTopClientes();
-      }
-      if (typeof renderizarAnalisisCancelaciones === 'function') {
-        renderizarAnalisisCancelaciones();
-      }
+      // Verificar que las funciones existan antes de ejecutarlas
+      if (typeof renderAdvancedMetrics === 'function') renderAdvancedMetrics();
+      if (typeof renderizarTopClientes === 'function') renderizarTopClientes();
+      if (typeof renderizarAnalisisCancelaciones === 'function') renderizarAnalisisCancelaciones();
     }, 100);
   }
 }
@@ -102,7 +88,8 @@ async function handleLogin(e) {
   submitBtn.textContent = "Verificando...";
 
   try {
-    const response = await fetch("http://localhost:4000/api/admin/reservas", {
+    // CORRECCIÓN: Usar API en lugar de localhost
+    const response = await fetch(`${API}/admin/reservas`, {
       headers: { "x-admin-secret": secret },
     });
 
@@ -148,7 +135,7 @@ async function handleLogin(e) {
  * Cerrar sesión
  */
 function handleLogout(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
   adminSecret = "";
   sessionStorage.removeItem("adminSecret");
   reservas = [];
@@ -177,13 +164,18 @@ function mostrarDashboard() {
 async function cargarReservas() {
   try {
     console.log("Cargando reservas...");
-    const response = await fetch("http://localhost:4000/api/admin/reservas", {
+    // CORRECCIÓN: Usar API en lugar de localhost
+    const response = await fetch(`${API}/admin/reservas`, {
       headers: { "x-admin-secret": adminSecret },
     });
 
     if (!response.ok) {
       console.error(`Error HTTP: ${response.status}`);
-      // NO borrar las reservas existentes si falla
+      // Si el error es de autenticación, cerrar sesión
+      if (response.status === 401 || response.status === 403) {
+        handleLogout();
+        return;
+      }
       renderizarTodo();
       return;
     }
@@ -192,7 +184,6 @@ async function cargarReservas() {
 
     if (!Array.isArray(data)) {
       console.error("Respuesta no es un array:", data);
-      // NO borrar las reservas existentes
       renderizarTodo();
       return;
     }
@@ -204,8 +195,6 @@ async function cargarReservas() {
     renderizarTodo();
   } catch (err) {
     console.error("Error cargando reservas:", err);
-    // NO borrar las reservas existentes en caso de error
-    // Solo re-renderizar con los datos que ya tenemos
     renderizarTodo();
   }
 }
@@ -216,81 +205,17 @@ async function cargarReservas() {
 async function renderizarTodo() {
   console.log("Renderizando dashboard con", reservas.length, "reservas");
 
-  try {
-    await renderStats();
-    console.log("Stats renderizadas");
-  } catch (e) {
-    console.error("Error en renderStats:", e);
-  }
+  try { await renderStats(); } catch (e) { console.error("Error en renderStats:", e); }
+  try { renderTable(); } catch (e) { console.error("Error en renderTable:", e); }
+  try { renderGraph(); } catch (e) { console.error("Error en renderGraph:", e); }
+  try { renderCalendar(); } catch (e) { console.error("Error en renderCalendar:", e); }
+  try { updateNotifications(); } catch (e) { console.error("Error en updateNotifications:", e); }
 
-  try {
-    renderTable();
-    console.log("Tabla renderizada");
-  } catch (e) {
-    console.error("Error en renderTable:", e);
-  }
-
-  try {
-    renderGraph();
-    console.log("Gráfica renderizada");
-  } catch (e) {
-    console.error("Error en renderGraph:", e);
-  }
-
-  try {
-    renderCalendar();
-    console.log("Calendario renderizado");
-  } catch (e) {
-    console.error("Error en renderCalendar:", e);
-  }
-
-  try {
-    updateNotifications();
-    console.log("Notificaciones actualizadas");
-  } catch (e) {
-    console.error("Error en updateNotifications:", e);
-  }
-
-  // Renderizar métricas adicionales si la función existe
-  try {
-    if (typeof renderizarMetricasAdicionales === 'function') {
-      renderizarMetricasAdicionales();
-      console.log("Métricas adicionales renderizadas");
-    }
-  } catch (e) {
-    console.error("Error en renderizarMetricasAdicionales:", e);
-  }
-
-  // Renderizar gráficas avanzadas si las funciones existen
-  try {
-    if (typeof renderizarGraficaIngresosMensuales === 'function') {
-      renderizarGraficaIngresosMensuales();
-      console.log("Gráfica de ingresos mensuales renderizada");
-    }
-  } catch (e) {
-    console.error("Error en renderizarGraficaIngresosMensuales:", e);
-  }
-
-  try {
-    if (typeof renderizarGraficaTipoEvento === 'function') {
-      renderizarGraficaTipoEvento();
-      console.log("Gráfica de tipo de evento renderizada");
-    }
-  } catch (e) {
-    console.error("Error en renderizarGraficaTipoEvento:", e);
-  }
-
-  // Renderizar gráfica de parques (dona) si la función existe
-  try {
-    if (typeof renderizarGraficaParques === 'function') {
-      renderizarGraficaParques();
-      console.log("Gráfica de parques renderizada");
-    }
-  } catch (e) {
-    console.error("Error en renderizarGraficaParques:", e);
-  }
-
-  console.log("Dashboard renderizado completamente");
+  // Renderizar gráficas externas si existen
+  if (typeof renderizarMetricasAdicionales === 'function') renderizarMetricasAdicionales();
+  if (typeof renderizarGraficaIngresosMensuales === 'function') renderizarGraficaIngresosMensuales();
+  if (typeof renderizarGraficaTipoEvento === 'function') renderizarGraficaTipoEvento();
+  if (typeof renderizarGraficaParques === 'function') renderizarGraficaParques();
 }
 
 /**
@@ -298,9 +223,7 @@ async function renderizarTodo() {
  */
 async function renderStats() {
   const total = reservas.length;
-  let maracaibo = 0,
-    caracas = 0,
-    puntofijo = 0;
+  let maracaibo = 0, caracas = 0, puntofijo = 0;
 
   // Contar reservas por parque
   reservas.forEach((r) => {
@@ -309,11 +232,12 @@ async function renderStats() {
     if (r.parque === "Punto Fijo") puntofijo++;
   });
 
-  // Obtener ingresos correctos del backend (calcula según día de semana y config)
+  // Obtener ingresos correctos del backend
   let dinero = 0;
   let moneda = "$";
   try {
-    const res = await fetch("http://localhost:4000/api/reservations/analytics/stats", {
+    // CORRECCIÓN: Usar API en lugar de localhost
+    const res = await fetch(`${API}/reservations/analytics/stats`, {
       headers: { "x-admin-secret": adminSecret },
     });
     if (res.ok) {
@@ -363,23 +287,10 @@ function renderTable() {
       }
     }
 
-    // filtro por parque
-    if (filtroParque && r.parque !== filtroParque) {
-      return false;
-    }
-
-    // filtro por estado
-    if (filtroEstado && r.estadoReserva !== filtroEstado) {
-      return false;
-    }
-
-    // filtro por rango de fechas
-    if (filtroFechaDesde && r.fechaServicio < filtroFechaDesde) {
-      return false;
-    }
-    if (filtroFechaHasta && r.fechaServicio > filtroFechaHasta) {
-      return false;
-    }
+    if (filtroParque && r.parque !== filtroParque) return false;
+    if (filtroEstado && r.estadoReserva !== filtroEstado) return false;
+    if (filtroFechaDesde && r.fechaServicio < filtroFechaDesde) return false;
+    if (filtroFechaHasta && r.fechaServicio > filtroFechaHasta) return false;
 
     return true;
   });
@@ -388,16 +299,11 @@ function renderTable() {
   updateResultsCounter(reservasFiltradas.length, reservas.length);
 
   // Mostrar mensaje si no hay resultados
-
   if (reservasFiltradas.length === 0) {
     tbody.innerHTML = `
       <tr>
         <td colspan="9" style="text-align: center; padding: 2rem; color: #6B7280;">
-          ${
-            reservas.length === 0
-              ? "No hay reservas registradas"
-              : "No se encontraron reservas con los filtros aplicados"
-          }
+          ${reservas.length === 0 ? "No hay reservas registradas" : "No se encontraron reservas con los filtros aplicados"}
         </td>
       </tr>
     `;
@@ -411,15 +317,11 @@ function renderTable() {
       <td><div style="font-weight: 600;">${r.nombreCompleto || "N/A"}</div></td>
       <td>
         <div style="font-size: 0.85rem;">${r.correo || "N/A"}</div>
-        <div style="font-size: 0.85rem; color: #6B7280;">${
-          r.telefono || "N/A"
-        }</div>
+        <div style="font-size: 0.85rem; color: #6B7280;">${r.telefono || "N/A"}</div>
       </td>
       <td>${r.fechaServicio || "N/A"}</td>
       <td>${r.horaReservacion || "N/A"}</td>
-      <td><span style="font-weight: 600; color: #7C3AED;">${
-        r.parque || "No especificado"
-      }</span></td>
+      <td><span style="font-weight: 600; color: #7C3AED;">${r.parque || "No especificado"}</span></td>
       <td>${r.paquete || "N/A"}</td>
       <td>${r.tipoEvento || "N/A"}</td>
       <td>
@@ -430,15 +332,9 @@ function renderTable() {
         ? "background: #D1FAE5; color: #065F46;"
         : "background: #FEE2E2; color: #991B1B;"
     }">
-          <option value="pendiente" ${
-            r.estadoReserva === "pendiente" ? "selected" : ""
-          }>Pendiente</option>
-          <option value="aprobado" ${
-            r.estadoReserva === "aprobado" ? "selected" : ""
-          }>Aprobado</option>
-          <option value="cancelado" ${
-            r.estadoReserva === "cancelado" ? "selected" : ""
-          }>Cancelado</option>
+          <option value="pendiente" ${r.estadoReserva === "pendiente" ? "selected" : ""}>Pendiente</option>
+          <option value="aprobado" ${r.estadoReserva === "aprobado" ? "selected" : ""}>Aprobado</option>
+          <option value="cancelado" ${r.estadoReserva === "cancelado" ? "selected" : ""}>Cancelado</option>
         </select>
       </td>
       <td>
@@ -469,18 +365,11 @@ function updateResultsCounter(filtered, total) {
  * Limpiar todos los filtros
  */
 function clearAllFilters() {
-  const searchInput = document.getElementById("search-input");
-  const filtroParque = document.getElementById("filtro-parque");
-  const filtroEstado = document.getElementById("filtro-estado");
-  const filtroFechaDesde = document.getElementById("filtro-fecha-desde");
-  const filtroFechaHasta = document.getElementById("filtro-fecha-hasta");
-
-  if (searchInput) searchInput.value = "";
-  if (filtroParque) filtroParque.value = "";
-  if (filtroEstado) filtroEstado.value = "";
-  if (filtroFechaDesde) filtroFechaDesde.value = "";
-  if (filtroFechaHasta) filtroFechaHasta.value = "";
-
+  const inputs = ["search-input", "filtro-parque", "filtro-estado", "filtro-fecha-desde", "filtro-fecha-hasta"];
+  inputs.forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.value = "";
+  });
   renderTable();
 }
 
@@ -494,8 +383,9 @@ function attachTableEventListeners() {
       const id = sel.dataset.id;
       const estado = sel.value;
       try {
+        // CORRECCIÓN: Usar API en lugar de localhost
         const res = await fetch(
-          `http://localhost:4000/api/reservations/${id}/estado`,
+          `${API}/admin/reservas/${id}/estado`,
           {
             method: "PUT",
             headers: {
@@ -531,8 +421,9 @@ function attachTableEventListeners() {
 
       if (result.isConfirmed) {
         try {
+          // CORRECCIÓN: Usar API en lugar de localhost
           const res = await fetch(
-            `http://localhost:4000/api/reservations/${id}`,
+            `${API}/admin/reservas/${id}`,
             {
               method: "DELETE",
               headers: { "x-admin-secret": adminSecret },
@@ -568,75 +459,47 @@ function attachTableEventListeners() {
           <div style="text-align: left; padding: 1rem; max-height: 500px; overflow-y: auto;">
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nombre:</label>
-              <input id="edit-nombre" class="swal2-input" style="width: 90%; margin: 0;" value="${
-                reserva.nombreCompleto
-              }">
+              <input id="edit-nombre" class="swal2-input" style="width: 90%; margin: 0;" value="${reserva.nombreCompleto}">
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Correo:</label>
-              <input id="edit-correo" type="email" class="swal2-input" style="width: 90%; margin: 0;" value="${
-                reserva.correo
-              }">
+              <input id="edit-correo" type="email" class="swal2-input" style="width: 90%; margin: 0;" value="${reserva.correo}">
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Teléfono:</label>
-              <input id="edit-telefono" type="tel" class="swal2-input" style="width: 90%; margin: 0;" value="${
-                reserva.telefono
-              }">
+              <input id="edit-telefono" type="tel" class="swal2-input" style="width: 90%; margin: 0;" value="${reserva.telefono}">
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Fecha:</label>
-              <input id="edit-fecha" type="date" class="swal2-input" style="width: 90%; margin: 0;" value="${
-                reserva.fechaServicio
-              }">
+              <input id="edit-fecha" type="date" class="swal2-input" style="width: 90%; margin: 0;" value="${reserva.fechaServicio}">
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Hora:</label>
               <select id="edit-hora" class="swal2-input" style="width: 90%; margin: 0;">
-                <option value="10am-1pm" ${
-                  reserva.horaReservacion === "10am-1pm" ? "selected" : ""
-                }>10am - 1pm</option>
-                <option value="2pm-5pm" ${
-                  reserva.horaReservacion === "2pm-5pm" ? "selected" : ""
-                }>2pm - 5pm</option>
-                <option value="6pm-9pm" ${
-                  reserva.horaReservacion === "6pm-9pm" ? "selected" : ""
-                }>6pm - 9pm</option>
+                <option value="10am-1pm" ${reserva.horaReservacion === "10am-1pm" ? "selected" : ""}>10am - 1pm</option>
+                <option value="2pm-5pm" ${reserva.horaReservacion === "2pm-5pm" ? "selected" : ""}>2pm - 5pm</option>
+                <option value="6pm-9pm" ${reserva.horaReservacion === "6pm-9pm" ? "selected" : ""}>6pm - 9pm</option>
               </select>
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Parque:</label>
               <select id="edit-parque" class="swal2-input" style="width: 90%; margin: 0;">
-                <option value="Maracaibo" ${
-                  reserva.parque === "Maracaibo" ? "selected" : ""
-                }>Maracaibo</option>
-                <option value="Caracas" ${
-                  reserva.parque === "Caracas" ? "selected" : ""
-                }>Caracas</option>
-                <option value="Punto Fijo" ${
-                  reserva.parque === "Punto Fijo" ? "selected" : ""
-                }>Punto Fijo</option>
+                <option value="Maracaibo" ${reserva.parque === "Maracaibo" ? "selected" : ""}>Maracaibo</option>
+                <option value="Caracas" ${reserva.parque === "Caracas" ? "selected" : ""}>Caracas</option>
+                <option value="Punto Fijo" ${reserva.parque === "Punto Fijo" ? "selected" : ""}>Punto Fijo</option>
               </select>
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Paquete:</label>
               <select id="edit-paquete" class="swal2-input" style="width: 90%; margin: 0;">
-                <option value="mini" ${
-                  reserva.paquete === "mini" ? "selected" : ""
-                }>Mini</option>
-                <option value="mediano" ${
-                  reserva.paquete === "mediano" ? "selected" : ""
-                }>Mediano</option>
-                <option value="full" ${
-                  reserva.paquete === "full" ? "selected" : ""
-                }>Full</option>
+                <option value="mini" ${reserva.paquete === "mini" ? "selected" : ""}>Mini</option>
+                <option value="mediano" ${reserva.paquete === "mediano" ? "selected" : ""}>Mediano</option>
+                <option value="full" ${reserva.paquete === "full" ? "selected" : ""}>Full</option>
               </select>
             </div>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Tipo de Evento:</label>
-              <input id="edit-evento" class="swal2-input" style="width: 90%; margin: 0;" value="${
-                reserva.tipoEvento || ""
-              }">
+              <input id="edit-evento" class="swal2-input" style="width: 90%; margin: 0;" value="${reserva.tipoEvento || ""}">
             </div>
           </div>
         `,
@@ -663,13 +526,14 @@ function attachTableEventListeners() {
 
       if (formValues) {
         try {
+          // CORRECCIÓN: Usar API en lugar de localhost
           const res = await fetch(
-            `http://localhost:4000/api/reservations/${id}`,
+            `${API}/reservations/${id}`,
             {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
-                "x-admin-secret": adminSecret,
+                // "x-admin-secret": adminSecret, // Si tu backend protege esta ruta, descomenta esto
               },
               body: JSON.stringify(formValues),
             }
@@ -691,7 +555,7 @@ function attachTableEventListeners() {
     });
   });
 
-  // Event listeners para búsqueda y filtros (solo añadir una vez)
+  // Event listeners para búsqueda y filtros
   const searchInput = document.getElementById("search-input");
   const filtroParque = document.getElementById("filtro-parque");
   const filtroEstado = document.getElementById("filtro-estado");
@@ -699,32 +563,26 @@ function attachTableEventListeners() {
   const filtroFechaHasta = document.getElementById("filtro-fecha-hasta");
   const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
-  // Remover listeners anteriores si existen
   if (searchInput && !searchInput.dataset.listenerAttached) {
     searchInput.addEventListener("input", renderTable);
     searchInput.dataset.listenerAttached = "true";
   }
-
   if (filtroParque && !filtroParque.dataset.listenerAttached) {
     filtroParque.addEventListener("change", renderTable);
     filtroParque.dataset.listenerAttached = "true";
   }
-
   if (filtroEstado && !filtroEstado.dataset.listenerAttached) {
     filtroEstado.addEventListener("change", renderTable);
     filtroEstado.dataset.listenerAttached = "true";
   }
-
   if (filtroFechaDesde && !filtroFechaDesde.dataset.listenerAttached) {
     filtroFechaDesde.addEventListener("change", renderTable);
     filtroFechaDesde.dataset.listenerAttached = "true";
   }
-
   if (filtroFechaHasta && !filtroFechaHasta.dataset.listenerAttached) {
     filtroFechaHasta.addEventListener("change", renderTable);
     filtroFechaHasta.dataset.listenerAttached = "true";
   }
-
   if (clearFiltersBtn && !clearFiltersBtn.dataset.listenerAttached) {
     clearFiltersBtn.addEventListener("click", clearAllFilters);
     clearFiltersBtn.dataset.listenerAttached = "true";
@@ -735,19 +593,12 @@ function attachTableEventListeners() {
  * Renderizar gráfica principal de reservas
  */
 function renderGraph() {
-  // Destruir solo si existe
-  if (
-    window.reservasChart &&
-    typeof window.reservasChart.destroy === "function"
-  ) {
+  if (window.reservasChart && typeof window.reservasChart.destroy === "function") {
     window.reservasChart.destroy();
   }
 
   const canvas = document.getElementById("reservasChart");
-  if (!canvas) {
-    console.warn("Canvas reservasChart no encontrado");
-    return;
-  }
+  if (!canvas) return;
 
   const ctx = canvas.getContext("2d");
   window.reservasChart = new Chart(ctx, {
@@ -783,25 +634,9 @@ function renderGraph() {
  */
 function renderCalendar() {
   const calendarWidget = document.getElementById("calendar-widget");
-  if (!calendarWidget) {
-    console.warn("Calendario widget no encontrado");
-    return;
-  }
+  if (!calendarWidget) return;
 
-  const monthNames = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 
   const firstDay = new Date(currentYear, currentMonth, 1);
@@ -829,22 +664,14 @@ function renderCalendar() {
   });
 
   for (let x = firstDayIndex; x > 0; x--) {
-    html += `<div class="calendar-day other-month">${
-      prevLastDayDate - x + 1
-    }</div>`;
+    html += `<div class="calendar-day other-month">${prevLastDayDate - x + 1}</div>`;
   }
 
   const today = new Date();
   for (let i = 1; i <= lastDayDate; i++) {
-    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(
-      2,
-      "0"
-    )}-${String(i).padStart(2, "0")}`;
+    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2,"0")}-${String(i).padStart(2, "0")}`;
     const hasReservation = reservas.some((r) => r.fechaServicio === dateStr);
-    const isToday =
-      i === today.getDate() &&
-      currentMonth === today.getMonth() &&
-      currentYear === today.getFullYear();
+    const isToday = i === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
 
     let classes = "calendar-day";
     if (hasReservation) classes += " has-reservation";
@@ -886,17 +713,13 @@ function showDayReservations(dateStr) {
     return;
   }
 
-  const html = dayReservations
-    .map(
-      (r) => `
+  const html = dayReservations.map((r) => `
     <div style="text-align: left; padding: 1rem; border: 1px solid #E5E7EB; border-radius: 8px; margin-bottom: 0.5rem;">
       <strong>${r.nombreCompleto}</strong><br>
       <small>${r.parque} - ${r.horaReservacion}</small><br>
       <small>Paquete: ${r.paquete}</small>
     </div>
-  `
-    )
-    .join("");
+  `).join("");
 
   Swal.fire({
     title: `Reservas del ${dateStr}`,
@@ -906,13 +729,8 @@ function showDayReservations(dateStr) {
   });
 }
 
-/**
- * Actualizar notificaciones
- */
 function updateNotifications() {
-  const pendientes = reservas.filter(
-    (r) => r.estadoReserva === "pendiente"
-  ).length;
+  const pendientes = reservas.filter((r) => r.estadoReserva === "pendiente").length;
   const badge = document.getElementById("notification-count");
   if (badge) {
     badge.textContent = pendientes;
@@ -920,9 +738,6 @@ function updateNotifications() {
   }
 }
 
-/**
- * Mostrar notificaciones
- */
 function mostrarNotificaciones() {
   const pendientes = reservas.filter((r) => r.estadoReserva === "pendiente");
 
@@ -936,17 +751,13 @@ function mostrarNotificaciones() {
     return;
   }
 
-  const html = pendientes
-    .map(
-      (r) => `
+  const html = pendientes.map((r) => `
     <div style="text-align: left; padding: 1rem; border: 1px solid #FEF3C7; background: #FFFBEB; border-radius: 8px; margin-bottom: 0.5rem;">
       <strong>${r.nombreCompleto}</strong><br>
       <small>${r.fechaServicio} - ${r.horaReservacion}</small><br>
       <small>${r.parque} - ${r.paquete}</small>
     </div>
-  `
-    )
-    .join("");
+  `).join("");
 
   Swal.fire({
     title: `${pendientes.length} Reservas Pendientes`,
@@ -956,9 +767,6 @@ function mostrarNotificaciones() {
   });
 }
 
-/**
- * Exportar a PDF las reservas
- */
 function exportarPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -990,9 +798,6 @@ function exportarPDF() {
   doc.save(`BRINCAPARK_Reservas_${new Date().toISOString().split("T")[0]}.pdf`);
 }
 
-/**
- * Exportar a Excel las reservas
- */
 function exportarExcel() {
   const data = reservas.map((r) => ({
     Cliente: r.nombreCompleto,
@@ -1015,119 +820,6 @@ function exportarExcel() {
   );
 }
 
-/**
- * Renderizar métricas avanzadas de la sección de reportes
- */
-function renderAdvancedMetrics() {
-  console.log("📊 Renderizando métricas avanzadas...");
-  setTimeout(() => {
-    renderMonthlyChart();
-    renderParksComparison();
-  }, 100);
-}
-
-function renderMonthlyChart() {
-  // Destruir solo si existe
-  if (
-    window.monthlyChart &&
-    typeof window.monthlyChart.destroy === "function"
-  ) {
-    window.monthlyChart.destroy();
-  }
-
-  const canvas = document.getElementById("monthlyChart");
-  if (!canvas) {
-    console.warn("Canvas monthlyChart no encontrado");
-    return;
-  }
-
-  const ctx = canvas.getContext("2d");
-
-  const monthlyData = {};
-  reservas.forEach((r) => {
-    const month = r.fechaServicio.substring(0, 7);
-    monthlyData[month] = (monthlyData[month] || 0) + 1;
-  });
-
-  const labels = Object.keys(monthlyData).sort();
-  const data = labels.map((l) => monthlyData[l]);
-
-  window.monthlyChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels.length > 0 ? labels : ["Sin datos"],
-      datasets: [
-        {
-          label: "Reservas por Mes",
-          data: data.length > 0 ? data : [0],
-          borderColor: "#7C3AED",
-          backgroundColor: "rgba(124, 58, 237, 0.1)",
-          tension: 0.4,
-          fill: true,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: { legend: { display: false } },
-    },
-  });
-}
-
-function renderParksComparison() {
-  // Destruir solo si existe
-  if (window.parksChart && typeof window.parksChart.destroy === "function") {
-    window.parksChart.destroy();
-  }
-
-  const canvas = document.getElementById("parksComparisonChart");
-  if (!canvas) {
-    console.warn("Canvas parksComparisonChart no encontrado");
-    return;
-  }
-
-  const ctx = canvas.getContext("2d");
-
-  window.parksChart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: ["Maracaibo", "Caracas", "Punto Fijo"],
-      datasets: [
-        {
-          data: [
-            reservas.filter((r) => r.parque === "Maracaibo").length,
-            reservas.filter((r) => r.parque === "Caracas").length,
-            reservas.filter((r) => r.parque === "Punto Fijo").length,
-          ],
-          backgroundColor: ["#7C3AED", "#A78BFA", "#C4B5FD"],
-          borderWidth: 2,
-          borderColor: "#fff",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: { legend: { position: "bottom" } },
-    },
-  });
-}
-
 // Funciones globales
 window.changeMonth = changeMonth;
 window.showDayReservations = showDayReservations;
-
-// Integración con funcionalidades finales
-// Llamar a actualizar notificaciones y renderizar gráfica cuando se cargan datos
-if (typeof actualizarContadorNotificaciones === 'function') {
-  // Actualizar notificaciones cada vez que se renderizan datos
-  const renderizarTodoOriginal = window.renderizarTodo || renderizarTodo;
-  window.renderizarTodo = function() {
-    if (renderizarTodoOriginal) renderizarTodoOriginal();
-    actualizarContadorNotificaciones();
-    if (typeof renderizarGraficaParques === 'function') {
-      renderizarGraficaParques();
-    }
-  };
-}
