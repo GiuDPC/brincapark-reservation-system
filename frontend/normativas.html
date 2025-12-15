@@ -1,659 +1,592 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Normativas y políticas de BRINCAPARK - Información completa para tu evento"
-    />
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
-    <title>Normativas y Políticas - BRINCAPARK</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/index.css" />
-    <link rel="stylesheet" href="./assets/css/normativas.css" />
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar">
-      <div class="navbar-container">
-        <div class="navbar-logo">
-          <img src="./assets/img/Logo.png" alt="BRINCAPARK" />
-          <div class="menu-toggle" id="mobile-menu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Normativas y políticas de BRINCAPARK - Información completa para tu evento" />
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+  <title>Normativas y Políticas - BRINCAPARK</title>
+
+  <!-- CSS con cache-busting -->
+  <link rel="stylesheet" href="./assets/css/index.css?v=2.0" />
+  <link rel="stylesheet" href="./assets/css/normativas.css?v=2.0" />
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <img src="./assets/img/Logo.png" alt="BRINCAPARK" />
+        <div class="menu-toggle" id="mobile-menu">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
-          </div>
-          <span>BRINCAPARK</span>
         </div>
-
-        <ul class="navbar-menu">
-          <li><a href="index.html#inicio">Inicio</a></li>
-          <li><a href="index.html#tickeria">Tickeria</a></li>
-          <li><a href="index.html#paquetes">Paquetes de fiesta</a></li>
-          <li><a href="index.html#reservas">Reservas</a></li>
-          <li><a href="normativas.html" class="active">Normativas</a></li>
-          <li><a href="index.html#contacto">Contactanos</a></li>
-        </ul>
+        <span>BRINCAPARK</span>
       </div>
-    </nav>
 
-    <!-- HERO SECTION -->
-    <section class="normativas-hero">
-      <div class="normativas-hero-container">
-        <div class="normativas-hero-content">
-          <h1>NORMATIVAS Y POLÍTICAS</h1>
-          <p>
-            Toda la información que necesitas saber para disfrutar de tu evento
-            en BRINCAPARK
-          </p>
-        </div>
-      </div>
-    </section>
+      <ul class="navbar-menu">
+        <li><a href="index.html#inicio">Inicio</a></li>
+        <li><a href="index.html#tickeria">Tickeria</a></li>
+        <li><a href="index.html#paquetes">Paquetes de fiesta</a></li>
+        <li><a href="index.html#reservas">Reservas</a></li>
+        <li><a href="normativas.html" class="active">Normativas</a></li>
+        <li><a href="index.html#contacto">Contactanos</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- NAVEGACIÓN RAPIDA -->
-    <section class="quick-nav">
-      <div class="quick-nav-container">
-        <a href="#normativas-generales" class="quick-nav-item">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            ></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-          </svg>
-          <span>Normativas Generales</span>
-        </a>
-        <a href="#cronograma-actividades" class="quick-nav-item">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          <span>Cronograma de Actividades</span>
-        </a>
-        <a href="#servicio-bebidas" class="quick-nav-item">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-            <line x1="6" y1="1" x2="6" y2="4"></line>
-            <line x1="10" y1="1" x2="10" y2="4"></line>
-            <line x1="14" y1="1" x2="14" y2="4"></line>
-          </svg>
-          <span>Servicio de Bebidas</span>
-        </a>
-        <a href="#normativas-decoradores" class="quick-nav-item">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-            <line x1="7" y1="7" x2="7.01" y2="7"></line>
-          </svg>
-          <span>Normativas Decoradores</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- NORMATIVAS GENERALES -->
-    <section id="normativas-generales" class="normativas-section">
-      <div class="normativas-container">
-        <div class="section-title">
-          <h2>NORMATIVAS GENERALES</h2>
-        </div>
-
-        <div class="normativas-grid">
-          <!-- El cliente DEBE traer -->
-          <div class="normativa-card card-success">
-            <div class="normativa-header">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <h3>El cliente DEBE traer</h3>
-            </div>
-            <ul class="normativa-list">
-              <li>
-                <strong>Desechables:</strong> Pasapalos, hielo y bebidas
-                adicionales (platos, servilletas, vasos, entre otros)
-              </li>
-              <li>
-                Los pasapalos salados deben venir previamente preparados y
-                listos para servir (el salón cuenta con microondas)
-              </li>
-              <li>Torta, pastelería, golosinas y piñata</li>
-            </ul>
-          </div>
-
-          <!-- El cliente NO debe traer -->
-          <div class="normativa-card card-danger">
-            <div class="normativa-header">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="15" y1="9" x2="9" y2="15"></line>
-                <line x1="9" y1="9" x2="15" y2="15"></line>
-              </svg>
-              <h3>El cliente NO debe traer</h3>
-            </div>
-            <ul class="normativa-list">
-              <li>
-                Carros de perros calientes, máquinas procesadoras de agua,
-                burbujas o espuma
-              </li>
-              <li>Chicles, chupetas con chicles, papelillos en las piñatas</li>
-              <li>
-                Velas de fuego frío, helados, bebidas alcohólicas, refrescos,
-                fuentes de chocolate, chapas
-              </li>
-              <li>Centros de mesa con papel crepé o seda</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Información Importante -->
-        <div class="info-box info-warning">
-          <div class="info-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-              ></path>
-              <line x1="12" y1="9" x2="12" y2="13"></line>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-          </div>
-          <div class="info-content">
-            <h4>Importante</h4>
-            <p>
-              Todo lo relacionado al evento (decoración, piñata, centros de
-              mesa, cotillones, chucherías) tiene permitido un único ingreso, el
-              día del evento en el horario de 8:30 a.m. - 9:30 a.m. por la zona
-              de carga (Pasillo Lidotel).
-            </p>
-            <p>
-              La entrega de la torta, pasapalos y pastelería puede realizarse 1
-              hora antes del evento, o coordinarse para el horario de recepción
-              general de materiales.
-            </p>
-            <p>
-              El cliente es responsable de traer todos los desechables para
-              servir.
-            </p>
-          </div>
-        </div>
-
-        <!-- Reglas Adicionales -->
-        <div class="rules-grid">
-          <div class="rule-item">
-            <div class="rule-icon">🚫</div>
-            <p>
-              No está permitido pegar ni clavar cosas sobre las paredes. Toda
-              decoración debe ser bajo permisología.
-            </p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">💧</div>
-            <p>No se permiten máquinas que destilen agua.</p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">❄️</div>
-            <p>No disponemos de neveras ni refrigeradoras.</p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">👟</div>
-            <p>
-              Por seguridad e higiene no se permiten juegos con calzados ni de
-              explotar globos.
-            </p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">🎵</div>
-            <p>
-              En el salón, se permite la música que el cliente desee, siempre
-              que no contenga letras obscenas ni vulgares.
-            </p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">⏰</div>
-            <p>
-              Los invitados tendrán acceso al parque y salón de fiestas 5
-              minutos antes de iniciar el evento.
-            </p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">🎭</div>
-            <p>
-              En caso de contar con show de personajes, decorador u otro
-              servicio externo, debe presentar sus datos (nombres, ingresos,
-              mobiliario) con un mínimo de tres días antes del evento.
-            </p>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">📏</div>
-            <p>
-              <strong>Estatura Máxima 140 cm.</strong> Obligatorio niños y
-              adultos deben usar medias.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CRONOGRAMA DE ACTIVIDADES -->
-    <section id="cronograma-actividades" class="normativas-section alt-bg">
-      <div class="normativas-container">
-        <div class="section-title">
-          <h2>CRONOGRAMA DE ACTIVIDADES</h2>
-        </div>
-
-        <p class="section-subtitle">
-          Cronograma de actividades a realizar durante el evento
+  <!-- HERO SECTION -->
+  <section class="normativas-hero">
+    <div class="normativas-hero-container">
+      <div class="normativas-hero-content">
+        <h1>NORMATIVAS Y POLÍTICAS</h1>
+        <p>
+          Toda la información que necesitas saber para disfrutar de tu evento
+          en BRINCAPARK
         </p>
+      </div>
+    </div>
+  </section>
 
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="timeline-time">1era hora</div>
-              <div class="timeline-subtime">Ej: 2:00 p.m. a 2:40 p.m.</div>
-            </div>
-            <div class="timeline-content">
-              <h4>Recepción y bienvenida del cumpleañero y sus invitados</h4>
-              <p>Pinta Caritas</p>
-            </div>
-          </div>
+  <!-- NAVEGACIÓN RAPIDA -->
+  <section class="quick-nav">
+    <div class="quick-nav-container">
+      <a href="#normativas-generales" class="quick-nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        <span>Normativas Generales</span>
+      </a>
+      <a href="#cronograma-actividades" class="quick-nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>Cronograma de Actividades</span>
+      </a>
+      <a href="#servicio-bebidas" class="quick-nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+        <span>Servicio de Bebidas</span>
+      </a>
+      <a href="#normativas-decoradores" class="quick-nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+          <line x1="7" y1="7" x2="7.01" y2="7"></line>
+        </svg>
+        <span>Normativas Decoradores</span>
+      </a>
+    </div>
+  </section>
 
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="timeline-time">1era y 2da hora</div>
-              <div class="timeline-subtime">Ej: 2:41 p.m. a 3:20 p.m.</div>
-            </div>
-            <div class="timeline-content">
-              <h4>Presentación, animación, juegos</h4>
-              <ul>
-                <li>Rompe hielo</li>
-                <li>Rifas (de haber)</li>
-                <li>Show con el personaje</li>
-                <li>Animación</li>
-                <li>Juegos Rompe Hielo</li>
-                <li>Rifas (de haber)</li>
-              </ul>
-            </div>
-          </div>
+  <!-- NORMATIVAS GENERALES -->
+  <section id="normativas-generales" class="normativas-section">
+    <div class="normativas-container">
+      <div class="section-title">
+        <h2>NORMATIVAS GENERALES</h2>
+      </div>
 
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="timeline-time">2:40 p.m. en adelante</div>
-            </div>
-            <div class="timeline-content">
-              <h4>Se inicia a servir comida y bebidas</h4>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="timeline-time">2da hora</div>
-              <div class="timeline-subtime">Ej: 3:40 p.m. a 4:00 p.m.</div>
-            </div>
-            <div class="timeline-content">
-              <h4>Animación y partida de piñata</h4>
-              <p>Se continúan sirviendo comida y bebidas</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="timeline-time">3era hora</div>
-              <div class="timeline-subtime">Ej: 4:30 p.m. a 5:00 p.m.</div>
-            </div>
-            <div class="timeline-content">
-              <h4>Llega el momento más especial, cantar el cumpleaños</h4>
-              <p>Se corta y reparte la torta</p>
-              <p>Culmina el evento</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="info-box info-primary">
-          <div class="info-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-              ></path>
-              <circle cx="12" cy="10" r="3"></circle>
+      <div class="normativas-grid">
+        <!-- El cliente DEBE traer -->
+        <div class="normativa-card card-success">
+          <div class="normativa-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
+            <h3>El cliente DEBE traer</h3>
           </div>
-          <div class="info-content">
-            <h4>Acceso y diversión en el parque</h4>
-            <p>
-              ¡Acceso y diversión en el parque durante las tres horas del
-              evento!
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICIO DE BEBIDAS Y PASAPALOS -->
-    <section id="servicio-bebidas" class="normativas-section">
-      <div class="normativas-container">
-        <div class="section-title">
-          <h2>CRONOGRAMA DE SERVICIO</h2>
+          <ul class="normativa-list">
+            <li>
+              <strong>Desechables:</strong> Pasapalos, hielo y bebidas
+              adicionales (platos, servilletas, vasos, entre otros)
+            </li>
+            <li>
+              Los pasapalos salados deben venir previamente preparados y
+              listos para servir (el salón cuenta con microondas)
+            </li>
+            <li>Torta, pastelería, golosinas y piñata</li>
+          </ul>
         </div>
 
-        <p class="section-subtitle">Bebidas y Pasapalos</p>
-
-        <div class="service-timeline">
-          <div class="service-item">
-            <div class="service-time">
-              <div class="time-label">Inicio del Evento</div>
-              <div class="time-value">2:00 p.m. a 2:20 p.m.</div>
-            </div>
-            <div class="service-description">
-              <p>Primera ronda de refrescos.</p>
-            </div>
-          </div>
-
-          <div class="service-item">
-            <div class="service-time">
-              <div class="time-label">Primera ronda</div>
-              <div class="time-value">2:30 p.m. a 2:45 p.m.</div>
-            </div>
-            <div class="service-description">
-              <p>Primera ronda de pasapalos (cantidad según invitados).</p>
-            </div>
-          </div>
-
-          <div class="service-item">
-            <div class="service-time">
-              <div class="time-label">Segunda ronda</div>
-              <div class="time-value">3:20 p.m. a 4:00 p.m.</div>
-            </div>
-            <div class="service-description">
-              <p>
-                Se sigue repartiendo pasapalos según indicaciones del cliente.
-                Entrega de bowls de cotufas (según paquete).
-              </p>
-            </div>
-          </div>
-
-          <div class="service-item">
-            <div class="service-time">
-              <div class="time-label">Culminación</div>
-              <div class="time-value">4:00 p.m. a 4:30 p.m.</div>
-            </div>
-            <div class="service-description">
-              <p>Culminación con la última ronda de pasapalos.</p>
-            </div>
-          </div>
-
-          <div class="service-item">
-            <div class="service-time">
-              <div class="time-label">Preparación torta</div>
-              <div class="time-value">4:30 p.m. a 4:50 p.m.</div>
-            </div>
-            <div class="service-description">
-              <p>
-                Preparación de utensilios para cortar la torta (cuchillo,
-                bandeja, guantes, encendedor).
-              </p>
-              <p>Última ronda de refrescos acompañada de la torta.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NORMATIVAS PARA DECORADORES -->
-    <section id="normativas-decoradores" class="normativas-section alt-bg">
-      <div class="normativas-container">
-        <div class="section-title">
-          <h2>NORMATIVAS PARA DECORADORES</h2>
-        </div>
-
-        <div class="decorator-rules">
-          <div class="decorator-card">
-            <div class="decorator-icon">⏰</div>
-            <h4>Horarios de Montaje</h4>
-            <p>
-              Los decoradores disponen de una hora antes del evento para el
-              montaje. Si no hay un evento previo, este tiempo puede extenderse
-              con una planificación de uno o dos días de anticipación.
-            </p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">👥</div>
-            <h4>Límite de Personas</h4>
-            <p>Máximo 3 personas para decorar dentro del salón de fiesta.</p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">📋</div>
-            <h4>Registro Obligatorio</h4>
-            <p>
-              Facilita nombres, cédulas y descripción del mobiliario para
-              permisos (con anticipación).
-            </p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">📏</div>
-            <h4>Uso de Medias</h4>
-            <p>
-              El uso de medias para los decoradores es obligatorio al ingresar
-              al parque.
-            </p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">🎫</div>
-            <h4>Ticket de Entrada</h4>
-            <p>
-              Si el decorador lleva niños al parque mientras trabaja, debe
-              cancelar su ticket de entrada en la taquilla.
-            </p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">🚪</div>
-            <h4>Ingreso de Material</h4>
-            <p>
-              El ingreso del material es por la zona de carga (Pasillo Lidotel),
-              en el horario de 8:30 a.m. a 9:30 a.m.
-            </p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">🚚</div>
-            <h4>Salida de Mobiliario</h4>
-            <p>
-              La salida del mobiliario debe ser el mismo día del evento, en el
-              horario comprendido entre las 9:00 p.m. y 9:30 p.m.
-            </p>
-          </div>
-
-          <div class="decorator-card">
-            <div class="decorator-icon">⏱️</div>
-            <h4>Cumplimiento de Horarios</h4>
-            <p>
-              Decoradores y servicios externos deben respetar y cumplir con los
-              horarios de ingreso y salida acordados.
-            </p>
-          </div>
-        </div>
-
-        <!-- Prohibiciones -->
-        <div class="info-box info-danger">
-          <div class="info-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
+        <!-- El cliente NO debe traer -->
+        <div class="normativa-card card-danger">
+          <div class="normativa-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="15" y1="9" x2="9" y2="15"></line>
               <line x1="9" y1="9" x2="15" y2="15"></line>
             </svg>
+            <h3>El cliente NO debe traer</h3>
           </div>
-          <div class="info-content">
-            <h4>¡No está permitido!</h4>
+          <ul class="normativa-list">
+            <li>
+              Carros de perros calientes, máquinas procesadoras de agua,
+              burbujas o espuma
+            </li>
+            <li>Chicles, chupetas con chicles, papelillos en las piñatas</li>
+            <li>
+              Velas de fuego frío, helados, bebidas alcohólicas, refrescos,
+              fuentes de chocolate, chapas
+            </li>
+            <li>Centros de mesa con papel crepé o seda</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Información Importante -->
+      <div class="info-box info-warning">
+        <div class="info-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </div>
+        <div class="info-content">
+          <h4>Importante</h4>
+          <p>
+            Todo lo relacionado al evento (decoración, piñata, centros de
+            mesa, cotillones, chucherías) tiene permitido un único ingreso, el
+            día del evento en el horario de 8:30 a.m. - 9:30 a.m. por la zona
+            de carga (Pasillo Lidotel).
+          </p>
+          <p>
+            La entrega de la torta, pasapalos y pastelería puede realizarse 1
+            hora antes del evento, o coordinarse para el horario de recepción
+            general de materiales.
+          </p>
+          <p>
+            El cliente es responsable de traer todos los desechables para
+            servir.
+          </p>
+        </div>
+      </div>
+
+      <!-- Reglas Adicionales -->
+      <div class="rules-grid">
+        <div class="rule-item">
+          <div class="rule-icon">🚫</div>
+          <p>
+            No está permitido pegar ni clavar cosas sobre las paredes. Toda
+            decoración debe ser bajo permisología.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">💧</div>
+          <p>No se permiten máquinas que destilen agua.</p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">❄️</div>
+          <p>No disponemos de neveras ni refrigeradoras.</p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">👟</div>
+          <p>
+            Por seguridad e higiene no se permiten juegos con calzados ni de
+            explotar globos.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">🎵</div>
+          <p>
+            En el salón, se permite la música que el cliente desee, siempre
+            que no contenga letras obscenas ni vulgares.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">⏰</div>
+          <p>
+            Los invitados tendrán acceso al parque y salón de fiestas 5
+            minutos antes de iniciar el evento.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">🎭</div>
+          <p>
+            En caso de contar con show de personajes, decorador u otro
+            servicio externo, debe presentar sus datos (nombres, ingresos,
+            mobiliario) con un mínimo de tres días antes del evento.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">📏</div>
+          <p>
+            <strong>Estatura Máxima 140 cm.</strong> Obligatorio niños y
+            adultos deben usar medias.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRONOGRAMA DE ACTIVIDADES -->
+  <section id="cronograma-actividades" class="normativas-section alt-bg">
+    <div class="normativas-container">
+      <div class="section-title">
+        <h2>CRONOGRAMA DE ACTIVIDADES</h2>
+      </div>
+
+      <p class="section-subtitle">
+        Cronograma de actividades a realizar durante el evento
+      </p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="timeline-time">1era hora</div>
+            <div class="timeline-subtime">Ej: 2:00 p.m. a 2:40 p.m.</div>
+          </div>
+          <div class="timeline-content">
+            <h4>Recepción y bienvenida del cumpleañero y sus invitados</h4>
+            <p>Pinta Caritas</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="timeline-time">1era y 2da hora</div>
+            <div class="timeline-subtime">Ej: 2:41 p.m. a 3:20 p.m.</div>
+          </div>
+          <div class="timeline-content">
+            <h4>Presentación, animación, juegos</h4>
             <ul>
-              <li>
-                Pintar, pegar cinta adhesiva, clavar o usar abrillantador de
-                globos en nuestros espacios, paredes, mesas o sillas.
-              </li>
-              <li>
-                Prohibido usar abrillantador, el piso queda resbaloso y los
-                niños pueden caerse con facilidad.
-              </li>
+              <li>Rompe hielo</li>
+              <li>Rifas (de haber)</li>
+              <li>Show con el personaje</li>
+              <li>Animación</li>
+              <li>Juegos Rompe Hielo</li>
+              <li>Rifas (de haber)</li>
             </ul>
           </div>
         </div>
 
-        <!-- Responsabilidades -->
-        <div class="responsibility-box">
-          <h4>Responsabilidades del Decorador</h4>
-          <ul>
-            <li>
-              Los decoradores deben traer todos sus materiales; la empresa no se
-              hace responsable por trabajos externos.
-            </li>
-            <li>
-              El traslado del mobiliario y la utilería es exclusivamente
-              responsabilidad del decorador, no del personal de BRINCAPARK.
-            </li>
-            <li>
-              Los decoradores deben limpiar, ordenar y retirar todos los
-              residuos y materiales utilizados.
-            </li>
-            <li>
-              Prohibido el uso de papel crepé o seda en centros de mesa y otras
-              decoraciones en las mesas.
-            </li>
-          </ul>
-        </div>
-
-        <div class="height-restriction">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <line x1="12" y1="20" x2="12" y2="10"></line>
-            <line x1="18" y1="20" x2="6" y2="20"></line>
-            <polyline points="8 14 12 10 16 14"></polyline>
-          </svg>
-          <p>
-            <strong>Estatura Máxima 140 cm.</strong> Obligatorio niños y adultos
-            deben usar medias
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CALL TO ACTION -->
-    <section class="cta-section">
-      <div class="cta-container">
-        <h2>¿Listo para reservar tu evento?</h2>
-        <p>
-          Ahora que conoces todas nuestras normativas, ¡es momento de hacer tu
-          reserva!
-        </p>
-        <a href="index.html#reservas" class="cta-button">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          Hacer mi reserva
-        </a>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contacto" class="footer">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="./assets/img/Logo.png" alt="BRINCAPARK" />
-          <div class="footer_section--brand">
-            <h2>BRINCAPARK</h2>
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="timeline-time">2:40 p.m. en adelante</div>
+          </div>
+          <div class="timeline-content">
+            <h4>Se inicia a servir comida y bebidas</h4>
           </div>
         </div>
 
-        <div class="footer-section">
-          <h3>Contactos</h3>
-          <p>Teléfono: (0212) BRINCA</p>
-          <p>Email: info@brincapark.com</p>
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="timeline-time">2da hora</div>
+            <div class="timeline-subtime">Ej: 3:40 p.m. a 4:00 p.m.</div>
+          </div>
+          <div class="timeline-content">
+            <h4>Animación y partida de piñata</h4>
+            <p>Se continúan sirviendo comida y bebidas</p>
+          </div>
         </div>
 
-        <div class="footer-section">
-          <h3>Redes sociales</h3>
-          <a href="https://instagram.com" target="_blank">Instagram</a>
-          <a href="https://facebook.com" target="_blank">Facebook</a>
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="timeline-time">3era hora</div>
+            <div class="timeline-subtime">Ej: 4:30 p.m. a 5:00 p.m.</div>
+          </div>
+          <div class="timeline-content">
+            <h4>Llega el momento más especial, cantar el cumpleaños</h4>
+            <p>Se corta y reparte la torta</p>
+            <p>Culmina el evento</p>
+          </div>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <p>©2025 BRINCAPARK. Todos los derechos reservados.</p>
+      <div class="info-box info-primary">
+        <div class="info-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        </div>
+        <div class="info-content">
+          <h4>Acceso y diversión en el parque</h4>
+          <p>
+            ¡Acceso y diversión en el parque durante las tres horas del
+            evento!
+          </p>
+        </div>
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <!-- Scripts -->
-    <script src="./assets/js/main.js"></script>
-  </body>
+  <!-- SERVICIO DE BEBIDAS Y PASAPALOS -->
+  <section id="servicio-bebidas" class="normativas-section">
+    <div class="normativas-container">
+      <div class="section-title">
+        <h2>CRONOGRAMA DE SERVICIO</h2>
+      </div>
+
+      <p class="section-subtitle">Bebidas y Pasapalos</p>
+
+      <div class="service-timeline">
+        <div class="service-item">
+          <div class="service-time">
+            <div class="time-label">Inicio del Evento</div>
+            <div class="time-value">2:00 p.m. a 2:20 p.m.</div>
+          </div>
+          <div class="service-description">
+            <p>Primera ronda de refrescos.</p>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-time">
+            <div class="time-label">Primera ronda</div>
+            <div class="time-value">2:30 p.m. a 2:45 p.m.</div>
+          </div>
+          <div class="service-description">
+            <p>Primera ronda de pasapalos (cantidad según invitados).</p>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-time">
+            <div class="time-label">Segunda ronda</div>
+            <div class="time-value">3:20 p.m. a 4:00 p.m.</div>
+          </div>
+          <div class="service-description">
+            <p>
+              Se sigue repartiendo pasapalos según indicaciones del cliente.
+              Entrega de bowls de cotufas (según paquete).
+            </p>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-time">
+            <div class="time-label">Culminación</div>
+            <div class="time-value">4:00 p.m. a 4:30 p.m.</div>
+          </div>
+          <div class="service-description">
+            <p>Culminación con la última ronda de pasapalos.</p>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-time">
+            <div class="time-label">Preparación torta</div>
+            <div class="time-value">4:30 p.m. a 4:50 p.m.</div>
+          </div>
+          <div class="service-description">
+            <p>
+              Preparación de utensilios para cortar la torta (cuchillo,
+              bandeja, guantes, encendedor).
+            </p>
+            <p>Última ronda de refrescos acompañada de la torta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NORMATIVAS PARA DECORADORES -->
+  <section id="normativas-decoradores" class="normativas-section alt-bg">
+    <div class="normativas-container">
+      <div class="section-title">
+        <h2>NORMATIVAS PARA DECORADORES</h2>
+      </div>
+
+      <div class="decorator-rules">
+        <div class="decorator-card">
+          <div class="decorator-icon">⏰</div>
+          <h4>Horarios de Montaje</h4>
+          <p>
+            Los decoradores disponen de una hora antes del evento para el
+            montaje. Si no hay un evento previo, este tiempo puede extenderse
+            con una planificación de uno o dos días de anticipación.
+          </p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">👥</div>
+          <h4>Límite de Personas</h4>
+          <p>Máximo 3 personas para decorar dentro del salón de fiesta.</p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">📋</div>
+          <h4>Registro Obligatorio</h4>
+          <p>
+            Facilita nombres, cédulas y descripción del mobiliario para
+            permisos (con anticipación).
+          </p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">📏</div>
+          <h4>Uso de Medias</h4>
+          <p>
+            El uso de medias para los decoradores es obligatorio al ingresar
+            al parque.
+          </p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">🎫</div>
+          <h4>Ticket de Entrada</h4>
+          <p>
+            Si el decorador lleva niños al parque mientras trabaja, debe
+            cancelar su ticket de entrada en la taquilla.
+          </p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">🚪</div>
+          <h4>Ingreso de Material</h4>
+          <p>
+            El ingreso del material es por la zona de carga (Pasillo Lidotel),
+            en el horario de 8:30 a.m. a 9:30 a.m.
+          </p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">🚚</div>
+          <h4>Salida de Mobiliario</h4>
+          <p>
+            La salida del mobiliario debe ser el mismo día del evento, en el
+            horario comprendido entre las 9:00 p.m. y 9:30 p.m.
+          </p>
+        </div>
+
+        <div class="decorator-card">
+          <div class="decorator-icon">⏱️</div>
+          <h4>Cumplimiento de Horarios</h4>
+          <p>
+            Decoradores y servicios externos deben respetar y cumplir con los
+            horarios de ingreso y salida acordados.
+          </p>
+        </div>
+      </div>
+
+      <!-- Prohibiciones -->
+      <div class="info-box info-danger">
+        <div class="info-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+        </div>
+        <div class="info-content">
+          <h4>¡No está permitido!</h4>
+          <ul>
+            <li>
+              Pintar, pegar cinta adhesiva, clavar o usar abrillantador de
+              globos en nuestros espacios, paredes, mesas o sillas.
+            </li>
+            <li>
+              Prohibido usar abrillantador, el piso queda resbaloso y los
+              niños pueden caerse con facilidad.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Responsabilidades -->
+      <div class="responsibility-box">
+        <h4>Responsabilidades del Decorador</h4>
+        <ul>
+          <li>
+            Los decoradores deben traer todos sus materiales; la empresa no se
+            hace responsable por trabajos externos.
+          </li>
+          <li>
+            El traslado del mobiliario y la utilería es exclusivamente
+            responsabilidad del decorador, no del personal de BRINCAPARK.
+          </li>
+          <li>
+            Los decoradores deben limpiar, ordenar y retirar todos los
+            residuos y materiales utilizados.
+          </li>
+          <li>
+            Prohibido el uso de papel crepé o seda en centros de mesa y otras
+            decoraciones en las mesas.
+          </li>
+        </ul>
+      </div>
+
+      <div class="height-restriction">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="20" x2="12" y2="10"></line>
+          <line x1="18" y1="20" x2="6" y2="20"></line>
+          <polyline points="8 14 12 10 16 14"></polyline>
+        </svg>
+        <p>
+          <strong>Estatura Máxima 140 cm.</strong> Obligatorio niños y adultos
+          deben usar medias
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2>¿Listo para reservar tu evento?</h2>
+      <p>
+        Ahora que conoces todas nuestras normativas, ¡es momento de hacer tu
+        reserva!
+      </p>
+      <a href="index.html#reservas" class="cta-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        Hacer mi reserva
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contacto" class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="./assets/img/Logo.png" alt="BRINCAPARK" />
+        <div class="footer_section--brand">
+          <h2>BRINCAPARK</h2>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contactos</h3>
+        <p>Teléfono: (0212) BRINCA</p>
+        <p>Email: info@brincapark.com</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Redes sociales</h3>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©2025 BRINCAPARK. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./assets/js/main.js"></script>
+</body>
+
 </html>
