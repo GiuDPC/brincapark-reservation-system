@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const openBtn = document.getElementById('open-sidebar');
   const closeBtn = document.getElementById('close-sidebar');
 
-  if(openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('active'));
-  if(closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+  if (openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('active'));
+  if (closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
 
   // Eventos de botones
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
@@ -35,10 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("refresh-btn")?.addEventListener("click", () => {
     // Animación de refresco
     const icon = document.querySelector("#refresh-btn svg");
-    if(icon) {
-        icon.style.transition = "transform 0.5s ease";
-        icon.style.transform = "rotate(360deg)";
-        setTimeout(() => icon.style.transform = "none", 500);
+    if (icon) {
+      icon.style.transition = "transform 0.5s ease";
+      icon.style.transform = "rotate(360deg)";
+      setTimeout(() => icon.style.transform = "none", 500);
     }
     console.log("Actualizando datos...");
     cargarReservas();
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const section = item.dataset.section;
       cambiarSeccion(section);
-      
+
       // Cierre automático del menú en móvil al navegar
       if (window.innerWidth <= 1024 && sidebar) {
         sidebar.classList.remove('active');
@@ -82,6 +82,9 @@ function cambiarSeccion(seccion) {
       if (typeof renderAdvancedMetrics === 'function') renderAdvancedMetrics();
       if (typeof renderizarTopClientes === 'function') renderizarTopClientes();
       if (typeof renderizarAnalisisCancelaciones === 'function') renderizarAnalisisCancelaciones();
+      // Gráficas de la sección Métricas Avanzadas
+      if (typeof renderizarGraficaMensual === 'function') renderizarGraficaMensual();
+      if (typeof renderizarComparativaParques === 'function') renderizarComparativaParques();
     }, 100);
   }
 }
@@ -301,10 +304,10 @@ function renderTable() {
       const nombre = (r.nombreCompleto || "").toLowerCase();
       const telefono = (r.telefono || "").toLowerCase();
       const email = (r.correo || "").toLowerCase();
-      
-      if (!nombre.includes(searchTerm) && 
-          !telefono.includes(searchTerm) && 
-          !email.includes(searchTerm)) {
+
+      if (!nombre.includes(searchTerm) &&
+        !telefono.includes(searchTerm) &&
+        !email.includes(searchTerm)) {
         return false;
       }
     }
@@ -347,13 +350,12 @@ function renderTable() {
       <td>${r.paquete || "N/A"}</td>
       <td>${r.tipoEvento || "N/A"}</td>
       <td>
-        <select data-id="${r._id}" class="estado-select" style="${
-      r.estadoReserva === "pendiente"
+        <select data-id="${r._id}" class="estado-select" style="${r.estadoReserva === "pendiente"
         ? "background: #FEF3C7; color: #92400E;"
         : r.estadoReserva === "aprobado"
-        ? "background: #D1FAE5; color: #065F46;"
-        : "background: #FEE2E2; color: #991B1B;"
-    }">
+          ? "background: #D1FAE5; color: #065F46;"
+          : "background: #FEE2E2; color: #991B1B;"
+      }">
           <option value="pendiente" ${r.estadoReserva === "pendiente" ? "selected" : ""}>Pendiente</option>
           <option value="aprobado" ${r.estadoReserva === "aprobado" ? "selected" : ""}>Aprobado</option>
           <option value="cancelado" ${r.estadoReserva === "cancelado" ? "selected" : ""}>Cancelado</option>
@@ -378,7 +380,7 @@ function renderTable() {
 function updateResultsCounter(filtered, total) {
   const resultsCount = document.getElementById("results-count");
   const totalCount = document.getElementById("total-count");
-  
+
   if (resultsCount) resultsCount.textContent = filtered;
   if (totalCount) totalCount.textContent = total;
 }
@@ -389,8 +391,8 @@ function updateResultsCounter(filtered, total) {
 function clearAllFilters() {
   const inputs = ["search-input", "filtro-parque", "filtro-estado", "filtro-fecha-desde", "filtro-fecha-hasta"];
   inputs.forEach(id => {
-      const el = document.getElementById(id);
-      if(el) el.value = "";
+    const el = document.getElementById(id);
+    if (el) el.value = "";
   });
   renderTable();
 }
@@ -404,10 +406,10 @@ function attachTableEventListeners() {
     sel.addEventListener("change", async (e) => {
       const id = sel.dataset.id;
       const estado = sel.value;
-      
+
       // Feedback visual: Deshabilitar mientras carga
       sel.disabled = true;
-      
+
       try {
         // CORRECCIÓN CRÍTICA: Ruta correcta para cambiar estado (/reservas/:id/estado)
         const res = await fetch(
@@ -424,7 +426,7 @@ function attachTableEventListeners() {
         if (res.ok) {
           // Éxito: recargar para ver cambios (colores, etc)
           cargarReservas();
-          
+
           // Toast de éxito (Opcional, pero se ve bien)
           const Toast = Swal.mixin({
             toast: true,
@@ -434,16 +436,16 @@ function attachTableEventListeners() {
             timerProgressBar: true,
           });
           Toast.fire({ icon: 'success', title: 'Estado actualizado' });
-          
+
         } else {
-            throw new Error("Falló actualización");
+          throw new Error("Falló actualización");
         }
       } catch (err) {
         console.error("Error:", err);
         Swal.fire({
-             text: "No se pudo actualizar el estado",
-             icon: "error",
-             confirmButtonColor: "#7C3AED",
+          text: "No se pudo actualizar el estado",
+          icon: "error",
+          confirmButtonColor: "#7C3AED",
         });
         sel.disabled = false; // Reactivar si falló
         sel.value = reservas.find(r => r._id === id).estadoReserva; // Volver al valor anterior
@@ -711,9 +713,8 @@ function renderCalendar() {
   });
 
   for (let x = firstDayIndex; x > 0; x--) {
-    html += `<div class="calendar-day other-month">${
-      prevLastDayDate - x + 1
-    }</div>`;
+    html += `<div class="calendar-day other-month">${prevLastDayDate - x + 1
+      }</div>`;
   }
 
   const today = new Date();

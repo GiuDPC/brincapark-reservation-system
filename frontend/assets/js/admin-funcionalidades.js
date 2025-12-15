@@ -46,14 +46,14 @@ async function guardarConfiguracionEnBackend(config) {
 // Inicializar formulario de configuración con valores del backend
 async function inicializarConfiguracion() {
   const config = await cargarConfiguracionDesdeBackend();
-  
+
   // Cargar moneda y tasa
   const monedaSelect = document.getElementById("moneda-select");
   const tasaBcv = document.getElementById("tasa-bcv");
-  
+
   if (monedaSelect) monedaSelect.value = config.moneda;
   if (tasaBcv) tasaBcv.value = config.tasaBCV;
-  
+
   // Cargar precios de tickets
   const tickets = {
     "ticket-15min": config.tickets.min15,
@@ -62,12 +62,12 @@ async function inicializarConfiguracion() {
     "ticket-fullday": config.tickets.fullday,
     "ticket-combo": config.tickets.combo
   };
-  
+
   for (const [id, valor] of Object.entries(tickets)) {
     const elem = document.getElementById(id);
     if (elem) elem.value = valor;
   }
-  
+
   // Cargar precios de paquetes
   const paquetes = {
     "mini-lunes": config.paquetes.mini.lunes,
@@ -77,7 +77,7 @@ async function inicializarConfiguracion() {
     "full-lunes": config.paquetes.full.lunes,
     "full-viernes": config.paquetes.full.viernes
   };
-  
+
   for (const [id, valor] of Object.entries(paquetes)) {
     const elem = document.getElementById(id);
     if (elem) elem.value = valor;
@@ -111,10 +111,21 @@ async function guardarConfiguracionDesdeFormulario() {
       }
     }
   };
-  
+
   try {
     await guardarConfiguracionEnBackend(config);
-    
+
+    // CORRECCIÓN: Limpiar caché de precios originales para que se recarguen
+    preciosOriginalesUSD = null;
+
+    // CORRECCIÓN: Disparar evento personalizado para notificar a pricing.js
+    window.dispatchEvent(new CustomEvent('configUpdated', { detail: config }));
+
+    // CORRECCIÓN: Forzar recarga inmediata de precios en la página principal (si está cargada)
+    if (typeof window.inicializarPreciosDinamicos === 'function') {
+      window.inicializarPreciosDinamicos();
+    }
+
     if (typeof Swal !== 'undefined') {
       Swal.fire({
         title: "Configuración Guardada",
@@ -152,7 +163,7 @@ async function restaurarConfiguracionDefault() {
         try {
           await guardarConfiguracionEnBackend(PRECIOS_DEFAULT);
           await inicializarConfiguracion();
-          
+
           Swal.fire({
             title: "Restaurado",
             text: "Se han restaurado los valores por defecto",
@@ -180,10 +191,10 @@ async function restaurarConfiguracionDefault() {
 function actualizarContadorNotificaciones() {
   // Verificar si la variable global reservas existe
   if (typeof reservas === 'undefined') return;
-  
+
   const pendientes = reservas.filter(r => r.estadoReserva === "pendiente").length;
   const badge = document.getElementById("notification-count");
-  
+
   if (badge) {
     badge.textContent = pendientes;
     badge.style.display = pendientes > 0 ? "block" : "none";
@@ -194,12 +205,12 @@ function actualizarContadorNotificaciones() {
 function mostrarNotificaciones() {
   const panel = document.getElementById("notifications-panel");
   const lista = document.getElementById("notifications-list");
-  
+
   if (!panel || !lista) return;
-  
+
   // Toggle panel visibility
   panel.classList.toggle("hidden");
-  
+
   if (!panel.classList.contains("hidden")) {
     // Verificar si la variable global reservas existe
     if (typeof reservas === 'undefined') {
@@ -211,10 +222,10 @@ function mostrarNotificaciones() {
       `;
       return;
     }
-    
+
     // Generar lista de notificaciones con reservas pendientes
     const pendientes = reservas.filter(r => r.estadoReserva === "pendiente");
-    
+
     if (pendientes.length === 0) {
       lista.innerHTML = `
         <div class="notification-item">
@@ -232,7 +243,7 @@ function mostrarNotificaciones() {
           <div class="notification-time">Pendiente de aprobación</div>
         </div>
       `).join("");
-      
+
       // Event listeners para cada notificación - al hacer click va a la sección de reservas
       lista.querySelectorAll(".notification-item").forEach(item => {
         item.addEventListener("click", () => {
@@ -255,38 +266,38 @@ let parqueChart = null;
 function renderizarGraficaParques() {
   const canvas = document.getElementById("parque-dona-chart");
   if (!canvas) return;
-  
+
   // Verificar si Chart.js está disponible
   if (typeof Chart === 'undefined') {
     console.error("Chart.js no está cargado");
     return;
   }
-  
+
   // Verificar si la variable global reservas existe
   if (typeof reservas === 'undefined' || reservas.length === 0) {
     return;
   }
-  
+
   const ctx = canvas.getContext("2d");
-  
+
   // Destruir gráfica anterior si existe para evitar duplicados
   if (parqueChart) {
     parqueChart.destroy();
   }
-  
+
   // Contar reservas por parque
   const conteoParques = {
     "Maracaibo": 0,
     "Caracas": 0,
     "Punto Fijo": 0
   };
-  
+
   reservas.forEach(r => {
     if (conteoParques.hasOwnProperty(r.parque)) {
       conteoParques[r.parque]++;
     }
   });
-  
+
   // Crear gráfica de dona
   parqueChart = new Chart(ctx, {
     type: "doughnut",
@@ -327,7 +338,7 @@ function renderizarGraficaParques() {
         },
         tooltip: {
           callbacks: {
-            label: function(context) {
+            label: function (context) {
               const label = context.label || "";
               const value = context.parsed || 0;
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
@@ -381,11 +392,11 @@ function guardarPreciosOriginales() {
 // Convertir precios según moneda seleccionada
 function convertirPrecios(moneda) {
   const tasaBCV = parseFloat(document.getElementById("tasa-bcv")?.value) || 244.65;
-  
+
   if (!preciosOriginalesUSD) {
     guardarPreciosOriginales();
   }
-  
+
   // Si cambiamos a BS, convertir
   if (moneda === "BS") {
     // Convertir tickets
@@ -394,7 +405,7 @@ function convertirPrecios(moneda) {
     document.getElementById("ticket-60min").value = (preciosOriginalesUSD.tickets.min60 * tasaBCV).toFixed(2);
     document.getElementById("ticket-fullday").value = (preciosOriginalesUSD.tickets.fullday * tasaBCV).toFixed(2);
     document.getElementById("ticket-combo").value = (preciosOriginalesUSD.tickets.combo * tasaBCV).toFixed(2);
-    
+
     // Convertir paquetes
     document.getElementById("mini-lunes").value = (preciosOriginalesUSD.paquetes.mini.lunes * tasaBCV).toFixed(2);
     document.getElementById("mini-viernes").value = (preciosOriginalesUSD.paquetes.mini.viernes * tasaBCV).toFixed(2);
@@ -409,7 +420,7 @@ function convertirPrecios(moneda) {
     document.getElementById("ticket-60min").value = preciosOriginalesUSD.tickets.min60;
     document.getElementById("ticket-fullday").value = preciosOriginalesUSD.tickets.fullday;
     document.getElementById("ticket-combo").value = preciosOriginalesUSD.tickets.combo;
-    
+
     document.getElementById("mini-lunes").value = preciosOriginalesUSD.paquetes.mini.lunes;
     document.getElementById("mini-viernes").value = preciosOriginalesUSD.paquetes.mini.viernes;
     document.getElementById("mediano-lunes").value = preciosOriginalesUSD.paquetes.mediano.lunes;
@@ -417,36 +428,36 @@ function convertirPrecios(moneda) {
     document.getElementById("full-lunes").value = preciosOriginalesUSD.paquetes.full.lunes;
     document.getElementById("full-viernes").value = preciosOriginalesUSD.paquetes.full.viernes;
   }
-  
+
   monedaActual = moneda;
 }
 
 // Esperar a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Funcionalidades finales cargadas");
-  
+
   // Event listeners para configuración
   const guardarBtn = document.getElementById("guardar-config-btn");
   const resetBtn = document.getElementById("reset-config-btn");
   const closeNotifBtn = document.getElementById("close-notifications");
   const monedaSelect = document.getElementById("moneda-select");
   const tasaBcvInput = document.getElementById("tasa-bcv");
-  
+
   if (guardarBtn) {
     guardarBtn.addEventListener("click", guardarConfiguracionDesdeFormulario);
   }
-  
+
   if (resetBtn) {
     resetBtn.addEventListener("click", restaurarConfiguracionDefault);
   }
-  
+
   // Event listener para cambio de moneda
   if (monedaSelect) {
     monedaSelect.addEventListener("change", (e) => {
       convertirPrecios(e.target.value);
     });
   }
-  
+
   // Event listener para cambio de tasa BCV
   if (tasaBcvInput) {
     tasaBcvInput.addEventListener("change", () => {
@@ -455,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  
+
   // Event listener para cerrar panel de notificaciones
   if (closeNotifBtn) {
     closeNotifBtn.addEventListener("click", () => {
@@ -463,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (panel) panel.classList.add("hidden");
     });
   }
-  
+
   // Inicializar configuración al hacer click en la sección
   const configNav = document.querySelector('.nav-item[data-section="configuracion"]');
   if (configNav) {
@@ -475,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     });
   }
-  
+
   // Actualizar notificaciones cada 30 segundos si hay reservas
   setInterval(() => {
     if (typeof reservas !== 'undefined') {

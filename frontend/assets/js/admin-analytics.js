@@ -17,10 +17,10 @@ async function renderizarMetricasAdicionales() {
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
       headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    
+
     if (!res.ok) return;
     const stats = await res.json();
-    
+
     let container = document.getElementById("metricas-adicionales");
     if (!container) {
       const statsGrid = document.querySelector(".stats-grid");
@@ -62,9 +62,9 @@ async function renderizarMetricasAdicionales() {
 async function renderizarGraficaIngresosMensuales() {
   try {
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
-        headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    if(!res.ok) return;
+    if (!res.ok) return;
     const data = await res.json();
 
     const canvas = document.getElementById("ingresos-mensuales-chart");
@@ -107,9 +107,9 @@ async function renderizarGraficaIngresosMensuales() {
 async function renderizarGraficaTipoEvento() {
   try {
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
-        headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    if(!res.ok) return;
+    if (!res.ok) return;
     const stats = await res.json();
     const canvas = document.getElementById("tipo-evento-chart");
     if (!canvas) return;
@@ -137,7 +137,7 @@ async function renderizarGraficaTipoEvento() {
 async function renderizarTopClientes() {
   try {
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/top-clients`, {
-        headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
     if (!res.ok) return;
     const clientes = await res.json();
@@ -159,7 +159,7 @@ async function renderizarTopClientes() {
 async function renderizarAnalisisCancelaciones() {
   try {
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/cancellations`, {
-        headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
     if (!res.ok) return;
     const analisis = await res.json();
@@ -191,12 +191,128 @@ function formatearMoneda(valor, moneda) {
   return moneda === "USD" ? `$${valorFormateado}` : `Bs ${valorFormateado}`;
 }
 
+// ==========================================
+// GRÁFICAS FALTANTES DE LA SECCIÓN REPORTES
+// ==========================================
+
+// Variables globales para las gráficas de reportes
+let monthlyReservationsChart = null;
+let parksComparisonChartInstance = null;
+
+// Gráfica de Reservas por Mes (para sección Reportes)
+async function renderizarGraficaMensual() {
+  try {
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
+      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+
+    const canvas = document.getElementById("monthlyChart");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (monthlyReservationsChart) monthlyReservationsChart.destroy();
+
+    monthlyReservationsChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: data.meses,
+        datasets: [{
+          label: "Reservas",
+          data: data.reservas,
+          backgroundColor: "rgba(124, 58, 237, 0.7)",
+          borderColor: "rgba(124, 58, 237, 1)",
+          borderWidth: 1,
+          borderRadius: 6,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, position: "top" },
+          title: { display: false },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
+          }
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error renderizando gráfica mensual:", error);
+  }
+}
+
+// Gráfica Comparativa de Parques (para sección Reportes)
+async function renderizarComparativaParques() {
+  try {
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
+      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+    });
+    if (!res.ok) return;
+    const stats = await res.json();
+
+    const canvas = document.getElementById("parksComparisonChart");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (parksComparisonChartInstance) parksComparisonChartInstance.destroy();
+
+    const parques = Object.keys(stats.porParque || {});
+    const valores = Object.values(stats.porParque || {});
+
+    parksComparisonChartInstance = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: parques,
+        datasets: [{
+          label: "Reservas por Parque",
+          data: valores,
+          backgroundColor: [
+            "rgba(124, 58, 237, 0.7)",  // Morado
+            "rgba(16, 185, 129, 0.7)",  // Verde
+            "rgba(245, 158, 11, 0.7)"   // Naranja
+          ],
+          borderColor: [
+            "rgba(124, 58, 237, 1)",
+            "rgba(16, 185, 129, 1)",
+            "rgba(245, 158, 11, 1)"
+          ],
+          borderWidth: 1,
+          borderRadius: 6,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
+          }
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error renderizando comparativa de parques:", error);
+  }
+}
+
 // EXPORTAR FUNCIONES
 window.renderizarMetricasAdicionales = renderizarMetricasAdicionales;
 window.renderizarGraficaIngresosMensuales = renderizarGraficaIngresosMensuales;
 window.renderizarGraficaTipoEvento = renderizarGraficaTipoEvento;
 window.renderizarTopClientes = renderizarTopClientes;
 window.renderizarAnalisisCancelaciones = renderizarAnalisisCancelaciones;
+window.renderizarGraficaMensual = renderizarGraficaMensual;
+window.renderizarComparativaParques = renderizarComparativaParques;
 
 // CORRECCIÓN CRÍTICA: Conectamos la función con el nombre que busca admin.js
 window.renderAdvancedMetrics = renderizarMetricasAdicionales;

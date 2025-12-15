@@ -10,12 +10,12 @@ async function obtenerConfiguracionPrecios() {
   try {
     // CORRECCIÓN VITAL: Agregamos timestamp (?t=...) para romper el caché
     const urlSinCache = `${API_PRICING}/config/precios?t=${new Date().getTime()}`;
-    
-    const response = await fetch(urlSinCache, { 
-        cache: 'no-store',
-        headers: { 'Pragma': 'no-cache' }
+
+    const response = await fetch(urlSinCache, {
+      cache: 'no-store',
+      headers: { 'Pragma': 'no-cache' }
     });
-    
+
     if (!response.ok) throw new Error("Error al obtener precios");
     const data = await response.json();
     return data;
@@ -75,12 +75,15 @@ function actualizarPreciosUI(config) {
       elemento.textContent = formatearMoneda(paquetes[id], moneda);
     }
   });
-  
+
   console.log("Precios actualizados en pantalla:", moneda);
 }
 
 // Inicializar sistema de precios dinámicos
 async function inicializarPreciosDinamicos() {
+  // Limpiar configuración actual para forzar recarga
+  currentConfig = null;
+
   // Cargar precios iniciales
   const config = await obtenerConfiguracionPrecios();
   if (config) {
@@ -110,6 +113,17 @@ function detenerPreciosDinamicos() {
     pollingInterval = null;
   }
 }
+
+// CORRECCIÓN: Escuchar evento de actualización de configuración
+window.addEventListener('configUpdated', async (event) => {
+  console.log("Evento configUpdated recibido, actualizando precios...");
+  currentConfig = null; // Limpiar caché
+  const config = await obtenerConfiguracionPrecios();
+  if (config) {
+    actualizarPreciosUI(config);
+    console.log("Precios actualizados desde evento configUpdated");
+  }
+});
 
 // Exportar funciones
 window.inicializarPreciosDinamicos = inicializarPreciosDinamicos;
