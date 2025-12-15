@@ -162,12 +162,14 @@ async function guardarConfiguracionDesdeFormulario() {
 
     if (typeof Swal !== 'undefined') {
       Swal.fire({
-        title: "Configuración Guardada",
-        text: "Los cambios se han guardado correctamente. Los precios se actualizarán en la página principal.",
+        title: "¡Configuración Guardada!",
+        text: "Los precios se han actualizado en el servidor. Recarga la página principal para ver los cambios.",
         icon: "success",
         confirmButtonColor: "#7C3AED"
       });
     }
+
+    console.log("Configuración guardada exitosamente:", config);
   } catch (error) {
     if (typeof Swal !== 'undefined') {
       Swal.fire({

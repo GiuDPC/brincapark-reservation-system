@@ -1,6 +1,9 @@
 // pricing.js - Sistema de precios dinámicos para BRINCAPARK
 
-const API_PRICING = window.API_BASE_URL || "http://localhost:4000/api";
+// CORRECCIÓN: Usar la misma lógica de detección de entorno que api.js
+const isLocalPricing = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+const API_PRICING = isLocalPricing ? "http://localhost:4000/api" : "https://brincapark-api.onrender.com/api";
+console.log("Pricing API configurada para:", isLocalPricing ? "Local" : "Producción");
 
 let currentConfig = null;
 let pollingInterval = null;
