@@ -119,11 +119,9 @@ body {
 .btn-primary {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    var(--primary-light) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--primary) 0%,
+      var(--primary-light) 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -208,11 +206,9 @@ body {
 }
 
 .nav-item.active {
-  background: linear-gradient(
-    90deg,
-    rgba(124, 58, 237, 0.1) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(124, 58, 237, 0.1) 0%,
+      transparent 100%);
   color: var(--primary);
   border-left: 3px solid var(--primary);
   font-weight: 600;
@@ -343,10 +339,12 @@ body {
 }
 
 @keyframes ring {
+
   0%,
   100% {
     transform: rotate(0deg);
   }
+
   10%,
   30%,
   50%,
@@ -354,6 +352,7 @@ body {
   90% {
     transform: rotate(-10deg);
   }
+
   20%,
   40%,
   60%,
@@ -382,6 +381,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -442,15 +442,19 @@ body {
 .stat-primary {
   border-color: var(--primary);
 }
+
 .stat-success {
   border-color: var(--success);
 }
+
 .stat-warning {
   border-color: var(--warning);
 }
+
 .stat-info {
   border-color: var(--info);
 }
+
 .stat-purple {
   border-color: var(--purple);
 }
@@ -708,7 +712,8 @@ body {
 /* Tabla de reservas */
 #tabla-reservas {
   width: 100%;
-  min-width: 1000px; /* Ancho mínimo para que todas las columnas se vean bien */
+  min-width: 1000px;
+  /* Ancho mínimo para que todas las columnas se vean bien */
   border-collapse: collapse;
   table-layout: auto;
 }
@@ -733,7 +738,8 @@ body {
 }
 
 #tabla-reservas td {
-  padding: 0.75rem 0.5rem; /* Reducido para ganar espacio */
+  padding: 0.75rem 0.5rem;
+  /* Reducido para ganar espacio */
   border-bottom: 1px solid var(--border);
   font-size: 0.875rem;
   color: var(--text-dark);
@@ -741,14 +747,16 @@ body {
 }
 
 /* Optimizar columnas específicas */
-#tabla-reservas th:nth-child(2), /* Contacto */
+#tabla-reservas th:nth-child(2),
+/* Contacto */
 #tabla-reservas td:nth-child(2) {
   max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabla-reservas th:nth-child(1), /* Cliente */
+#tabla-reservas th:nth-child(1),
+/* Cliente */
 #tabla-reservas td:nth-child(1) {
   max-width: 150px;
   overflow: hidden;
@@ -847,6 +855,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -973,10 +982,12 @@ body {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
@@ -1270,26 +1281,106 @@ body {
 }
 
 /* Menú Admin Móvil */
-.mobile-only { display: none; }
+.mobile-only {
+  display: none;
+}
 
 @media (max-width: 1024px) {
-  .mobile-only { display: flex; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--primary); }
-  
+  .mobile-only {
+    display: flex;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary);
+  }
+
   .sidebar {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: 2000;
     width: 280px;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
   }
-  
+
   .sidebar.active {
     transform: translateX(0);
   }
-  
-  .main-content { margin-left: 0; width: 100%; }
-  
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
   /* Ajuste header admin */
-  .dashboard-header { flex-direction: row; align-items: center; justify-content: space-between; }
-  .header-title { display: flex; align-items: center; gap: 10px; }
+  .dashboard-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* =============================================
+   BOTÓN VOLVER AL INICIO (Animado)
+   ============================================= */
+.back-to-home-btn {
+  position: absolute !important;
+  top: 20px !important;
+  left: 20px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  color: white !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+  padding: 12px 24px !important;
+  border-radius: 30px !important;
+  backdrop-filter: blur(10px) !important;
+  z-index: 50 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  font-size: 0.95rem !important;
+}
+
+.back-to-home-btn:hover {
+  transform: translateY(-3px) scale(1.05) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 20px rgba(255, 255, 255, 0.15) !important;
+}
+
+.back-to-home-btn:active {
+  transform: translateY(-1px) scale(1.02) !important;
+}
+
+.back-to-home-btn span {
+  display: inline-block;
+  transition: transform 0.3s ease !important;
+}
+
+.back-to-home-btn:hover span {
+  transform: translateX(-5px) !important;
+  animation: pulse-arrow 0.6s ease infinite !important;
+}
+
+@keyframes pulse-arrow {
+
+  0%,
+  100% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(-8px);
+  }
 }

@@ -36,9 +36,16 @@ function formatearMoneda(valor, moneda) {
 
 // Actualizar precios en la UI
 function actualizarPreciosUI(config) {
-  if (!config) return;
+  if (!config) {
+    console.warn("actualizarPreciosUI: config es null");
+    return;
+  }
+
   currentConfig = config;
   const moneda = config.moneda;
+
+  console.log("Actualizando precios UI. Moneda:", moneda);
+  console.log("Config recibida:", JSON.stringify(config, null, 2));
 
   // Actualizar indicador de moneda
   const indicadorMoneda = document.getElementById("moneda-actual");
@@ -48,36 +55,58 @@ function actualizarPreciosUI(config) {
 
   // Actualizar precios de tickets
   const tickets = {
-    "precio-15min": config.tickets.min15?.actual,
-    "precio-30min": config.tickets.min30?.actual,
-    "precio-60min": config.tickets.min60?.actual,
-    "precio-fullday": config.tickets.fullday?.actual,
-    "precio-combo": config.tickets.combo?.actual,
+    "precio-15min": config.tickets?.min15?.actual,
+    "precio-30min": config.tickets?.min30?.actual,
+    "precio-60min": config.tickets?.min60?.actual,
+    "precio-fullday": config.tickets?.fullday?.actual,
+    "precio-combo": config.tickets?.combo?.actual,
   };
 
+  let ticketsActualizados = 0;
   Object.keys(tickets).forEach((id) => {
     const elemento = document.getElementById(id);
-    if (elemento && tickets[id] !== undefined) {
-      elemento.textContent = formatearMoneda(tickets[id], moneda);
+    if (elemento) {
+      if (tickets[id] !== undefined) {
+        const precioFormateado = formatearMoneda(tickets[id], moneda);
+        elemento.textContent = precioFormateado;
+        ticketsActualizados++;
+        console.log(`✓ Ticket ${id}: ${precioFormateado}`);
+      } else {
+        console.warn(`✗ Ticket ${id}: valor undefined`);
+      }
+    } else {
+      console.warn(`✗ Ticket ${id}: elemento NO encontrado en DOM`);
     }
   });
 
   // Actualizar precios de paquetes
   const paquetes = {
-    "precio-mini-lunes": config.paquetes.mini?.lunes?.actual,
-    "precio-mini-viernes": config.paquetes.mini?.viernes?.actual,
-    "precio-mediano-lunes": config.paquetes.mediano?.lunes?.actual,
-    "precio-mediano-viernes": config.paquetes.mediano?.viernes?.actual,
-    "precio-full-lunes": config.paquetes.full?.lunes?.actual,
-    "precio-full-viernes": config.paquetes.full?.viernes?.actual,
+    "precio-mini-lunes": config.paquetes?.mini?.lunes?.actual,
+    "precio-mini-viernes": config.paquetes?.mini?.viernes?.actual,
+    "precio-mediano-lunes": config.paquetes?.mediano?.lunes?.actual,
+    "precio-mediano-viernes": config.paquetes?.mediano?.viernes?.actual,
+    "precio-full-lunes": config.paquetes?.full?.lunes?.actual,
+    "precio-full-viernes": config.paquetes?.full?.viernes?.actual,
   };
 
+  let paquetesActualizados = 0;
   Object.keys(paquetes).forEach((id) => {
     const elemento = document.getElementById(id);
-    if (elemento && paquetes[id] !== undefined) {
-      elemento.textContent = formatearMoneda(paquetes[id], moneda);
+    if (elemento) {
+      if (paquetes[id] !== undefined) {
+        const precioFormateado = formatearMoneda(paquetes[id], moneda);
+        elemento.textContent = precioFormateado;
+        paquetesActualizados++;
+        console.log(`✓ Paquete ${id}: ${precioFormateado}`);
+      } else {
+        console.warn(`✗ Paquete ${id}: valor undefined`);
+      }
+    } else {
+      console.warn(`✗ Paquete ${id}: elemento NO encontrado en DOM`);
     }
   });
+
+  console.log(`Resumen: ${ticketsActualizados} tickets y ${paquetesActualizados} paquetes actualizados`);
 
   console.log("Precios actualizados en pantalla:", moneda);
 }
