@@ -125,6 +125,28 @@ window.addEventListener('configUpdated', async (event) => {
   }
 });
 
+// CORRECCIÓN: Forzar recarga cuando el usuario regresa a la página (navegación hacia atrás/adelante)
+window.addEventListener('pageshow', async (event) => {
+  if (event.persisted) {
+    console.log("Página restaurada desde caché, recargando precios...");
+    currentConfig = null;
+    const config = await obtenerConfiguracionPrecios();
+    if (config) {
+      actualizarPreciosUI(config);
+    }
+  }
+});
+
+// CORRECCIÓN: Recargar precios cuando la ventana recibe foco (por si el admin cambió precios en otra pestaña)
+window.addEventListener('focus', async () => {
+  console.log("Ventana recibió foco, verificando precios actualizados...");
+  const config = await obtenerConfiguracionPrecios();
+  if (config && JSON.stringify(currentConfig) !== JSON.stringify(config)) {
+    console.log("Cambio detectado al recibir foco, actualizando UI...");
+    actualizarPreciosUI(config);
+  }
+});
+
 // Exportar funciones
 window.inicializarPreciosDinamicos = inicializarPreciosDinamicos;
 window.detenerPreciosDinamicos = detenerPreciosDinamicos;

@@ -88,6 +88,11 @@ router.put("/", async (req, res) => {
 // Obtener precios convertidos según la moneda actual, aqui calcula los precios segun la moneda, y los convierte todos
 router.get("/precios", async (req, res) => {
   try {
+    // CORRECCIÓN: Agregar headers para evitar caché
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+
     const config = await Config.getConfig();
 
     const precios = {
@@ -124,8 +129,8 @@ router.get("/precios", async (req, res) => {
             config.moneda === "USD"
               ? config.paquetes[paquete].lunes
               : Math.round(
-                  config.paquetes[paquete].lunes * config.tasaBCV * 100
-                ) / 100,
+                config.paquetes[paquete].lunes * config.tasaBCV * 100
+              ) / 100,
         },
         viernes: {
           USD: config.paquetes[paquete].viernes,
@@ -137,8 +142,8 @@ router.get("/precios", async (req, res) => {
             config.moneda === "USD"
               ? config.paquetes[paquete].viernes
               : Math.round(
-                  config.paquetes[paquete].viernes * config.tasaBCV * 100
-                ) / 100,
+                config.paquetes[paquete].viernes * config.tasaBCV * 100
+              ) / 100,
         },
       };
     }

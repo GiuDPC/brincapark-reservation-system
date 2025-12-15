@@ -86,28 +86,62 @@ async function inicializarConfiguracion() {
 
 // Guardar configuración desde el formulario al backend
 async function guardarConfiguracionDesdeFormulario() {
+  const monedaSeleccionada = document.getElementById("moneda-select")?.value || "USD";
+  const tasaBCV = parseFloat(document.getElementById("tasa-bcv")?.value) || 244.65;
+
+  // Obtener valores del formulario
+  let min15 = parseFloat(document.getElementById("ticket-15min")?.value) || 6;
+  let min30 = parseFloat(document.getElementById("ticket-30min")?.value) || 9;
+  let min60 = parseFloat(document.getElementById("ticket-60min")?.value) || 10;
+  let fullday = parseFloat(document.getElementById("ticket-fullday")?.value) || 11;
+  let combo = parseFloat(document.getElementById("ticket-combo")?.value) || 13;
+
+  let miniLunes = parseFloat(document.getElementById("mini-lunes")?.value) || 150;
+  let miniViernes = parseFloat(document.getElementById("mini-viernes")?.value) || 180;
+  let medianoLunes = parseFloat(document.getElementById("mediano-lunes")?.value) || 200;
+  let medianoViernes = parseFloat(document.getElementById("mediano-viernes")?.value) || 230;
+  let fullLunes = parseFloat(document.getElementById("full-lunes")?.value) || 250;
+  let fullViernes = parseFloat(document.getElementById("full-viernes")?.value) || 280;
+
+  // CORRECCIÓN CRÍTICA: Si la moneda actual es BS, los valores del formulario están en BS
+  // y debemos convertirlos a USD antes de guardar (el backend siempre guarda en USD)
+  if (monedaActual === "BS" && tasaBCV > 0) {
+    min15 = min15 / tasaBCV;
+    min30 = min30 / tasaBCV;
+    min60 = min60 / tasaBCV;
+    fullday = fullday / tasaBCV;
+    combo = combo / tasaBCV;
+
+    miniLunes = miniLunes / tasaBCV;
+    miniViernes = miniViernes / tasaBCV;
+    medianoLunes = medianoLunes / tasaBCV;
+    medianoViernes = medianoViernes / tasaBCV;
+    fullLunes = fullLunes / tasaBCV;
+    fullViernes = fullViernes / tasaBCV;
+  }
+
   const config = {
-    moneda: document.getElementById("moneda-select")?.value || "USD",
-    tasaBCV: parseFloat(document.getElementById("tasa-bcv")?.value) || 244.65,
+    moneda: monedaSeleccionada,
+    tasaBCV: tasaBCV,
     tickets: {
-      min15: parseFloat(document.getElementById("ticket-15min")?.value) || 6,
-      min30: parseFloat(document.getElementById("ticket-30min")?.value) || 9,
-      min60: parseFloat(document.getElementById("ticket-60min")?.value) || 10,
-      fullday: parseFloat(document.getElementById("ticket-fullday")?.value) || 11,
-      combo: parseFloat(document.getElementById("ticket-combo")?.value) || 13
+      min15: parseFloat(min15.toFixed(2)),
+      min30: parseFloat(min30.toFixed(2)),
+      min60: parseFloat(min60.toFixed(2)),
+      fullday: parseFloat(fullday.toFixed(2)),
+      combo: parseFloat(combo.toFixed(2))
     },
     paquetes: {
       mini: {
-        lunes: parseFloat(document.getElementById("mini-lunes")?.value) || 150,
-        viernes: parseFloat(document.getElementById("mini-viernes")?.value) || 180
+        lunes: parseFloat(miniLunes.toFixed(2)),
+        viernes: parseFloat(miniViernes.toFixed(2))
       },
       mediano: {
-        lunes: parseFloat(document.getElementById("mediano-lunes")?.value) || 200,
-        viernes: parseFloat(document.getElementById("mediano-viernes")?.value) || 230
+        lunes: parseFloat(medianoLunes.toFixed(2)),
+        viernes: parseFloat(medianoViernes.toFixed(2))
       },
       full: {
-        lunes: parseFloat(document.getElementById("full-lunes")?.value) || 250,
-        viernes: parseFloat(document.getElementById("full-viernes")?.value) || 280
+        lunes: parseFloat(fullLunes.toFixed(2)),
+        viernes: parseFloat(fullViernes.toFixed(2))
       }
     }
   };
@@ -129,7 +163,7 @@ async function guardarConfiguracionDesdeFormulario() {
     if (typeof Swal !== 'undefined') {
       Swal.fire({
         title: "Configuración Guardada",
-        text: "Los cambios se han guardado y sincronizado con la página principal",
+        text: "Los cambios se han guardado correctamente. Los precios se actualizarán en la página principal.",
         icon: "success",
         confirmButtonColor: "#7C3AED"
       });
