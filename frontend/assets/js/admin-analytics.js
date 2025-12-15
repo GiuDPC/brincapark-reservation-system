@@ -1,7 +1,7 @@
 // admin-analytics.js - Módulo de analytics y métricas avanzadas
 
-// Usamos API_STATS para evitar conflictos con admin.js
-const API_STATS = window.API_BASE_URL || "http://localhost:4000/api";
+// CORRECCIÓN 1: Usamos un nombre único (API_ANALYTICS) para que no choque con la variable API de admin.js
+const API_ANALYTICS = window.API_BASE_URL || "http://localhost:4000/api";
 
 // Variables globales para charts
 let ingresosMensualesChart = null;
@@ -13,14 +13,14 @@ let tipoEventoChart = null;
 
 async function renderizarMetricasAdicionales() {
   try {
-    const res = await fetch(`${API_STATS}/reservations/analytics/stats`, {
+    // CORRECCIÓN: Usamos API_ANALYTICS
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
       headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
     
     if (!res.ok) return;
     const stats = await res.json();
     
-    // Crear contenedor si no existe
     let container = document.getElementById("metricas-adicionales");
     if (!container) {
       const statsGrid = document.querySelector(".stats-grid");
@@ -35,7 +35,6 @@ async function renderizarMetricasAdicionales() {
 
     if (!container) return;
 
-    // Renderizar tarjetas con iconos y datos
     container.innerHTML = `
       <div class="stat-card stat-conversion">
         <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
@@ -59,17 +58,13 @@ async function renderizarMetricasAdicionales() {
   }
 }
 
-// ==========================================
 // GRÁFICAS
-// ==========================================
-
 async function renderizarGraficaIngresosMensuales() {
   try {
-    const res = await fetch(`${API_STATS}/reservations/analytics/monthly`, {
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    
-    if (!res.ok) return;
+    if(!res.ok) return;
     const data = await res.json();
 
     const canvas = document.getElementById("ingresos-mensuales-chart");
@@ -106,23 +101,18 @@ async function renderizarGraficaIngresosMensuales() {
         scales: { y: { beginAtZero: true, ticks: { callback: function (value) { return formatearMoneda(value, data.moneda); } } } },
       },
     });
-  } catch (error) {
-    console.error("Error renderizando gráfica de ingresos mensuales:", error);
-  }
+  } catch (error) { console.error(error); }
 }
 
 async function renderizarGraficaTipoEvento() {
   try {
-    const res = await fetch(`${API_STATS}/reservations/analytics/stats`, {
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    
-    if (!res.ok) return;
+    if(!res.ok) return;
     const stats = await res.json();
-
     const canvas = document.getElementById("tipo-evento-chart");
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (tipoEventoChart) tipoEventoChart.destroy();
 
@@ -130,39 +120,25 @@ async function renderizarGraficaTipoEvento() {
     const valores = Object.values(stats.porTipoEvento);
 
     tipoEventoChart = new Chart(ctx, {
-      type: "bar",
+      type: "doughnut", // Cambiado a doughnut para mejor visualización tipo "torta"
       data: {
         labels: labels.map(capitalizar),
         datasets: [{
-          label: "Reservas por Tipo de Evento",
           data: valores,
           backgroundColor: ["rgba(255, 99, 132, 0.7)", "rgba(54, 162, 235, 0.7)", "rgba(255, 206, 86, 0.7)", "rgba(75, 192, 192, 0.7)", "rgba(153, 102, 255, 0.7)"],
-          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)"],
-          borderWidth: 1,
         }],
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false }, title: { display: true, text: "Distribución por Tipo de Evento" } },
-        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
-      },
+      options: { responsive: true, maintainAspectRatio: false }
     });
-  } catch (error) {
-    console.error("Error renderizando gráfica de tipo de evento:", error);
-  }
+  } catch (error) { console.error(error); }
 }
 
-// ==========================================
 // REPORTES AVANZADOS
-// ==========================================
-
 async function renderizarTopClientes() {
   try {
-    const res = await fetch(`${API_STATS}/reservations/analytics/top-clients`, {
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/top-clients`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    
     if (!res.ok) return;
     const clientes = await res.json();
 
@@ -177,17 +153,14 @@ async function renderizarTopClientes() {
     });
     html += `</tbody></table></div>`;
     container.innerHTML = html;
-  } catch (error) {
-    console.error("Error renderizando top clientes:", error);
-  }
+  } catch (error) { console.error(error); }
 }
 
 async function renderizarAnalisisCancelaciones() {
   try {
-    const res = await fetch(`${API_STATS}/reservations/analytics/cancellations`, {
+    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/cancellations`, {
         headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
     });
-    
     if (!res.ok) return;
     const analisis = await res.json();
 
@@ -201,16 +174,13 @@ async function renderizarAnalisisCancelaciones() {
       <div class="cancelaciones-grid">
         <div class="cancelaciones-card"><h5>Por Parque</h5><ul>${Object.entries(analisis.porParque).map(([parque, count]) => `<li>${parque}: <strong>${count}</strong></li>`).join("")}</ul></div>
         <div class="cancelaciones-card"><h5>Por Paquete</h5><ul>${Object.entries(analisis.porPaquete).map(([paquete, count]) => `<li>${capitalizar(paquete)}: <strong>${count}</strong></li>`).join("")}</ul></div>
-        <div class="cancelaciones-card"><h5>Por Tipo de Evento</h5><ul>${Object.entries(analisis.porTipoEvento).map(([tipo, count]) => `<li>${capitalizar(tipo)}: <strong>${count}</strong></li>`).join("")}</ul></div>
       </div>
     `;
     container.innerHTML = html;
-  } catch (error) {
-    console.error("Error renderizando análisis de cancelaciones:", error);
-  }
+  } catch (error) { console.error(error); }
 }
 
-// Utilidades
+// UTILIDADES
 function capitalizar(str) {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -218,14 +188,15 @@ function capitalizar(str) {
 
 function formatearMoneda(valor, moneda) {
   const valorFormateado = parseFloat(valor).toFixed(2);
-  if (moneda === "USD") return `$${valorFormateado}`;
-  else if (moneda === "BS") return `Bs ${valorFormateado}`;
-  return `$${valorFormateado}`;
+  return moneda === "USD" ? `$${valorFormateado}` : `Bs ${valorFormateado}`;
 }
 
-// Exportar funciones
+// EXPORTAR FUNCIONES
 window.renderizarMetricasAdicionales = renderizarMetricasAdicionales;
 window.renderizarGraficaIngresosMensuales = renderizarGraficaIngresosMensuales;
 window.renderizarGraficaTipoEvento = renderizarGraficaTipoEvento;
 window.renderizarTopClientes = renderizarTopClientes;
 window.renderizarAnalisisCancelaciones = renderizarAnalisisCancelaciones;
+
+// CORRECCIÓN CRÍTICA: Conectamos la función con el nombre que busca admin.js
+window.renderAdvancedMetrics = renderizarMetricasAdicionales;

@@ -9,7 +9,6 @@ let pollingInterval = null;
 async function obtenerConfiguracionPrecios() {
   try {
     // CORRECCIÓN VITAL: Agregamos timestamp (?t=...) para romper el caché
-    // Esto obliga al navegador a descargar el precio nuevo SÍ o SÍ
     const urlSinCache = `${API_PRICING}/config/precios?t=${new Date().getTime()}`;
     
     const response = await fetch(urlSinCache, { 
@@ -29,18 +28,12 @@ async function obtenerConfiguracionPrecios() {
 // Formatear moneda según el tipo
 function formatearMoneda(valor, moneda) {
   const valorFormateado = parseFloat(valor).toFixed(2);
-  if (moneda === "USD") {
-    return `$${valorFormateado}`;
-  } else if (moneda === "BS") {
-    return `Bs ${valorFormateado}`;
-  }
-  return `$${valorFormateado}`;
+  return moneda === "USD" ? `$${valorFormateado}` : `Bs ${valorFormateado}`;
 }
 
 // Actualizar precios en la UI
 function actualizarPreciosUI(config) {
   if (!config) return;
-
   currentConfig = config;
   const moneda = config.moneda;
 
@@ -82,8 +75,8 @@ function actualizarPreciosUI(config) {
       elemento.textContent = formatearMoneda(paquetes[id], moneda);
     }
   });
-
-  console.log("Precios actualizados:", moneda);
+  
+  console.log("Precios actualizados en pantalla:", moneda);
 }
 
 // Inicializar sistema de precios dinámicos
@@ -94,24 +87,20 @@ async function inicializarPreciosDinamicos() {
     actualizarPreciosUI(config);
   }
 
-  // Polling cada 30 segundos
-  if (pollingInterval) {
-    clearInterval(pollingInterval);
-  }
+  // Polling cada 10 segundos (más rápido) para detectar cambios
+  if (pollingInterval) clearInterval(pollingInterval);
 
   pollingInterval = setInterval(async () => {
     const nuevaConfig = await obtenerConfiguracionPrecios();
     if (nuevaConfig) {
-      if (
-        !currentConfig ||
-        currentConfig.moneda !== nuevaConfig.moneda ||
-        currentConfig.tasaBCV !== nuevaConfig.tasaBCV
-      ) {
-        console.log("Detectado cambio en configuración de precios");
+      // CORRECCIÓN: Comparamos TODO el objeto JSON.
+      // Si cambiaste un precio, el JSON será diferente y actualizará.
+      if (JSON.stringify(currentConfig) !== JSON.stringify(nuevaConfig)) {
+        console.log("Cambio detectado, actualizando UI...");
         actualizarPreciosUI(nuevaConfig);
       }
     }
-  }, 30000); // 30 segundos
+  }, 10000); // 10 segundos
 }
 
 // Detener polling
