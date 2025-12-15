@@ -30,8 +30,7 @@ body::after {
   position: fixed;
   width: 150px;
   height: 150px;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
-    no-repeat center;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') no-repeat center;
   background-size: contain;
   opacity: 0.3;
   z-index: -1;
@@ -66,7 +65,7 @@ body::after {
 
 /* Cambiar el tono del navbar o barra de navegacion cuando se hace scroll para mejor apariencia */
 .navbar.scrolled {
-  background: linear-gradient(135deg,rgba(167, 216, 222, 0.95) 0%,rgba(126, 200, 227, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(167, 216, 222, 0.95) 0%, rgba(126, 200, 227, 0.95) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -165,8 +164,7 @@ body::after {
   position: absolute;
   width: 120px;
   height: 120px;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
-    no-repeat center;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') no-repeat center;
   background-size: contain;
   opacity: 0.4;
   z-index: 0;
@@ -228,11 +226,13 @@ body::after {
 }
 
 @keyframes twinkle-star {
+
   0%,
   100% {
     transform: scale(1) rotate(0deg);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.15) rotate(10deg);
     opacity: 0.8;
@@ -260,8 +260,7 @@ body::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L61 38 L90 38 L67 56 L78 84 L50 66 L22 84 L33 56 L10 38 L39 38 Z" fill="%23FFE55C"/></svg>')
-    no-repeat center;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L61 38 L90 38 L67 56 L78 84 L50 66 L22 84 L33 56 L10 38 L39 38 Z" fill="%23FFE55C"/></svg>') no-repeat center;
   background-size: contain;
   z-index: -2;
   opacity: 0.9;
@@ -337,10 +336,12 @@ body::after {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     background-position: 0% 50%;
   }
+
   50% {
     border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
     background-position: 100% 50%;
   }
+
   100% {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     background-position: 0% 50%;
@@ -355,15 +356,13 @@ body::after {
   position: relative;
   padding: 15px;
   /*con background-size se mueven los colores */
-  background: linear-gradient(
-    135deg,
-    #ff6b9d 0%,
-    #c084fc 20%,
-    #60a5fa 40%,
-    #34d399 60%,
-    #fbbf24 80%,
-    #ff6b9d 100%
-  );
+  background: linear-gradient(135deg,
+      #ff6b9d 0%,
+      #c084fc 20%,
+      #60a5fa 40%,
+      #34d399 60%,
+      #fbbf24 80%,
+      #ff6b9d 100%);
   background-size: 200% 200%;
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
   /*Animacion liquida */
@@ -380,7 +379,8 @@ body::after {
   aspect-ratio: 1/1;
   border: 12px solid white;
   display: block;
-  position: relative; /* Para que el fondo no se tape con el efecto */
+  position: relative;
+  /* Para que el fondo no se tape con el efecto */
   z-index: 2;
 }
 
@@ -425,11 +425,13 @@ body::after {
 }
 
 @keyframes twinkle {
+
   0%,
   100% {
     opacity: 1;
     transform: translateY(-50%) scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: translateY(-50%) scale(1.2);
@@ -567,12 +569,10 @@ body::after {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 229, 92, 0.15) 0%,
-    rgba(255, 229, 92, 0.05) 50%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 229, 92, 0.15) 0%,
+      rgba(255, 229, 92, 0.05) 50%,
+      transparent 70%);
   animation: pulse-glow 3s infinite;
 }
 
@@ -583,12 +583,10 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(45deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%);
   transform: translateX(-100%);
   transition: transform 0.6s;
 }
@@ -598,11 +596,13 @@ body::after {
 }
 
 @keyframes pulse-glow {
+
   0%,
   100% {
     transform: scale(1) rotate(0deg);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.1) rotate(5deg);
     opacity: 0.7;
@@ -631,10 +631,12 @@ body::after {
 }
 
 @keyframes float-text {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5px);
   }
@@ -906,8 +908,7 @@ body::after {
   position: absolute;
   width: 150px;
   height: 150px;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
-    no-repeat center;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') no-repeat center;
   background-size: contain;
   opacity: 0.2;
   z-index: 0;
@@ -1225,8 +1226,7 @@ body::after {
   position: absolute;
   width: 120px;
   height: 120px;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>')
-    no-repeat center;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFE55C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') no-repeat center;
   background-size: contain;
   opacity: 0.15;
   z-index: 0;
@@ -1481,11 +1481,11 @@ body::after {
 .footer-logo img {
   height: 60px;
   width: 60px;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   filter: brightness(0) invert(1);
 }
 
-.footer_section--brand  h2 {
+.footer_section--brand h2 {
   font-family: "Fredoka", sans-serif;
   font-size: 1.9rem;
   line-height: 1.2;
@@ -1524,6 +1524,333 @@ body::after {
   font-size: 0.9rem;
 }
 
+/* =========================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================= */
+
+/* Estado inicial - elementos ocultos */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Variantes de reveal */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Delay para stagger effect */
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+
+/* =========================================
+   MICRO-INTERACCIONES
+   ========================================= */
+
+/* Ripple effect base */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn-ripple:active::after {
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 1;
+  transition: transform 0s, opacity 0s;
+}
+
+/* Hover lift effect mejorado para cards */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(75, 0, 130, 0.15);
+}
+
+/* Hover glow para botones */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(75, 0, 130, 0.4);
+}
+
+/* Pulse animation para elementos destacados */
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.pulse-hover:hover {
+  animation: pulse-soft 1s ease-in-out infinite;
+}
+
+/* Icon bounce en hover */
+.icon-bounce:hover svg,
+.icon-bounce:hover img {
+  animation: bounce-icon 0.5s ease;
+}
+
+@keyframes bounce-icon {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* =========================================
+   SECCION GALERIA Y CARRUSEL
+   ========================================= */
+
+.galeria-section {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+  padding: 4rem 2rem;
+}
+
+.galeria-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.galeria-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+/* Wrapper del carrusel */
+.carousel-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Contenedor principal */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(75, 0, 130, 0.2);
+  background: #f0f0f0;
+}
+
+/* Track de items - NO usar flex, usar position absolute */
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Items individuales con position absolute */
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 1;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Caption de imagen - DENTRO del contenedor */
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.85) 100%);
+  color: white;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  z-index: 5;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+}
+
+/* Controles del carrusel */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-control:hover {
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 15px rgba(75, 0, 130, 0.25);
+  background: #4b0082;
+}
+
+.carousel-control:hover svg {
+  stroke: white;
+}
+
+.carousel-control svg {
+  width: 20px;
+  height: 20px;
+  stroke: #4b0082;
+  transition: stroke 0.3s ease;
+}
+
+.carousel-control.prev {
+  left: 0;
+}
+
+.carousel-control.next {
+  right: 0;
+}
+
+/* Indicadores de posicion */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.carousel-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicator.active {
+  background: #4b0082;
+  transform: scale(1.2);
+}
+
+.carousel-indicator:hover {
+  background: #8b5cf6;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 /* Responsive cualquier detalle avisar*/
 @media (max-width: 768px) {
   .navbar-menu {
@@ -1547,6 +1874,40 @@ body::after {
   .tickets-grid,
   .paquetes-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Carrusel responsive movil */
+  .carousel-container {
+    height: 300px;
+    border-radius: 15px;
+  }
+
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-control.prev {
+    left: 10px;
+  }
+
+  .carousel-control.next {
+    right: 10px;
+  }
+
+  .carousel-control svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .carousel-caption {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .galeria-subtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
   }
 
   /* Hero responsive */
@@ -1666,153 +2027,186 @@ body::after {
 
 /* 1. CORTINA DE TRANSICIÓN BARBA.JS (Más espectacular) */
 .transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    /* Gradiente animado multicolor */
-    background: linear-gradient(
-      135deg, 
-      #4b0082 0%, 
-      #6b21a8 25%, 
-      #8b5cf6 50%, 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* Gradiente animado multicolor */
+  background: linear-gradient(135deg,
+      #4b0082 0%,
+      #6b21a8 25%,
+      #8b5cf6 50%,
       #4b0082 75%,
-      #6b21a8 100%
-    );
-    background-size: 400% 400%;
-    animation: gradientShift 3s ease infinite;
-    z-index: 99999;
-    transform: translateY(100%);
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
+      #6b21a8 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 3s ease infinite;
+  z-index: 99999;
+  transform: translateY(100%);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Logo/Texto en la cortina de carga */
 .transition-overlay::before {
-    content: "BRINCAPARK";
-    color: #FFE55C;
-    font-family: "Fredoka", sans-serif;
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-shadow: 0 0 20px rgba(255, 229, 92, 0.5),
-                 0 0 40px rgba(255, 229, 92, 0.3);
-    animation: pulseText 1.5s ease-in-out infinite;
+  content: "BRINCAPARK";
+  color: #FFE55C;
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(255, 229, 92, 0.5),
+    0 0 40px rgba(255, 229, 92, 0.3);
+  animation: pulseText 1.5s ease-in-out infinite;
 }
 
 .transition-overlay::after {
-    content: "Cargando...";
-    color: rgba(255, 255, 255, 0.8);
-    font-family: "Outfit", sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 2px;
+  content: "Cargando...";
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Outfit", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 2px;
 }
 
 @keyframes pulseText {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.9; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
 }
 
 /* 2. MENÚ HAMBURGUESA (Estilos Base) */
 .menu-toggle {
-    display: none; /* Se activa en media queries */
-    flex-direction: column;
-    cursor: pointer;
-    gap: 6px;
-    z-index: 10001; /* Encima del menú desplegable */
-    padding: 10px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 8px;
+  display: none;
+  /* Se activa en media queries */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  z-index: 10001;
+  /* Encima del menú desplegable */
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
 }
 
 .menu-toggle .bar {
-    width: 30px;
-    height: 4px;
-    background-color: #4b0082;
-    border-radius: 5px;
-    transition: all 0.4s ease;
+  width: 30px;
+  height: 4px;
+  background-color: #4b0082;
+  border-radius: 5px;
+  transition: all 0.4s ease;
 }
 
 /* Animación de la X al abrir */
-.menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
-.menu-toggle.is-active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
-.menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+.menu-toggle.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-active .bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.menu-toggle.is-active .bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
 
 /* --- REGLAS PARA TABLETS Y MÓVILES (Hasta 1024px) --- */
 @media (max-width: 1024px) {
-    
-    /* MENÚ: Activamos hamburguesa en Tablets también */
-    .menu-toggle {
-        display: flex;
-    }
 
-    .navbar-menu {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        z-index: 10000;
-        /* Efecto de cortina para el menú */
-        clip-path: circle(0px at 100% 0px); 
-        transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
-        pointer-events: none; /* No clickear cuando está cerrado */
-    }
+  /* MENÚ: Activamos hamburguesa en Tablets también */
+  .menu-toggle {
+    display: flex;
+  }
 
-    .navbar-menu.active {
-        clip-path: circle(150% at 100% 0px); /* Se abre el círculo */
-        pointer-events: all;
-    }
+  .navbar-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 10000;
+    /* Efecto de cortina para el menú */
+    clip-path: circle(0px at 100% 0px);
+    transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+    pointer-events: none;
+    /* No clickear cuando está cerrado */
+  }
 
-    .navbar-menu a {
-        font-size: 2rem;
-        font-weight: 800;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: 0.4s ease;
-    }
+  .navbar-menu.active {
+    clip-path: circle(150% at 100% 0px);
+    /* Se abre el círculo */
+    pointer-events: all;
+  }
 
-    /* Animación de enlaces al abrir */
-    .navbar-menu.active a {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  .navbar-menu a {
+    font-size: 2rem;
+    font-weight: 800;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.4s ease;
+  }
 
-    /* HERO: Ajuste para que la burbuja no sea gigante en Tablet */
-    .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-    }
+  /* Animación de enlaces al abrir */
+  .navbar-menu.active a {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .hero-content { order: 2; }
-    .hero-image { 
-        order: 1; 
-        max-width: 500px; /* Limitamos el ancho en tablets */
-        margin: 0 auto;
-    }
-    
-    .hero-image img {
-        border-width: 8px;
-    }
+  /* HERO: Ajuste para que la burbuja no sea gigante en Tablet */
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3rem;
+  }
 
-    .section-title h2 { font-size: 2.5rem; }
+  .hero-content {
+    order: 2;
+  }
+
+  .hero-image {
+    order: 1;
+    max-width: 500px;
+    /* Limitamos el ancho en tablets */
+    margin: 0 auto;
+  }
+
+  .hero-image img {
+    border-width: 8px;
+  }
+
+  .section-title h2 {
+    font-size: 2.5rem;
+  }
 }
 
 /* =========================================
@@ -1821,60 +2215,73 @@ body::after {
 
 /* 1. ANIMACIÓN DE CARGA (BARBA.JS) */
 .transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #4b0082; /* Morado marca */
-    z-index: 99999;
-    transform: translateY(100%);
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #4b0082;
+  /* Morado marca */
+  z-index: 99999;
+  transform: translateY(100%);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Logo en la pantalla de carga */
 .transition-overlay::before {
-    content: "BRINCAPARK";
-    color: #FFE55C; /* Amarillo marca */
-    font-family: "Fredoka", sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: 2px;
+  content: "BRINCAPARK";
+  color: #FFE55C;
+  /* Amarillo marca */
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 /* 2. MENÚ HAMBURGUESA (Estilos base) */
 .menu-toggle {
-    display: none; /* Oculto en PC */
-    flex-direction: column;
-    cursor: pointer;
-    gap: 6px;
-    padding: 10px;
-    z-index: 2001; /* Encima de todo */
+  display: none;
+  /* Oculto en PC */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  padding: 10px;
+  z-index: 2001;
+  /* Encima de todo */
 }
 
 .menu-toggle .bar {
-    width: 30px;
-    height: 4px;
-    background-color: #4b0082;
-    border-radius: 5px;
-    transition: 0.3s;
+  width: 30px;
+  height: 4px;
+  background-color: #4b0082;
+  border-radius: 5px;
+  transition: 0.3s;
 }
 
 /* Animación X */
-.menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
-.menu-toggle.is-active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
-.menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+.menu-toggle.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-active .bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.menu-toggle.is-active .bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
 
 /* 3. SCROLL HORIZONTAL TABLA (Para que no se corte) */
 .horarios-table-wrapper {
-    width: 100%;
-    overflow-x: auto; /* Permite deslizar */
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1rem;
-    border-radius: 20px;
+  width: 100%;
+  overflow-x: auto;
+  /* Permite deslizar */
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  border-radius: 20px;
 }
 
 /* =========================================
@@ -1882,146 +2289,166 @@ body::after {
    ========================================= */
 
 /* 1. RESET GLOBAL PARA EVITAR CORTES BLANCOS */
-html, body {
-    overflow-x: hidden; /* Esto es CLAVE para evitar el espacio blanco a la derecha/izquierda */
-    width: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  overflow-x: hidden;
+  /* Esto es CLAVE para evitar el espacio blanco a la derecha/izquierda */
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* 2. CORTINA DE TRANSICIÓN BARBA.JS (Estilo Mejorado) */
 .transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #4b0082;
+  /* Morado marca */
+  z-index: 99999;
+  transform: translateY(100%);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transition-overlay::before {
+  content: "BRINCAPARK";
+  color: #FFE55C;
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* 3. MENÚ HAMBURGUESA (Estilos Base) */
+.menu-toggle {
+  display: none;
+  /* Oculto en PC */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  padding: 10px;
+  z-index: 2001;
+  /* Encima de todo */
+  background: rgba(255, 255, 255, 0.5);
+  /* Fondo sutil para que se vea siempre */
+  border-radius: 8px;
+}
+
+.menu-toggle .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #4b0082;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Animación del botón al abrir */
+.menu-toggle.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-active .bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.menu-toggle.is-active .bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* 4. SCROLL HORIZONTAL TABLA (Para que no rompa el diseño) */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  padding-bottom: 5px;
+  display: block;
+  /* Asegura que tome el ancho */
+}
+
+/* --- REGLAS PARA TABLETS Y MÓVILES (Menos de 1024px) --- */
+@media (max-width: 1024px) {
+
+  /* MENÚ: Activamos hamburguesa */
+  .navbar-menu {
+    display: flex;
+    /* Aseguramos que exista pero oculto */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #4b0082; /* Morado marca */
-    z-index: 99999;
-    transform: translateY(100%);
-    pointer-events: none;
-    display: flex;
+    background: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+    gap: 2rem;
+    z-index: 2000;
+    /* Efecto suave de aparición */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-.transition-overlay::before {
-    content: "BRINCAPARK";
-    color: #FFE55C;
-    font-family: "Fredoka", sans-serif;
-    font-size: 3rem;
+  .navbar-menu.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .navbar-menu a {
+    font-size: 1.8rem;
     font-weight: 800;
-    letter-spacing: 2px;
-}
+    color: #4b0082;
+  }
 
-/* 3. MENÚ HAMBURGUESA (Estilos Base) */
-.menu-toggle {
-    display: none; /* Oculto en PC */
-    flex-direction: column;
-    cursor: pointer;
-    gap: 6px;
+  .menu-toggle {
+    display: flex;
+    /* FORZAMOS QUE SE VEA EL BOTÓN */
+  }
+
+  /* HERO: Restauramos la burbuja pero controlada */
+  .hero {
+    padding-top: 7rem;
+    text-align: center;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    order: 2;
+  }
+
+  .hero-image {
+    order: 1;
+    margin: 0 auto;
     padding: 10px;
-    z-index: 2001; /* Encima de todo */
-    background: rgba(255,255,255,0.5); /* Fondo sutil para que se vea siempre */
-    border-radius: 8px;
-}
+    /* RESTAURAMOS TU EFECTO BURBUJA */
+    background: linear-gradient(135deg, #ff6b9d 0%, #c084fc 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #ff6b9d 100%);
+    background-size: 200% 200%;
+    animation: liquid-bubble 8s ease-in-out infinite;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    /* Tamaño máximo en tablet */
+  }
 
-.menu-toggle .bar {
-    width: 30px;
-    height: 4px;
-    background-color: #4b0082;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
+  .hero-image img {
+    border-width: 8px;
+  }
 
-/* Animación del botón al abrir */
-.menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
-.menu-toggle.is-active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
-.menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
-
-/* 4. SCROLL HORIZONTAL TABLA (Para que no rompa el diseño) */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1rem;
-    padding-bottom: 5px;
-    display: block; /* Asegura que tome el ancho */
-}
-
-/* --- REGLAS PARA TABLETS Y MÓVILES (Menos de 1024px) --- */
-@media (max-width: 1024px) {
-    
-    /* MENÚ: Activamos hamburguesa */
-    .navbar-menu {
-        display: flex; /* Aseguramos que exista pero oculto */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        z-index: 2000;
-        /* Efecto suave de aparición */
-        visibility: hidden;
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .navbar-menu.active {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .navbar-menu a {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: #4b0082;
-    }
-
-    .menu-toggle {
-        display: flex; /* FORZAMOS QUE SE VEA EL BOTÓN */
-    }
-
-    /* HERO: Restauramos la burbuja pero controlada */
-    .hero {
-        padding-top: 7rem;
-        text-align: center;
-    }
-
-    .hero-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .hero-content { order: 2; }
-    
-    .hero-image { 
-        order: 1; 
-        margin: 0 auto;
-        padding: 10px;
-        /* RESTAURAMOS TU EFECTO BURBUJA */
-        background: linear-gradient(135deg, #ff6b9d 0%, #c084fc 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #ff6b9d 100%);
-        background-size: 200% 200%;
-        animation: liquid-bubble 8s ease-in-out infinite;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        max-width: 450px; /* Tamaño máximo en tablet */
-    }
-    
-    .hero-image img {
-        border-width: 8px;
-    }
-
-    .section-title h2 {
-        font-size: 2.2rem;
-        padding: 0.8rem 2rem;
-    }
+  .section-title h2 {
+    font-size: 2.2rem;
+    padding: 0.8rem 2rem;
+  }
 }
 
 /* =========================================
@@ -2030,122 +2457,193 @@ html, body {
 
 /* 1. AJUSTE CORTINA BARBA (Para que quepa el texto) */
 .transition-overlay::before {
-    /* ... (mismo código anterior) ... */
-    font-size: 2rem; /* Reducir tamaño para móvil */
-    padding: 0 20px; /* Margen lateral para que no toque bordes */
-    text-align: center;
+  /* ... (mismo código anterior) ... */
+  font-size: 2rem;
+  /* Reducir tamaño para móvil */
+  padding: 0 20px;
+  /* Margen lateral para que no toque bordes */
+  text-align: center;
 }
 
 /* Ajuste global para la cortina de carga en móviles */
 .transition-overlay::before {
-    font-size: 2.5rem; /* Texto más pequeño para que quepa */
-    padding: 0 20px;
-    text-align: center;
+  font-size: 2.5rem;
+  /* Texto más pequeño para que quepa */
+  padding: 0 20px;
+  text-align: center;
 }
 
 /* --- TABLETS (Hasta 1024px) --- */
 @media (max-width: 1024px) {
-    /* MENÚ HAMBURGUESA VISIBLE */
-    .menu-toggle { display: flex; z-index: 2002; }
-    
-    .navbar-menu {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-        background: rgba(255,255,255,0.98); flex-direction: column;
-        justify-content: center; align-items: center; gap: 2rem;
-        transform: translateY(-100%); transition: 0.4s ease-in-out;
-        z-index: 2000;
-    }
-    .navbar-menu.active { transform: translateY(0); }
-    .navbar-menu a { font-size: 2rem; color: var(--secondary-color); }
 
-    /* FOOTER TABLET (Arreglo de texto ladeado) */
-    .footer_section--brand h2 { transform: none; margin: 0; }
-    
-    /* PRECIOS TABLET */
-    .ticket-card:hover { transform: none; }
+  /* MENÚ HAMBURGUESA VISIBLE */
+  .menu-toggle {
+    display: flex;
+    z-index: 2002;
+  }
+
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    transform: translateY(-100%);
+    transition: 0.4s ease-in-out;
+    z-index: 2000;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+  }
+
+  .navbar-menu a {
+    font-size: 2rem;
+    color: var(--secondary-color);
+  }
+
+  /* FOOTER TABLET (Arreglo de texto ladeado) */
+  .footer_section--brand h2 {
+    transform: none;
+    margin: 0;
+  }
+
+  /* PRECIOS TABLET */
+  .ticket-card:hover {
+    transform: none;
+  }
 }
 
 /* --- REGLAS SOLO PARA MÓVILES (Menos de 768px) --- */
 @media (max-width: 768px) {
-    
-    /* 1. HERO CENTRADO (Adiós corte izquierdo) */
-    .hero { 
-        padding: 8rem 1rem 3rem; /* Más espacio arriba, menos a los lados */
-        width: 100%;
-        overflow-x: hidden; /* Seguridad extra */
-    }
-    
-    .hero-content {
-        padding: 0;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 
-    .hero-title { 
-        font-size: 1.8rem; /* Reducido para que quepa */
-        line-height: 1.2;
-        width: 100%;
-        margin: 0 auto 1rem;
-        word-wrap: break-word; /* Romper palabras largas si es necesario */
-        padding: 0 10px; /* Margen de seguridad */
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-        padding: 0 10px;
-    }
+  /* 1. HERO CENTRADO (Adiós corte izquierdo) */
+  .hero {
+    padding: 8rem 1rem 3rem;
+    /* Más espacio arriba, menos a los lados */
+    width: 100%;
+    overflow-x: hidden;
+    /* Seguridad extra */
+  }
 
-    .hero-image img { 
-        max-width: 240px; 
-        border-width: 5px;
-    }
+  .hero-content {
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    /* 2. FORMULARIO (Estrellas fuera del camino) */
-    .formulario-content { 
-        padding: 2rem 1.5rem; 
-        position: relative; 
-        z-index: 2; /* Contenido encima de estrellas */
-    }
-    
-    /* Movemos las estrellas a las esquinas extremas o las quitamos */
-    .formulario-section::before { top: -20px; left: -20px; font-size: 2rem; opacity: 0.5; z-index: 1; }
-    .formulario-section::after { bottom: -20px; right: -20px; font-size: 2rem; top: auto; opacity: 0.5; z-index: 1; }
-    
-    /* Estrellas dentro del título del form */
-    .formulario-form h3::before, .formulario-form h3::after {
-        font-size: 1.5rem; /* Más pequeñas */
-        margin: 0 5px;
-    }
+  .hero-title {
+    font-size: 1.8rem;
+    /* Reducido para que quepa */
+    line-height: 1.2;
+    width: 100%;
+    margin: 0 auto 1rem;
+    word-wrap: break-word;
+    /* Romper palabras largas si es necesario */
+    padding: 0 10px;
+    /* Margen de seguridad */
+  }
 
-    /* 3. CARRUSEL (Botones visibles y tamaño fijo) */
-    .carousel-container {
-        padding: 0; /* Quitar padding interno */
-        border-radius: 20px;
-        height: 350px; /* Altura fija para que no salte */
-    }
-    
-    .carousel-item img {
-        height: 350px; /* Forzar altura */
-        width: 100%;
-        object-fit: cover; /* Recortar para llenar sin deformar */
-        border-radius: 20px;
-    }
+  .hero-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
 
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        background: rgba(255, 255, 255, 0.9); /* Casi opaco */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    
-    .carousel-control.prev { left: 10px; }
-    .carousel-control.next { right: 10px; }
+  .hero-image img {
+    max-width: 240px;
+    border-width: 5px;
+  }
 
-    /* Footer y otros ajustes (Mantener lo que ya gustaba) */
-    .footer-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
-    .footer_section--brand h2 { transform: none; font-size: 2rem; margin-top: 5px; }
-    .ticket-price { font-size: 2.8rem; }
+  /* 2. FORMULARIO (Estrellas fuera del camino) */
+  .formulario-content {
+    padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 2;
+    /* Contenido encima de estrellas */
+  }
+
+  /* Movemos las estrellas a las esquinas extremas o las quitamos */
+  .formulario-section::before {
+    top: -20px;
+    left: -20px;
+    font-size: 2rem;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  .formulario-section::after {
+    bottom: -20px;
+    right: -20px;
+    font-size: 2rem;
+    top: auto;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* Estrellas dentro del título del form */
+  .formulario-form h3::before,
+  .formulario-form h3::after {
+    font-size: 1.5rem;
+    /* Más pequeñas */
+    margin: 0 5px;
+  }
+
+  /* 3. CARRUSEL (Botones visibles y tamaño fijo) */
+  .carousel-container {
+    padding: 0;
+    /* Quitar padding interno */
+    border-radius: 20px;
+    height: 350px;
+    /* Altura fija para que no salte */
+  }
+
+  .carousel-item img {
+    height: 350px;
+    /* Forzar altura */
+    width: 100%;
+    object-fit: cover;
+    /* Recortar para llenar sin deformar */
+    border-radius: 20px;
+  }
+
+  .carousel-control {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.9);
+    /* Casi opaco */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .carousel-control.prev {
+    left: 10px;
+  }
+
+  .carousel-control.next {
+    right: 10px;
+  }
+
+  /* Footer y otros ajustes (Mantener lo que ya gustaba) */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .footer_section--brand h2 {
+    transform: none;
+    font-size: 2rem;
+    margin-top: 5px;
+  }
+
+  .ticket-price {
+    font-size: 2.8rem;
+  }
 }

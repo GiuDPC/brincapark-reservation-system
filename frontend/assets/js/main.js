@@ -1,3 +1,318 @@
+// ==========================================
+// CARRUSEL DE GALERIA
+// ==========================================
+
+function initCarousel() {
+  const container = document.getElementById('gallery-carousel');
+  if (!container) return;
+
+  const track = container.querySelector('.carousel-track');
+  const items = container.querySelectorAll('.carousel-item');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  if (!track || items.length === 0) return;
+
+  let currentIndex = 0;
+  let autoPlayInterval = null;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  // Crear indicadores dinamicamente
+  const wrapper = container.closest('.carousel-wrapper');
+  let indicators = null;
+
+  if (wrapper) {
+    // Crear contenedor de indicadores si no existe
+    let indicatorContainer = wrapper.querySelector('.carousel-indicators');
+    if (!indicatorContainer) {
+      indicatorContainer = document.createElement('div');
+      indicatorContainer.className = 'carousel-indicators';
+      wrapper.appendChild(indicatorContainer);
+    }
+
+    // Crear indicadores
+    items.forEach((_, index) => {
+      const indicator = document.createElement('button');
+      indicator.className = 'carousel-indicator' + (index === 0 ? ' active' : '');
+      indicator.setAttribute('aria-label', `Ir a imagen ${index + 1}`);
+      indicator.addEventListener('click', () => goToSlide(index));
+      indicatorContainer.appendChild(indicator);
+    });
+
+    indicators = indicatorContainer.querySelectorAll('.carousel-indicator');
+  }
+
+  // Ir a slide especifico
+  function goToSlide(index) {
+    if (index < 0) index = items.length - 1;
+    if (index >= items.length) index = 0;
+
+    // Quitar clase active del item actual
+    items[currentIndex].classList.remove('active');
+    if (indicators) indicators[currentIndex].classList.remove('active');
+
+    // Actualizar indice
+    currentIndex = index;
+
+    // Agregar clase active al nuevo item
+    items[currentIndex].classList.add('active');
+    if (indicators) indicators[currentIndex].classList.add('active');
+  }
+
+  // Siguiente slide
+  function nextSlide() {
+    goToSlide(currentIndex + 1);
+  }
+
+  // Slide anterior
+  function prevSlide() {
+    goToSlide(currentIndex - 1);
+  }
+
+  // Auto play
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayInterval = setInterval(nextSlide, 4000); // Cambiar cada 4 segundos
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = null;
+    }
+  }
+
+  // Event listeners para botones
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      startAutoPlay(); // Reiniciar autoplay despues de interaccion
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      startAutoPlay();
+    });
+  }
+
+  // Soporte para touch/swipe en moviles
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoPlay();
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+    startAutoPlay();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        nextSlide(); // Swipe izquierda = siguiente
+      } else {
+        prevSlide(); // Swipe derecha = anterior
+      }
+    }
+  }
+
+  // Pausar autoplay cuando el mouse esta sobre el carrusel
+  container.addEventListener('mouseenter', stopAutoPlay);
+  container.addEventListener('mouseleave', startAutoPlay);
+
+  // Iniciar autoplay
+  startAutoPlay();
+
+  // Asegurar que el primer item este activo
+  items[0].classList.add('active');
+
+  console.log('Carrusel inicializado con', items.length, 'imagenes');
+}
+
+// Placeholder para formulario (si no existe)
+function initFormulario() {
+  // El formulario se maneja en otro lugar o no existe
+  console.log('Formulario inicializado');
+}
+
+// ==========================================
+// SCROLL REVEAL OBSERVER
+// ==========================================
+
+function initScrollReveal() {
+  // Seleccionar todos los elementos con clases reveal
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+  if (revealElements.length === 0) return;
+
+  // Configuracion del observer
+  const observerOptions = {
+    root: null, // viewport
+    rootMargin: '0px 0px -50px 0px', // trigger un poco antes de llegar
+    threshold: 0.1 // 10% del elemento visible
+  };
+
+  // Callback cuando un elemento entra al viewport
+  const observerCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        // Dejar de observar una vez revelado
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  // Crear observer
+  const revealObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Observar cada elemento
+  revealElements.forEach(element => {
+    revealObserver.observe(element);
+  });
+
+  console.log('Scroll Reveal inicializado para', revealElements.length, 'elementos');
+}
+
+// ==========================================
+// AGREGAR CLASES DE ANIMACION AUTOMATICAMENTE
+// ==========================================
+
+function addAnimationClasses() {
+  // ========================================
+  // HERO SECTION
+  // ========================================
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent && !heroContent.classList.contains('reveal-left')) {
+    heroContent.classList.add('reveal-left');
+  }
+
+  const heroImage = document.querySelector('.hero-image');
+  if (heroImage && !heroImage.classList.contains('reveal-right')) {
+    heroImage.classList.add('reveal-right');
+  }
+
+  // ========================================
+  // TITULOS DE SECCIONES
+  // ========================================
+  const sectionTitles = document.querySelectorAll('.section-title');
+  sectionTitles.forEach(title => {
+    if (!title.classList.contains('reveal')) {
+      title.classList.add('reveal');
+    }
+  });
+
+  // ========================================
+  // TARJETAS DE TICKETS
+  // ========================================
+  const ticketCards = document.querySelectorAll('.ticket-card');
+  ticketCards.forEach((card, index) => {
+    if (!card.classList.contains('reveal-scale')) {
+      card.classList.add('reveal-scale', 'hover-lift', `reveal-delay-${(index % 4) + 1}`);
+    }
+  });
+
+  // ========================================
+  // TARJETAS DE PAQUETES
+  // ========================================
+  const paqueteCards = document.querySelectorAll('.paquete-card');
+  paqueteCards.forEach((card, index) => {
+    if (!card.classList.contains('reveal-scale')) {
+      card.classList.add('reveal-scale', 'hover-lift', `reveal-delay-${(index % 4) + 1}`);
+    }
+  });
+
+  // ========================================
+  // SECCION DE BENEFICIOS
+  // ========================================
+  const beneficios = document.querySelectorAll('.beneficios-container, .beneficios-section');
+  beneficios.forEach(b => {
+    if (!b.classList.contains('reveal')) {
+      b.classList.add('reveal');
+    }
+  });
+
+  // ========================================
+  // FORMULARIO DE RESERVA
+  // ========================================
+  const formulario = document.querySelector('.formulario-section, .formulario-content');
+  if (formulario && !formulario.classList.contains('reveal')) {
+    formulario.classList.add('reveal');
+  }
+
+  // ========================================
+  // GALERIA / CARRUSEL
+  // ========================================
+  const galeriaSection = document.querySelector('.galeria-section');
+  if (galeriaSection && !galeriaSection.classList.contains('reveal')) {
+    galeriaSection.classList.add('reveal');
+  }
+
+  const carousel = document.querySelector('.carousel-wrapper');
+  if (carousel && !carousel.classList.contains('reveal-scale')) {
+    carousel.classList.add('reveal-scale');
+  }
+
+  // ========================================
+  // FOOTER
+  // ========================================
+  const footer = document.querySelector('.footer');
+  if (footer && !footer.classList.contains('reveal')) {
+    footer.classList.add('reveal');
+  }
+
+  // ========================================
+  // NORMATIVAS PAGE - Tarjetas y secciones
+  // ========================================
+  const normativaCards = document.querySelectorAll('.normativa-card, .policy-card, .rule-item, .decorator-card');
+  normativaCards.forEach((card, index) => {
+    if (!card.classList.contains('reveal-scale')) {
+      card.classList.add('reveal-scale', 'hover-lift', `reveal-delay-${(index % 4) + 1}`);
+    }
+  });
+
+  const normativaSections = document.querySelectorAll('.normativas-section, .normativas-hero, .quick-nav, .timeline, .info-box');
+  normativaSections.forEach(section => {
+    if (!section.classList.contains('reveal')) {
+      section.classList.add('reveal');
+    }
+  });
+
+  const timelineItems = document.querySelectorAll('.timeline-item, .service-item');
+  timelineItems.forEach((item, index) => {
+    if (!item.classList.contains('reveal-left')) {
+      item.classList.add('reveal-left', `reveal-delay-${(index % 4) + 1}`);
+    }
+  });
+
+  // ========================================
+  // BOTONES - Ripple y Glow
+  // ========================================
+  const buttons = document.querySelectorAll('.reserva-btn, .btn-submit, .cta-button, .quick-nav-item');
+  buttons.forEach(btn => {
+    if (!btn.classList.contains('btn-ripple')) {
+      btn.classList.add('btn-ripple', 'hover-glow');
+    }
+  });
+
+  // ========================================
+  // ICONOS - Bounce en hover
+  // ========================================
+  const iconContainers = document.querySelectorAll('.social-icon, .beneficio-icon, .rule-icon');
+  iconContainers.forEach(icon => {
+    if (!icon.classList.contains('icon-bounce')) {
+      icon.classList.add('icon-bounce');
+    }
+  });
+}
+
 function initApp() {
   console.log("Init App");
 
@@ -45,7 +360,13 @@ function initApp() {
   if (document.getElementById("reservation-form")) initFormulario();
   if (typeof inicializarPreciosDinamicos === 'function') inicializarPreciosDinamicos();
 
-  // Animaciones de entrada para secciones (scroll reveal)
+  // Agregar clases de animacion automaticamente
+  addAnimationClasses();
+
+  // Inicializar scroll reveal
+  initScrollReveal();
+
+  // Animaciones de entrada para secciones (GSAP)
   animarSeccionesAlCargar();
 }
 
