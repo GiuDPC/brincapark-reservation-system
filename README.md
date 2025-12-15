@@ -1,22 +1,19 @@
-# 🎢 BRINCAPARK - Sistema de Gestión de Reservas
+# BRINCAPARK - Sistema de Gestion de Reservas
 
 <div align="center">
 
 ![BRINCAPARK Logo](frontend/assets/img/Logo.png)
 
-**Sistema completo de gestión de reservas para parques de diversiones**
+**Sistema completo de gestion de reservas para parques de diversiones**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Estado](https://img.shields.io/badge/Estado-Produccion-success)](https://brincapark-reservation-system.vercel.app/)
 [![Node.js](https://img.shields.io/badge/Node.js-v14+-green.svg)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-v4.4+-brightgreen.svg)](https://www.mongodb.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen.svg)](https://www.mongodb.com/atlas)
 [![Express](https://img.shields.io/badge/Express-v5.1-blue.svg)](https://expressjs.com/)
-![Estado](https://img.shields.io/badge/Estado-Terminado%20(MVP)-success)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Características](#-características) •
-[Demo](#-demo) •
-[Instalación](#-instalación-rápida) •
-[Documentación](#-documentación) •
-[Contribuir](#-contribuir)
+[Demo en Vivo](https://brincapark-reservation-system.vercel.app/) |
+[Documentacion Tecnica](DOCUMENTACION_TECNICA.md)
 
 </div>
 
@@ -24,453 +21,430 @@
 
 ## Tabla de Contenidos
 
-- [Acerca del Proyecto](#-acerca-del-proyecto)
-- [Características](#-características)
-- [Tecnologías](#-tecnologías-utilizadas)
-- [Instalación Rápida](#-instalación-rápida)
-- [Uso](#-uso)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [API Endpoints](#-api-endpoints)
-- [Configuración](#-configuración)
-- [Capturas de Pantalla](#-capturas-de-pantalla)
-- [Roadmap](#-roadmap)
-- [Contribuir](#-contribuir)
-- [Licencia](#-licencia)
-- [Contacto](#-contacto)
+- [Acerca del Proyecto](#acerca-del-proyecto)
+- [Demo en Vivo](#demo-en-vivo)
+- [Arquitectura](#arquitectura)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Caracteristicas](#caracteristicas)
+- [Instalacion Local](#instalacion-local)
+- [Despliegue en Produccion](#despliegue-en-produccion)
+- [API Endpoints](#api-endpoints)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Configuracion](#configuracion)
+- [Capturas de Pantalla](#capturas-de-pantalla)
+- [Roadmap](#roadmap)
+- [Licencia](#licencia)
+- [Autor](#autor)
 
 ---
 
 ## Acerca del Proyecto
 
-> "Este sistema nace como una solución integral para digitalizar la gestión de 'Brincapark', un parque de atracciones que operaba manualmente. El software resuelve problemas críticos como la duplicidad de reservas, automatiza el cálculo de ingresos diarios y ofrece métricas en tiempo real para la toma de decisiones, transformando procesos manuales en un flujo digital eficiente."
+Este sistema nace como una solucion integral para digitalizar la gestion de un parque de atracciones que operaba manualmente. El software resuelve problemas criticos como la duplicidad de reservas, automatiza el calculo de ingresos diarios y ofrece metricas en tiempo real para la toma de decisiones, transformando procesos manuales en un flujo digital eficiente.
 
-**BRINCAPARK** es una plataforma web integral diseñada para gestionar reservas de parques de diversiones. El sistema permite a los usuarios realizar reservas de tickets y paquetes de fiestas de manera sencilla, mientras proporciona a los administradores herramientas completas para gestionar reservas, visualizar estadísticas en tiempo real y configurar el sistema.
+BRINCAPARK es una plataforma web integral que permite a los usuarios realizar reservas de tickets y paquetes de fiestas de manera sencilla, mientras proporciona a los administradores herramientas completas para gestionar reservas, visualizar estadisticas en tiempo real y configurar el sistema.
 
-### ¿Por qué BRINCAPARK?
+### Puntos Destacados
 
-- **Gestión Centralizada**: Administra múltiples parques desde un solo panel
-- **Analytics en Tiempo Real**: Visualiza estadísticas, ingresos y tendencias
-- **Multi-Moneda**: Soporte para USD y Bolívares con conversión automática
-- **100% Responsive**: Funciona perfectamente en móviles, tablets y desktop
-- **Seguro**: Autenticación administrativa y validación de datos
-- **Rápido y Eficiente**: Arquitectura optimizada con MongoDB y Express
-
----
-
-## Características
-
-### Para Usuarios (Público)
-
-- **Reserva de Tickets Individuales**
-  - 15 minutos, 30 minutos, 60 minutos
-  - Full Day y Combo especial
-- **Paquetes de Fiestas**
-  - Mini (30 personas), Mediano (60 personas), Full (80 personas)
-  - Precios diferenciados entre semana y fin de semana
-- **Selección de Parque**
-  - Maracaibo, Caracas, Punto Fijo
-- **Formulario Intuitivo**
-  - Validación en tiempo real
-  - Verificación de disponibilidad de horarios
-  - Confirmación inmediata
-- **Galería de Imágenes**
-  - Carrusel automático con imágenes del parque
-- **Información Completa**
-  - Horarios, normativas y precios
-
-### Para Administradores
-
-- **Panel Administrativo Completo**
-  - Dashboard con métricas en tiempo real
-  - Visualización de estadísticas clave
-- **Analytics Avanzados**
-  - Gráficas de distribución por parque
-  - Ingresos totales y promedios
-  - Día más popular
-  - Paquete más vendido
-  - Análisis mensual
-- **Gestión de Reservas**
-  - Aprobar, cancelar o editar reservas
-  - Búsqueda y filtrado avanzado
-  - Exportación a PDF y Excel
-- **Sistema de Notificaciones**
-  - Alertas de reservas pendientes
-  - Actualización automática cada 30 segundos
-- **Calendario Visual**
-  - Vista mensual de reservas
-  - Navegación intuitiva
-- **Configuración del Sistema**
-  - Cambio de moneda (USD/Bs)
-  - Actualización de tasa BCV
-  - Modificación de precios de tickets y paquetes
-- **Reportes y Exportación**
-  - Generación de reportes en PDF
-  - Exportación de datos a Excel
-  - Métricas avanzadas y comparativas
+- **Gestion Centralizada**: Administra multiples parques desde un solo panel
+- **Analytics en Tiempo Real**: Visualiza estadisticas, ingresos y tendencias
+- **Multi-Moneda**: Soporte para USD y Bolivares con conversion automatica via tasa BCV
+- **100% Responsive**: Funciona en moviles, tablets y desktop
+- **Precios Dinamicos**: Sistema de cache local para carga instantanea de precios
+- **Transiciones Fluidas**: Implementacion de Barba.js con GSAP para navegacion suave
 
 ---
 
-## Tecnologías Utilizadas
+## Demo en Vivo
+
+| Componente | URL | Servicio |
+|------------|-----|----------|
+| **Frontend** | [brincapark-reservation-system.vercel.app](https://brincapark-reservation-system.vercel.app/) | Vercel |
+| **Backend API** | brincapark-api.onrender.com | Render |
+| **Base de Datos** | MongoDB Atlas | MongoDB Cloud |
+
+### Acceso al Panel Administrativo
+
+1. Navegar a `/admin.html`
+2. Ingresar el codigo de acceso configurado en las variables de entorno
+
+---
+
+## Arquitectura
+
+```
+                    +------------------+
+                    |    Cliente       |
+                    |   (Navegador)    |
+                    +--------+---------+
+                             |
+                             | HTTPS
+                             v
++----------------------------+----------------------------+
+|                            |                            |
+|     +------------------+   |   +------------------+     |
+|     |    Frontend      |   |   |    Backend       |     |
+|     |    (Vercel)      |   |   |    (Render)      |     |
+|     |                  |   |   |                  |     |
+|     |  - HTML/CSS/JS   |   |   |  - Node.js       |     |
+|     |  - Barba.js      |   |   |  - Express.js    |     |
+|     |  - GSAP          |   |   |  - Mongoose      |     |
+|     |  - Chart.js      |   |   |  - REST API      |     |
+|     +--------+---------+   |   +--------+---------+     |
+|              |             |            |               |
+|              +-------------+------------+               |
+|                            |                            |
++----------------------------+----------------------------+
+                             |
+                             | MongoDB Driver
+                             v
+                    +------------------+
+                    |  MongoDB Atlas   |
+                    |  (Base de Datos) |
+                    +------------------+
+```
+
+---
+
+## Tecnologias Utilizadas
 
 ### Frontend
 
-- **HTML5** - Estructura semántica
-- **CSS3** - Diseño responsive con variables CSS
-- **JavaScript (ES6+)** - Lógica del cliente (Vanilla JS)
-- **Chart.js** - Visualización de datos y gráficas
-- **SweetAlert2** - Alertas elegantes y modales
-- **jsPDF & jsPDF-AutoTable** - Generación de PDFs
-- **SheetJS (xlsx)** - Exportación a Excel
+| Tecnologia | Version | Proposito |
+|------------|---------|-----------|
+| HTML5 | - | Estructura semantica |
+| CSS3 | - | Diseño responsive con variables CSS |
+| JavaScript | ES6+ | Logica del cliente (Vanilla JS) |
+| Barba.js | 2.x | Transiciones de pagina fluidas |
+| GSAP | 3.12 | Animaciones avanzadas |
+| Chart.js | 4.x | Visualizacion de datos y graficas |
+| SweetAlert2 | 11.x | Alertas elegantes y modales |
+| jsPDF | 2.x | Generacion de PDFs |
+| SheetJS | - | Exportacion a Excel |
 
 ### Backend
 
-- **Node.js** - Entorno de ejecución
-- **Express.js v5.1** - Framework web
-- **MongoDB** - Base de datos NoSQL
-- **Mongoose** - ODM para MongoDB
-- **CORS** - Manejo de peticiones cross-origin
-- **dotenv** - Gestión de variables de entorno
+| Tecnologia | Version | Proposito |
+|------------|---------|-----------|
+| Node.js | 14+ | Entorno de ejecucion |
+| Express.js | 5.1 | Framework web |
+| MongoDB | Atlas | Base de datos NoSQL |
+| Mongoose | 8.x | ODM para MongoDB |
+| CORS | - | Manejo de peticiones cross-origin |
+| dotenv | - | Gestion de variables de entorno |
 
-### Herramientas de Desarrollo
+### Infraestructura
 
-- **Nodemon** - Auto-restart del servidor en desarrollo
-- **pnpm** - Gestor de paquetes rápido y eficiente
+| Servicio | Proposito |
+|----------|-----------|
+| Vercel | Hosting del frontend |
+| Render | Hosting del backend |
+| MongoDB Atlas | Base de datos en la nube |
+| pnpm | Gestor de paquetes |
 
 ---
 
-## Instalación Rápida
+## Caracteristicas
+
+### Para Usuarios (Publico)
+
+- Reserva de Tickets Individuales (15 min, 30 min, 60 min, Full Day, Combo)
+- Paquetes de Fiestas (Mini 30 personas, Mediano 60 personas, Full 80 personas)
+- Seleccion de Parque (Maracaibo, Caracas, Punto Fijo)
+- Verificacion de disponibilidad de horarios en tiempo real
+- Galeria de imagenes con carrusel automatico
+- Pagina de normativas y politicas
+
+### Para Administradores
+
+- Dashboard con metricas en tiempo real
+- Graficas de distribucion por parque (Chart.js)
+- Ingresos totales y promedios con analisis mensual
+- Gestion completa de reservas (aprobar, cancelar, editar)
+- Busqueda y filtrado avanzado
+- Exportacion a PDF y Excel
+- Sistema de notificaciones de reservas pendientes
+- Calendario visual con vista mensual
+- Configuracion de moneda (USD/Bs) y tasa BCV
+- Actualizacion dinamica de precios
+
+---
+
+## Instalacion Local
 
 ### Prerequisitos
 
-Asegúrate de tener instalado:
-
-- [Node.js](https://nodejs.org/) (v14 o superior)
-- [MongoDB](https://www.mongodb.com/try/download/community) (v4.4 o superior)
-- [pnpm](https://pnpm.io/) (opcional, puedes usar npm)
+- Node.js v14 o superior
+- MongoDB v4.4 o superior (local) o cuenta en MongoDB Atlas
+- pnpm (recomendado) o npm
 
 ### Paso 1: Clonar el Repositorio
 
 ```bash
-git clone https://github.com/GiuDPC/Parque-sistema-integral-V.git
-cd Parque-sistema-integral-V
+git clone https://github.com/GiuDPC/brincapark-reservation-system.git
+cd brincapark-reservation-system
 ```
 
 ### Paso 2: Configurar el Backend
 
 ```bash
-# Navegar a la carpeta del backend
 cd backend
 
 # Instalar dependencias
 pnpm install
-# o con npm: npm install
 
-# Crear archivo .env
+# Crear archivo de variables de entorno
 cp .env.example .env
-# Edita .env y configura tus variables (ver sección Configuración)
 
-# Iniciar el servidor
+# Editar .env con tu configuracion (ver seccion Configuracion)
+
+# Iniciar servidor de desarrollo
 pnpm dev
-# o con npm: npm run dev
 ```
 
-El servidor estará corriendo en `http://localhost:4000`
+El servidor estara corriendo en `http://localhost:4000`
 
 ### Paso 3: Configurar el Frontend
 
 ```bash
-# En otra terminal, navegar a la carpeta del frontend
 cd frontend
 
-# Iniciar servidor HTTP (elige uno)
+# Iniciar servidor HTTP
 npx http-server -p 8080 -c-1
-# o con Python: python -m http.server 8080
-# o con PHP: php -S localhost:8080
 ```
 
-La aplicación estará disponible en `http://localhost:8080`
+La aplicacion estara disponible en `http://localhost:8080`
 
-### Paso 4: Acceder al Sistema
+### Paso 4: Verificar Instalacion
 
-- **Página Pública**: `http://localhost:8080`
-- **Panel Admin**: `http://localhost:8080/admin.html`
-- **Normativas**: `http://localhost:8080/normativas.html`
+- Pagina Publica: `http://localhost:8080`
+- Panel Admin: `http://localhost:8080/admin.html`
+- Normativas: `http://localhost:8080/normativas.html`
 
 ---
 
-## Uso
+## Despliegue en Produccion
 
-### Realizar una Reserva (Usuario)
+### Frontend (Vercel)
 
-1. Abre `http://localhost:8080`
-2. Navega a la sección "Reservar"
-3. Completa el formulario con tus datos:
-   - Nombre completo
-   - Correo electrónico
-   - Teléfono
-   - Fecha del servicio
-   - Selecciona el parque
-   - Elige el horario disponible
-   - Selecciona el paquete
-   - Tipo de evento
-4. Haz clic en "Enviar Reserva"
-5. Recibirás una confirmación inmediata
+1. Conectar repositorio a Vercel
+2. Configurar directorio raiz como `frontend`
+3. No se requieren comandos de build (HTML/CSS/JS estatico)
+4. Desplegar
 
-### Gestionar Reservas (Administrador)
+### Backend (Render)
 
-1. Abre `http://localhost:8080/admin.html`
-2. Ingresa el código de acceso (configurado en `.env` como `ADMIN_SECRET`)
-3. En el dashboard verás:
-   - Estadísticas generales
-   - Gráficas de distribución
-   - Calendario de reservas
-4. Ve a "Gestión de Reservas" para:
-   - Ver todas las reservas
-   - Filtrar por estado, parque o fecha
-   - Aprobar o cancelar reservas
-   - Editar detalles de reservas
-5. Ve a "Reportes" para:
-   - Exportar datos a PDF o Excel
-   - Ver métricas avanzadas
-6. Ve a "Configuración" para:
-   - Cambiar moneda y tasa BCV
-   - Actualizar precios
+1. Crear nuevo Web Service en Render
+2. Conectar repositorio
+3. Configurar:
+   - Root Directory: `backend`
+   - Build Command: `pnpm install`
+   - Start Command: `node src/index.js`
+4. Agregar variables de entorno:
+   - `MONGO_URI`: URL de conexion a MongoDB Atlas
+   - `ADMIN_SECRET`: Clave de acceso administrativo
+   - `PORT`: 4000 (u otro puerto disponible)
+5. Desplegar
+
+### Base de Datos (MongoDB Atlas)
+
+1. Crear cluster gratuito en MongoDB Atlas
+2. Configurar usuario y contrasena de base de datos
+3. Agregar IP de Render a la whitelist (o permitir acceso desde cualquier IP)
+4. Obtener connection string y agregarlo a las variables de entorno de Render
+
+---
+
+## API Endpoints
+
+### Endpoints Publicos
+
+| Metodo | Ruta | Descripcion |
+|--------|------|-------------|
+| POST | `/api/reservations` | Crear nueva reserva |
+| GET | `/api/reservations` | Listar reservas |
+| GET | `/api/reservations/horarios-ocupados` | Obtener horarios ocupados |
+| GET | `/api/config/precios` | Obtener precios actuales |
+
+### Endpoints Administrativos
+
+Requieren header: `x-admin-secret: [ADMIN_SECRET]`
+
+| Metodo | Ruta | Descripcion |
+|--------|------|-------------|
+| GET | `/api/reservations/analytics/stats` | Obtener estadisticas |
+| PATCH | `/api/admin/reservations/:id` | Actualizar reserva |
+| DELETE | `/api/admin/reservations/:id` | Eliminar reserva |
+| PUT | `/api/config` | Actualizar configuracion |
+
+Para documentacion completa de la API, consultar [DOCUMENTACION_TECNICA.md](DOCUMENTACION_TECNICA.md).
 
 ---
 
 ## Estructura del Proyecto
 
 ```
-BRINCAPARK/
-├── backend/                    # Servidor Node.js/Express
+brincapark-reservation-system/
+├── backend/
 │   ├── src/
-│   │   ├── config/            # Configuración de BD
-│   │   │   └── db.js          # Conexión a MongoDB
-│   │   ├── middleware/        # Middlewares personalizados
-│   │   │   └── adminAuth.js   # Autenticación admin
-│   │   ├── models/            # Modelos de Mongoose
-│   │   │   ├── Reservation.js # Modelo de Reserva
-│   │   │   ├── Config.js      # Modelo de Configuración
-│   │   │   └── index.js       # Exportador de modelos
-│   │   ├── routes/            # Rutas de la API
-│   │   │   ├── reservations.js # Rutas de reservas
-│   │   │   ├── admin.js       # Rutas administrativas
-│   │   │   └── config.js      # Rutas de configuración
-│   │   └── index.js           # Punto de entrada del servidor
-│   ├── .env.example           # Ejemplo de variables de entorno
-│   └── package.json           # Dependencias del backend
+│   │   ├── config/
+│   │   │   └── db.js              # Conexion a MongoDB
+│   │   ├── middleware/
+│   │   │   └── adminAuth.js       # Autenticacion admin
+│   │   ├── models/
+│   │   │   ├── Reservation.js     # Modelo de Reserva
+│   │   │   ├── Config.js          # Modelo de Configuracion
+│   │   │   └── index.js           # Exportador de modelos
+│   │   ├── routes/
+│   │   │   ├── reservations.js    # Rutas de reservas
+│   │   │   ├── admin.js           # Rutas administrativas
+│   │   │   └── config.js          # Rutas de configuracion
+│   │   └── index.js               # Punto de entrada
+│   ├── .env.example               # Ejemplo de variables de entorno
+│   └── package.json
 │
-├── frontend/                   # Cliente web
+├── frontend/
 │   ├── assets/
-│   │   ├── css/               # Hojas de estilo
-│   │   │   ├── index.css      # Estilos página principal
-│   │   │   ├── admin.css      # Estilos panel admin
+│   │   ├── css/
+│   │   │   ├── index.css          # Estilos pagina principal
+│   │   │   ├── admin.css          # Estilos panel admin
 │   │   │   ├── admin-mejoras.css
 │   │   │   ├── admin-funcionalidades.css
 │   │   │   ├── admin-analytics.css
-│   │   │   ├── normativas.css
-│   │   │   └── styles.css     # Estilos globales
-│   │   ├── js/                # Scripts JavaScript
-│   │   │   ├── main.js        # Lógica página principal
-│   │   │   ├── admin.js       # Lógica panel admin
+│   │   │   └── normativas.css
+│   │   ├── js/
+│   │   │   ├── main.js            # Logica principal + Barba.js
+│   │   │   ├── admin.js           # Logica panel admin
 │   │   │   ├── admin-funcionalidades.js
 │   │   │   ├── admin-analytics.js
-│   │   │   ├── api.js         # Cliente API
-│   │   │   ├── pricing.js     # Cálculos de precios
-│   │   │   ├── chart.min.js   # Librería Chart.js
-│   │   │   └── sweetalert2.min.js # Librería SweetAlert2
-│   │   ├── img/               # Imágenes y recursos
-│   │   └── fonts/             # Fuentes personalizadas
-│   ├── index.html             # Página principal
-│   ├── admin.html             # Panel administrativo
-│   └── normativas.html        # Página de normativas
+│   │   │   ├── api.js             # Cliente API
+│   │   │   └── pricing.js         # Sistema de precios dinamicos
+│   │   ├── img/
+│   │   └── fonts/
+│   ├── index.html                 # Pagina principal
+│   ├── admin.html                 # Panel administrativo
+│   └── normativas.html            # Pagina de normativas
 │
-├── .gitignore                 # Archivos ignorados por Git
-├── README.md                  # Este archivo
-└── DOCUMENTACION_TECNICA.md   # Documentación técnica detallada
+├── docs/
+│   └── screenshots/               # Capturas de pantalla
+│
+├── .gitignore
+├── README.md
+└── DOCUMENTACION_TECNICA.md
 ```
 
 ---
 
-## API Endpoints
-
-### Endpoints Públicos
-
-#### Crear Reserva
-```http
-POST /api/reservations
-Content-Type: application/json
-
-{
-  "nombreCompleto": "Juan Pérez",
-  "correo": "juan@example.com",
-  "telefono": "+58 414-1234567",
-  "paquete": "mini",
-  "fechaServicio": "2025-12-25",
-  "horaReservacion": "10am-1pm",
-  "parque": "Maracaibo",
-  "estadoUbicacion": "Zulia",
-  "tipoEvento": "Cumpleaños"
-}
-```
-
-#### Listar Reservas
-```http
-GET /api/reservations
-```
-
-#### Obtener Horarios Ocupados
-```http
-GET /api/reservations/horarios-ocupados?fechaServicio=2025-12-25&parque=Maracaibo
-```
-
-### Endpoints Administrativos
-
-Requieren header: `x-admin-secret: tu_clave_secreta`
-
-#### Obtener Estadísticas
-```http
-GET /api/reservations/analytics/stats
-x-admin-secret: tu_clave_secreta
-```
-
-#### Actualizar Reserva
-```http
-PATCH /api/admin/reservations/:id
-x-admin-secret: tu_clave_secreta
-Content-Type: application/json
-
-{
-  "estadoReserva": "aprobado"
-}
-```
-
-#### Eliminar Reserva
-```http
-DELETE /api/admin/reservations/:id
-x-admin-secret: tu_clave_secreta
-```
-
-Para documentación completa de la API, consulta [DOCUMENTACION_TECNICA.md](DOCUMENTACION_TECNICA.md).
-
----
-
-## Configuración
+## Configuracion
 
 ### Variables de Entorno (Backend)
 
-Crea un archivo `.env` en la carpeta `backend/` con las siguientes variables:
+Crear archivo `.env` en la carpeta `backend/`:
 
 ```env
 # Puerto del servidor
 PORT=4000
 
-# URL de conexión a MongoDB
+# URL de conexion a MongoDB
 # Desarrollo local:
 MONGO_URI=mongodb://localhost:27017/brincapark
 
-# Producción (MongoDB Atlas):
+# Produccion (MongoDB Atlas):
 # MONGO_URI=mongodb+srv://usuario:password@cluster.mongodb.net/brincapark
 
 # Clave secreta para acceso administrativo
-# IMPORTANTE: Usa una clave larga y segura en producción
-ADMIN_SECRET=tu_clave_secreta_super_segura_aqui
+ADMIN_SECRET=tu_clave_secreta_aqui
 ```
 
-### Configuración de Precios
+### Precios por Defecto
 
-Los precios se pueden configurar desde el panel administrativo en la sección "Configuración", o directamente en la base de datos. Los valores por defecto son:
+Los precios se configuran desde el panel administrativo:
 
 **Tickets:**
-- 15 min: $6
-- 30 min: $9
-- 60 min: $10
-- Full Day: $11
-- Combo: $13
+| Tipo | Precio (USD) |
+|------|--------------|
+| 15 min | $6 |
+| 30 min | $9 |
+| 60 min | $10 |
+| Full Day | $11 |
+| Combo | $13 |
 
 **Paquetes (Lunes-Jueves / Viernes-Domingo):**
-- Mini: $150 / $180
-- Mediano: $200 / $230
-- Full: $250 / $280
+| Paquete | L-J | V-D |
+|---------|-----|-----|
+| Mini (30 personas) | $150 | $180 |
+| Mediano (60 personas) | $200 | $230 |
+| Full (80 personas) | $250 | $280 |
 
 ---
 
 ## Capturas de Pantalla
 
-### Experiencia de Usuario (Landing Page)
+### Pagina Principal
+
 <div align="center">
-  <img src="docs/screenshots/Hero-section.png" alt="Página Principal" width="80%">
-  <p><em>Portada principal con diseño atractivo y responsive para captación de clientes.</em></p>
+  <img src="docs/screenshots/Hero-section.png" alt="Pagina Principal" width="80%">
+  <p><em>Portada principal con diseno responsive.</em></p>
 </div>
+
+### Formulario de Reserva
 
 <div align="center">
   <img src="docs/screenshots/Form.png" alt="Formulario de Reserva" width="80%">
-  <p><em>Formulario de reserva con validaciones de lógica de negocio (aforos y fechas).</em></p>
+  <p><em>Formulario con validaciones de logica de negocio.</em></p>
 </div>
 
-### Panel Administrativo (Gestión)
+### Panel Administrativo
+
 <div align="center">
   <img src="docs/screenshots/Dashboard.png" alt="Dashboard Principal" width="100%">
-  <p><em>Dashboard con KPIs en tiempo real, control de ingresos y notificaciones de estado.</em></p>
+  <p><em>Dashboard con KPIs en tiempo real.</em></p>
 </div>
 
-### Herramientas de Análisis
+### Calendario y Graficas
+
 <div align="center">
   <img src="docs/screenshots/Calendar.png" alt="Calendario de Reservas" width="45%" style="margin-right: 10px;">
-  <img src="docs/screenshots/Graphics.png" alt="Gráficas Estadísticas" width="45%">
-  <p><em>Visualización de ocupación mensual y métricas comparativas de rendimiento por sede.</em></p>
+  <img src="docs/screenshots/Graphics.png" alt="Graficas Estadisticas" width="45%">
+  <p><em>Visualizacion de ocupacion mensual y metricas comparativas.</em></p>
 </div>
 
 ---
 
 ## Roadmap
 
-### Versión 1.0 (Actual)
-- [x] Sistema de reservas público
-- [x] Panel administrativo completo
-- [x] Analytics y reportes
-- [x] Exportación PDF/Excel
-- [x] Multi-moneda (USD/Bs)
-- [x] Diseño responsive
+### Version 1.0 (Actual - Produccion)
 
-### Versión 1.1 (Próximamente)
-- [ ] Sistema de emails automáticos
+- [x] Sistema de reservas publico
+- [x] Panel administrativo completo
+- [x] Analytics y reportes con graficas
+- [x] Exportacion PDF/Excel
+- [x] Multi-moneda (USD/Bs)
+- [x] Diseno responsive
+- [x] Transiciones fluidas con Barba.js
+- [x] Sistema de precios dinamicos con cache local
+- [x] Despliegue en produccion (Vercel + Render)
+
+### Version 1.1 (Planificado)
+
+- [ ] Sistema de emails automaticos
 - [ ] Notificaciones por WhatsApp
 - [ ] Recordatorios de reservas
-- [ ] Integración con calendario (Google Calendar)
+- [ ] Integracion con Google Calendar
 
-### Versión 2.0 (Futuro)
-- [ ] Integración de pagos (Stripe/PayPal)
+### Version 2.0 (Futuro)
+
+- [ ] Integracion de pagos (Stripe/PayPal)
 - [ ] Sistema de cupones y descuentos
-- [ ] Autenticación multi-usuario
+- [ ] Autenticacion multi-usuario
 - [ ] Roles y permisos
-- [ ] App móvil nativa (React Native)
-- [ ] Sistema de reviews y calificaciones
-
----
-
-## Contribuir
-
-¡Las contribuciones son bienvenidas! Si quieres mejorar BRINCAPARK:
-
-1. **Fork** el proyecto
-2. Crea una **rama** para tu feature (`git checkout -b feature/AmazingFeature`)
-3. **Commit** tus cambios (`git commit -m 'Add: Amazing Feature'`)
-4. **Push** a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un **Pull Request**
-
-### Guías de Contribución
-
-- Sigue el estilo de código existente
-- Agrega comentarios claros y descriptivos
-- Actualiza la documentación si es necesario
-- Asegúrate de que todo funcione antes de hacer PR
+- [ ] App movil nativa
 
 ---
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto esta bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para mas detalles.
 
 ---
 
@@ -479,31 +453,17 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 **Giuseppe**
 
 - GitHub: [@GiuDPC](https://github.com/GiuDPC)
-- Proyecto: [BRINCAPARK](https://github.com/GiuDPC/Parque-sistema-integral-V)
+- Proyecto: [brincapark-reservation-system](https://github.com/GiuDPC/brincapark-reservation-system)
+- Demo: [brincapark-reservation-system.vercel.app](https://brincapark-reservation-system.vercel.app/)
 
 ---
 
 ## Agradecimientos
 
-- [Chart.js](https://www.chartjs.org/) - Gráficas hermosas y responsivas
+- [Chart.js](https://www.chartjs.org/) - Visualizacion de datos
 - [SweetAlert2](https://sweetalert2.github.io/) - Alertas modernas
-- [MongoDB](https://www.mongodb.com/) - Base de datos flexible
-- [Express.js](https://expressjs.com/) - Framework web minimalista
-
----
-
-## Soporte
-
-Si tienes preguntas o necesitas ayuda:
-
-1. Revisa la [documentación técnica](DOCUMENTACION_TECNICA.md)
-2. Abre un [Issue](https://github.com/GiuDPC/Parque-sistema-integral-V/issues)
-3. Contacta al autor
-
----
-
-<div align="center">
-
-Hecho por Giuseppe
-
-</div>
+- [Barba.js](https://barba.js.org/) - Transiciones de pagina
+- [GSAP](https://greensock.com/gsap/) - Animaciones
+- [MongoDB Atlas](https://www.mongodb.com/atlas) - Base de datos en la nube
+- [Vercel](https://vercel.com/) - Hosting frontend
+- [Render](https://render.com/) - Hosting backend
