@@ -1525,6 +1525,68 @@ body::after {
 }
 
 /* =========================================
+   EFECTO PARALLAX EN HERO
+   ========================================= */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4b0082 100%);
+  z-index: -1;
+  will-change: transform;
+}
+
+.hero-image {
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+/* =========================================
+   SKELETON LOADING PARA PRECIOS
+   ========================================= */
+
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  border-radius: 4px;
+  color: transparent !important;
+  min-width: 60px;
+  display: inline-block;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton específico para precios */
+.precio-skeleton {
+  width: 80px;
+  height: 1.5em;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Ocultar skeleton cuando el precio está cargado */
+.precio-loaded .skeleton {
+  display: none;
+}
+
+/* =========================================
    SCROLL REVEAL ANIMATIONS
    ========================================= */
 
@@ -1820,23 +1882,28 @@ body::after {
   margin-top: 1.5rem;
 }
 
-.carousel-indicator {
+.carousel-indicator,
+.indicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #ccc;
-  border: none;
+  background: #b794d4;
+  border: 2px solid #4b0082;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.carousel-indicator.active {
+.carousel-indicator.active,
+.indicator.active {
   background: #4b0082;
-  transform: scale(1.2);
+  transform: scale(1.3);
+  border-color: #4b0082;
 }
 
-.carousel-indicator:hover {
+.carousel-indicator:hover,
+.indicator:hover {
   background: #8b5cf6;
+  transform: scale(1.1);
 }
 
 /* Screen reader only */

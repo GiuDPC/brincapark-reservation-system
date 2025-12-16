@@ -127,20 +127,61 @@ function actualizarPreciosUI(config) {
 }
 
 // ==========================================
-// INICIALIZACIÓN OPTIMIZADA
+// SKELETON LOADING
+// ==========================================
+
+function mostrarSkeletonPrecios() {
+  // IDs de precios de tickets
+  const ticketIds = ["precio-15min", "precio-30min", "precio-60min", "precio-fullday", "precio-combo"];
+
+  // IDs de precios de paquetes
+  const paqueteIds = [
+    "precio-mini-lunes", "precio-mini-viernes",
+    "precio-mediano-lunes", "precio-mediano-viernes",
+    "precio-full-lunes", "precio-full-viernes"
+  ];
+
+  const allIds = [...ticketIds, ...paqueteIds];
+
+  allIds.forEach(id => {
+    const elemento = document.getElementById(id);
+    if (elemento) {
+      elemento.classList.add('skeleton');
+      elemento.textContent = '$---.--';
+    }
+  });
+}
+
+function ocultarSkeletonPrecios() {
+  const elementos = document.querySelectorAll('.skeleton');
+  elementos.forEach(el => {
+    el.classList.remove('skeleton');
+  });
+}
+
+// ==========================================
+// INICIALIZACION OPTIMIZADA
 // ==========================================
 
 async function inicializarPreciosDinamicos() {
-  // PASO 1: Mostrar precios del caché INMEDIATAMENTE
+  // PASO 1: Verificar caché
   const cached = obtenerDeCache();
+
   if (cached) {
+    // Si hay caché, mostrar inmediatamente
     actualizarPreciosUI(cached);
     console.log("✓ Precios cargados instantáneamente desde caché");
+  } else {
+    // Si no hay caché, mostrar skeleton loading
+    mostrarSkeletonPrecios();
   }
 
   // PASO 2: Obtener precios frescos del servidor en segundo plano
   const config = await obtenerConfiguracionPrecios();
   if (config) {
+    // Ocultar skeleton si estaba visible
+    ocultarSkeletonPrecios();
+
     // Solo actualizar UI si los precios cambiaron
     if (JSON.stringify(currentConfig) !== JSON.stringify(config)) {
       actualizarPreciosUI(config);

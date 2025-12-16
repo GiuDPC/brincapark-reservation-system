@@ -18,29 +18,21 @@ function initCarousel() {
   let touchStartX = 0;
   let touchEndX = 0;
 
-  // Crear indicadores dinamicamente
+  // Usar indicadores existentes del HTML
   const wrapper = container.closest('.carousel-wrapper');
   let indicators = null;
 
   if (wrapper) {
-    // Crear contenedor de indicadores si no existe
-    let indicatorContainer = wrapper.querySelector('.carousel-indicators');
-    if (!indicatorContainer) {
-      indicatorContainer = document.createElement('div');
-      indicatorContainer.className = 'carousel-indicators';
-      wrapper.appendChild(indicatorContainer);
+    const indicatorContainer = wrapper.querySelector('.carousel-indicators');
+    if (indicatorContainer) {
+      // Usar indicadores existentes (clase .indicator del HTML)
+      indicators = indicatorContainer.querySelectorAll('.indicator, .carousel-indicator');
+
+      // Agregar evento click a cada indicador
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => goToSlide(index));
+      });
     }
-
-    // Crear indicadores
-    items.forEach((_, index) => {
-      const indicator = document.createElement('button');
-      indicator.className = 'carousel-indicator' + (index === 0 ? ' active' : '');
-      indicator.setAttribute('aria-label', `Ir a imagen ${index + 1}`);
-      indicator.addEventListener('click', () => goToSlide(index));
-      indicatorContainer.appendChild(indicator);
-    });
-
-    indicators = indicatorContainer.querySelectorAll('.carousel-indicator');
   }
 
   // Ir a slide especifico
@@ -140,6 +132,48 @@ function initCarousel() {
 function initFormulario() {
   // El formulario se maneja en otro lugar o no existe
   console.log('Formulario inicializado');
+}
+
+// ==========================================
+// EFECTO PARALLAX EN HERO
+// ==========================================
+
+function initParallax() {
+  const hero = document.querySelector('.hero');
+  const heroImage = document.querySelector('.hero-image');
+
+  if (!hero) return;
+
+  let ticking = false;
+
+  // Factor de parallax: menor en móvil para mejor rendimiento
+  const isMobile = window.innerWidth < 768;
+  const parallaxFactor = isMobile ? 0.15 : 0.3;
+
+  function updateParallax() {
+    const scrolled = window.pageYOffset;
+    const heroHeight = hero.offsetHeight;
+
+    // Solo aplicar si estamos en el viewport del hero
+    if (scrolled <= heroHeight) {
+      // Mover la imagen del hero más lento que el scroll
+      if (heroImage) {
+        const yPos = scrolled * parallaxFactor;
+        heroImage.style.transform = `translateY(${yPos}px)`;
+      }
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  console.log('Parallax inicializado' + (isMobile ? ' (modo móvil)' : ''));
 }
 
 // ==========================================
@@ -365,6 +399,9 @@ function initApp() {
 
   // Inicializar scroll reveal
   initScrollReveal();
+
+  // Inicializar efecto parallax
+  initParallax();
 
   // Animaciones de entrada para secciones (GSAP)
   animarSeccionesAlCargar();
