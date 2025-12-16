@@ -14,13 +14,16 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 body {
   font-family: "Outfit", bobby;
   background: #fffef7;
   color: #4b0082;
-  overflow-x: hidden;
-  position: relative;
-  padding-top: 0;
+  overflow: visible;
 }
 
 /* Estrellas decorativas de fondo */
@@ -2356,14 +2359,7 @@ body::after {
    ========================================= */
 
 /* 1. RESET GLOBAL PARA EVITAR CORTES BLANCOS */
-html,
-body {
-  overflow-x: hidden;
-  /* Esto es CLAVE para evitar el espacio blanco a la derecha/izquierda */
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
+/* Los estilos de html y body están al inicio del archivo */
 
 /* 2. CORTINA DE TRANSICIÓN BARBA.JS (Estilo Mejorado) */
 .transition-overlay {
