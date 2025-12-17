@@ -2709,4 +2709,25 @@ body::after {
   .ticket-price {
     font-size: 2.8rem;
   }
+
+  /* CORRECCION: Ocultar estrellas decorativas que sobresalen */
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  /* CORRECCION: Asegurar que el overlay de transicion no aparezca */
+  .transition-overlay {
+    transform: translateY(100%) !important;
+    opacity: 0 !important;
+  }
+
+  /* CORRECCION: Evitar overflow horizontal en todo el contenido */
+  main,
+  section,
+  .hero,
+  .hero-container {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }
