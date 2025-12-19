@@ -7,9 +7,12 @@
 **Sistema completo de gestion de reservas para parques de diversiones**
 
 [![Estado](https://img.shields.io/badge/Estado-Produccion-success)](https://brincapark-reservation-system.vercel.app/)
-[![Node.js](https://img.shields.io/badge/Node.js-v14+-green.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-v20-green.svg)](https://nodejs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen.svg)](https://www.mongodb.com/atlas)
 [![Express](https://img.shields.io/badge/Express-v5.1-blue.svg)](https://expressjs.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
+[![Tests](https://img.shields.io/badge/Tests-Vitest-6E9F18.svg)](https://vitest.dev/)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF.svg)](https://github.com/features/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [Demo en Vivo](https://brincapark-reservation-system.vercel.app/) |
@@ -24,9 +27,12 @@
 - [Acerca del Proyecto](#acerca-del-proyecto)
 - [Demo en Vivo](#demo-en-vivo)
 - [Arquitectura](#arquitectura)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Tecnologias Utinlizadas](#tecologias-utilizadas)
 - [Caracteristicas](#caracteristicas)
 - [Instalacion Local](#instalacion-local)
+- [Instalacion con Docker](#instalacion-con-docker)
+- [Testing](#testing)
+- [CI/CD](#cicd)
 - [Despliegue en Produccion](#despliegue-en-produccion)
 - [API Endpoints](#api-endpoints)
 - [Estructura del Proyecto](#estructura-del-proyecto)
@@ -141,6 +147,9 @@ BRINCAPARK es una plataforma web integral que permite a los usuarios realizar re
 | Render | Hosting del backend |
 | MongoDB Atlas | Base de datos en la nube |
 | pnpm | Gestor de paquetes |
+| Docker | Contenedorizacion |
+| Vitest | Testing framework |
+| GitHub Actions | CI/CD |
 
 ---
 
@@ -220,6 +229,107 @@ La aplicacion estara disponible en `http://localhost:8080`
 - Pagina Publica: `http://localhost:8080`
 - Panel Admin: `http://localhost:8080/admin.html`
 - Normativas: `http://localhost:8080/normativas.html`
+
+---
+
+## Instalacion con Docker
+
+Si prefieres usar Docker, puedes ejecutar el backend con un solo comando:
+
+### Prerequisitos
+
+- Docker Desktop instalado
+- Docker Compose
+
+### Paso 1: Configurar variables de entorno
+
+```bash
+cd backend
+cp .env.example .env
+# Editar .env con tu configuracion
+```
+
+### Paso 2: Ejecutar con Docker Compose
+
+Desde la raiz del proyecto:
+
+```bash
+docker compose up
+```
+
+El servidor estara corriendo en `http://localhost:4000`
+
+### Comandos Docker utiles
+
+| Comando | Descripcion |
+|---------|-------------|
+| `docker compose up` | Inicia el contenedor |
+| `docker compose down` | Detiene el contenedor |
+| `docker compose build --no-cache` | Reconstruye la imagen |
+| `docker compose logs -f` | Ver logs en tiempo real |
+
+---
+
+## Testing
+
+El proyecto incluye tests automatizados con Vitest y Supertest.
+
+### Ejecutar tests
+
+```bash
+cd backend
+
+# Modo watch (desarrollo)
+pnpm test
+
+# Ejecutar una vez (CI/CD)
+pnpm test:run
+```
+
+### Cobertura de tests
+
+| Tipo | Descripcion |
+|------|-------------|
+| Tests unitarios | Verificacion de logica basica |
+| Tests de API | Verificacion de endpoints REST |
+| Tests de autenticacion | Verificacion de acceso admin |
+
+### Resultado esperado
+
+```
+ Test Files  2 passed (2)
+      Tests  9 passed (9)
+   Duration  1.21s
+```
+
+---
+
+## CI/CD
+
+El proyecto utiliza GitHub Actions para integracion y despliegue continuo.
+
+### Workflow
+
+Cada push a `main` o `master` ejecuta automaticamente:
+
+1. Checkout del codigo
+2. Instalacion de Node.js 20
+3. Instalacion de dependencias con pnpm
+4. Ejecucion de tests
+
+### Configuracion
+
+El workflow se encuentra en `.github/workflows/ci.yml`
+
+### Secrets requeridos
+
+Configurar en GitHub Settings > Secrets:
+
+| Secret | Descripcion |
+|--------|-------------|
+| `MONGO_URI` | URL de conexion a MongoDB |
+| `ADMIN_SECRET` | Clave de acceso administrativo |
+| `JWT_SECRET` | Clave para tokens JWT |
 
 ---
 
