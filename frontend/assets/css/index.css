@@ -2611,13 +2611,15 @@ body::after {
     margin: 0 auto 1rem;
     word-wrap: break-word;
     /* Romper palabras largas si es necesario */
-    padding: 0 10px;
-    /* Margen de seguridad */
+    padding: 0 20px;
+    /* Margen de seguridad aumentado */
+    text-align: center;
   }
 
   .hero-subtitle {
     font-size: 1rem;
-    padding: 0 10px;
+    padding: 0 20px;
+    text-align: center;
   }
 
   .hero-image img {
@@ -2703,7 +2705,9 @@ body::after {
   .footer_section--brand h2 {
     transform: none;
     font-size: 2rem;
-    margin-top: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
   }
 
   .ticket-price {
@@ -2716,10 +2720,10 @@ body::after {
     display: none !important;
   }
 
-  /* CORRECCION: Asegurar que el overlay de transicion no aparezca */
-  .transition-overlay {
-    transform: translateY(100%) !important;
-    opacity: 0 !important;
+  /* Transicion de carga activa en movil */
+  .transition-overlay.is-active {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
   }
 
   /* CORRECCION: Evitar overflow horizontal en todo el contenido */
