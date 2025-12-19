@@ -1,56 +1,76 @@
-﻿// src/routes/admin.js
-const express = require("express");
+﻿const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const Reservation = require("../models/Reservation");
 const adminAuth = require("../middleware/adminAuth");
 
+// LOGIN - No requiere autenticación
+router.post("/login", async (req, res) => {
+  const { secret } = req.body;
+
+  if (secret !== process.env.ADMIN_SECRET) {
+    return res.status(401).json({ error: "Credenciales incorrectos" });
+  }
+
+  const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.json({ token });
+});
+
+// Middleware de autenticación para las rutas siguientes
 router.use(adminAuth);
 
-// GET /api/admin/reservas -> listar todas ordernadas por orden de creacion de manera descendente
+// GET - Obtener todas las reservas
 router.get("/reservas", async (req, res) => {
   try {
     const all = await Reservation.find().sort({ createdAt: -1 });
     res.json(all);
   } catch (err) {
-    console.error("Error obteniendo reservas:", err);
-    res.status(500).json({ error: "Error interno al obtener reservas" });
+    console.error("Error obteniendo las reservas", err);
+    res.status(500).json({ error: "Error interno" });
   }
 });
 
-// PATCH /api/admin/reservas/:id podemos cambiar estado
+// PATCH - Actualizar estado de una reserva
 router.patch("/reservas/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { estado } = req.body;
 
     if (!["pendiente", "aprobado", "cancelado"].includes(estado)) {
-      return res.status(400).json({ error: "Estado inválido" });
+      return res.status(400).json({ error: "Estado invalido" });
     }
 
-    const reserva = await Reservation.findById(id);
-    if (!reserva)
-      return res.status(404).json({ error: "Reserva no encontrada" });
+    const reserva = await Reservation.findByIdAndUpdate(
+      id,
+      { estadoReserva: estado },
+      { new: true }
+    );
 
-    reserva.estado = estado;
-    await reserva.save();
+    if (!reserva) {
+      return res.status(404).json({ error: "Reserva no encontrada" });
+    }
+
     res.json(reserva);
   } catch (err) {
-    console.error("Error actualizando reserva:", err);
-    res.status(500).json({ error: "Error interno al actualizar reserva" });
+    console.error("Error actualizando la reserva", err);
+    res.status(500).json({ error: "Error interno" });
   }
 });
 
-// DELETE /api/admin/reservas/:id  eliminar reserva
+// DELETE - Eliminar una reserva
 router.delete("/reservas/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const deleted = await Reservation.findByIdAndDelete(id);
-    if (!deleted)
+    const deleted = await Reservation.findByIdAndDelete(req.params.id);
+    if (!deleted) {
       return res.status(404).json({ error: "Reserva no encontrada" });
-    res.json({ ok: true });
+    }
+    res.json({ message: "Reserva eliminada" });
   } catch (err) {
-    console.error("Error eliminando reserva:", err);
-    res.status(500).json({ error: "Error interno al eliminar reserva" });
+    console.error("Error eliminando reserva", err);
+    res.status(500).json({ error: "Error interno" });
   }
 });
 

@@ -47,3 +47,5 @@ const PORT = process.env.PORT || 4000;
     process.exit(1);
   }
 })();
+
+module.exports = app;

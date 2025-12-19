@@ -1,0 +1,57 @@
+# Ejecuta tests automáticamente en cada push
+
+name: CI - Tests Automáticos
+
+# Cuando ejecutar
+on:
+  push:
+    branches: [main, master]  # Cuando hay push a main o master
+  pull_request:
+    branches: [main, master]  # Cuando hay PR hacia main o master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    # Variables de entorno para los tests
+    env:
+      PORT: 4000
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+    steps:
+      # Paso 1 descargar el codigo
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # Paso 2 instalar Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Paso 3 instalar pnpm
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      # Paso 4 instalar dependencias del backend
+      - name: Instalar dependencias
+        run: |
+          cd backend
+          pnpm install
+
+      # Paso 5 iniciar el servidor en segundo plano
+      - name: Iniciar servidor
+        run: |
+          cd backend
+          pnpm start &
+          sleep 5
+
+      # Paso 6 ejecutar los tests
+      - name: Ejecutar tests
+        run: |
+          cd backend
+          pnpm test:run

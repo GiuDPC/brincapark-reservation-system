@@ -1,0 +1,9 @@
+services:
+  api:
+    build: ./backend
+    container_name: brincapark-api
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend/.env
+    restart: unless-stopped

@@ -8,15 +8,14 @@ const API_ANALYTICS = isLocalAnalytics ? "http://localhost:4000/api" : "https://
 let ingresosMensualesChart = null;
 let tipoEventoChart = null;
 
-// ==========================================
 // MÉTRICAS ADICIONALES PARA DASHBOARD
-// ==========================================
+
 
 async function renderizarMetricasAdicionales() {
   try {
-    // CORRECCIÓN: Usamos API_ANALYTICS
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
 
     if (!res.ok) return;
@@ -62,8 +61,9 @@ async function renderizarMetricasAdicionales() {
 // GRÁFICAS
 async function renderizarGraficaIngresosMensuales() {
   try {
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
     const data = await res.json();
@@ -107,8 +107,9 @@ async function renderizarGraficaIngresosMensuales() {
 
 async function renderizarGraficaTipoEvento() {
   try {
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
     const stats = await res.json();
@@ -137,8 +138,9 @@ async function renderizarGraficaTipoEvento() {
 // REPORTES AVANZADOS
 async function renderizarTopClientes() {
   try {
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/top-clients`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
     const clientes = await res.json();
@@ -159,8 +161,9 @@ async function renderizarTopClientes() {
 
 async function renderizarAnalisisCancelaciones() {
   try {
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/cancellations`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
     const analisis = await res.json();
@@ -203,8 +206,9 @@ let parksComparisonChartInstance = null;
 // Gráfica de Reservas por Mes (para sección Reportes)
 async function renderizarGraficaMensual() {
   try {
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
     const data = await res.json();
@@ -251,8 +255,9 @@ async function renderizarGraficaMensual() {
 // Gráfica Comparativa de Parques (para sección Reportes)
 async function renderizarComparativaParques() {
   try {
+    const token = sessionStorage.getItem("adminToken");
     const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
-      headers: { "x-admin-secret": sessionStorage.getItem("adminSecret") }
+      headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
     const stats = await res.json();
