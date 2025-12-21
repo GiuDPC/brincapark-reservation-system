@@ -1,5 +1,4 @@
-// Funcionalidades finales del panel administrativo BRINCAPARK
-// Este archivo contiene: Panel de configuración, Sistema de notificaciones y Gráfica de dona
+// Panel de configuración, notificaciones y gráficas
 
 // PANEL DE CONFIGURACIÓN
 
@@ -219,9 +218,7 @@ async function restaurarConfiguracionDefault() {
   }
 }
 
-// ==========================================
-// SISTEMA DE NOTIFICACIONES
-// ==========================================
+// Notificaciones
 
 // Actualizar contador de notificaciones basado en reservas pendientes
 function actualizarContadorNotificaciones() {
@@ -388,9 +385,7 @@ function renderizarGraficaParques() {
   });
 }
 
-// ==========================================
-// INICIALIZACIÓN
-// ==========================================
+// Inicialización
 
 // Variables globales para conversión
 let preciosOriginalesUSD = null;

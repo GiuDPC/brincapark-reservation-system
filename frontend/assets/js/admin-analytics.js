@@ -195,9 +195,7 @@ function formatearMoneda(valor, moneda) {
   return moneda === "USD" ? `$${valorFormateado}` : `Bs ${valorFormateado}`;
 }
 
-// ==========================================
-// GRÁFICAS FALTANTES DE LA SECCIÓN REPORTES
-// ==========================================
+// Gráficas de reportes
 
 // Variables globales para las gráficas de reportes
 let monthlyReservationsChart = null;

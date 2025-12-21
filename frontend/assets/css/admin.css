@@ -1,6 +1,4 @@
-/*
-Aqui va el CSS para el panel de administración del sistema de brincapark
- */
+/* Admin Panel */
 
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
 
@@ -39,7 +37,7 @@ body {
   display: none !important;
 }
 
-/* PANTALLA DE LOGIN*/
+/* Login */
 #login-screen {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -146,13 +144,13 @@ body {
   cursor: not-allowed;
 }
 
-/* DASHBOARD PRINCIPAL*/
+/* Dashboard */
 #dashboard-screen {
   display: flex;
   min-height: 100vh;
 }
 
-/* SIDEBAR */
+/* Sidebar */
 .sidebar {
   width: 260px;
   background: white;
@@ -271,7 +269,7 @@ body {
   box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
 }
 
-/* Nuevos estilos para botones de acción mejorados */
+/* Botones de acción */
 .header-actions {
   display: flex;
   gap: 1rem;
@@ -414,7 +412,7 @@ body {
   }
 }
 
-/* CUADRÍCULA DE ESTADÍSTICAS PRINCIPALES */
+/* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -535,7 +533,7 @@ body {
   height: 300px;
 }
 
-/*  TABLE CONTAINER (aqui va todo lo que es el diseño de la tabla) */
+/* Tabla */
 .table-container {
   background: white;
   border-radius: 15px;
@@ -835,7 +833,7 @@ body {
   max-width: 100%;
 }
 
-/* Asegurar que todas las secciones tengan el mismo ancho y alineación */
+/* Alineación secciones */
 #section-inicio,
 #section-reservas,
 #section-reportes,
@@ -843,7 +841,7 @@ body {
   width: 100%;
 }
 
-/* La tabla y otros contenedores deben tener el mismo ancho */
+/* Contenedores */
 .table-container,
 .chart-container {
   width: 100%;
@@ -908,7 +906,7 @@ body {
   }
 }
 
-/* SWEETALERT CUSTOMIZADO PARA PANEL ADMINISTRATIVO */
+/* SweetAlert custom */
 .swal2-popup {
   border-radius: 15px !important;
   font-family: "Outfit", sans-serif !important;
@@ -1023,7 +1021,7 @@ body {
   min-height: 300px;
 }
 
-/* WIDGET DE CALENDARIO PAGINA PRINCIPAL DEL PANEL*/
+/* Calendario */
 #calendar-widget {
   width: 100%;
 }
@@ -1326,9 +1324,8 @@ body {
   }
 }
 
-/* =============================================
-   BOTÓN VOLVER AL INICIO (Animado)
-   ============================================= */
+
+/* Botón volver */
 .back-to-home-btn {
   position: absolute !important;
   top: 20px !important;

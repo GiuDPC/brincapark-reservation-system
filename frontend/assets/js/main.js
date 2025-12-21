@@ -1,6 +1,4 @@
-// ==========================================
-// CARRUSEL DE GALERIA
-// ==========================================
+// Carrusel
 
 function initCarousel() {
   const container = document.getElementById('gallery-carousel');
@@ -134,9 +132,7 @@ function initFormulario() {
   console.log('Formulario inicializado');
 }
 
-// ==========================================
-// EFECTO PARALLAX EN HERO
-// ==========================================
+// Parallax
 
 function initParallax() {
   const hero = document.querySelector('.hero');
@@ -176,9 +172,7 @@ function initParallax() {
   console.log('Parallax inicializado' + (isMobile ? ' (modo móvil)' : ''));
 }
 
-// ==========================================
-// SCROLL REVEAL OBSERVER
-// ==========================================
+// Scroll reveal
 
 function initScrollReveal() {
   // Seleccionar todos los elementos con clases reveal
@@ -215,14 +209,10 @@ function initScrollReveal() {
   console.log('Scroll Reveal inicializado para', revealElements.length, 'elementos');
 }
 
-// ==========================================
-// AGREGAR CLASES DE ANIMACION AUTOMATICAMENTE
-// ==========================================
+// Agregar clases de animación
 
 function addAnimationClasses() {
-  // ========================================
-  // HERO SECTION
-  // ========================================
+  // Hero
   const heroContent = document.querySelector('.hero-content');
   if (heroContent && !heroContent.classList.contains('reveal-left')) {
     heroContent.classList.add('reveal-left');
@@ -233,9 +223,7 @@ function addAnimationClasses() {
     heroImage.classList.add('reveal-right');
   }
 
-  // ========================================
-  // TITULOS DE SECCIONES
-  // ========================================
+  // Títulos
   const sectionTitles = document.querySelectorAll('.section-title');
   sectionTitles.forEach(title => {
     if (!title.classList.contains('reveal')) {
@@ -243,9 +231,7 @@ function addAnimationClasses() {
     }
   });
 
-  // ========================================
-  // TARJETAS DE TICKETS
-  // ========================================
+  // Tickets
   const ticketCards = document.querySelectorAll('.ticket-card');
   ticketCards.forEach((card, index) => {
     if (!card.classList.contains('reveal-scale')) {
@@ -253,9 +239,7 @@ function addAnimationClasses() {
     }
   });
 
-  // ========================================
-  // TARJETAS DE PAQUETES
-  // ========================================
+  // Paquetes
   const paqueteCards = document.querySelectorAll('.paquete-card');
   paqueteCards.forEach((card, index) => {
     if (!card.classList.contains('reveal-scale')) {
@@ -263,9 +247,7 @@ function addAnimationClasses() {
     }
   });
 
-  // ========================================
-  // SECCION DE BENEFICIOS
-  // ========================================
+  // Beneficios
   const beneficios = document.querySelectorAll('.beneficios-container, .beneficios-section');
   beneficios.forEach(b => {
     if (!b.classList.contains('reveal')) {
@@ -273,17 +255,13 @@ function addAnimationClasses() {
     }
   });
 
-  // ========================================
-  // FORMULARIO DE RESERVA
-  // ========================================
+  // Formulario
   const formulario = document.querySelector('.formulario-section, .formulario-content');
   if (formulario && !formulario.classList.contains('reveal')) {
     formulario.classList.add('reveal');
   }
 
-  // ========================================
-  // GALERIA / CARRUSEL
-  // ========================================
+  // Galería
   const galeriaSection = document.querySelector('.galeria-section');
   if (galeriaSection && !galeriaSection.classList.contains('reveal')) {
     galeriaSection.classList.add('reveal');
@@ -294,17 +272,13 @@ function addAnimationClasses() {
     carousel.classList.add('reveal-scale');
   }
 
-  // ========================================
-  // FOOTER
-  // ========================================
+  // Footer
   const footer = document.querySelector('.footer');
   if (footer && !footer.classList.contains('reveal')) {
     footer.classList.add('reveal');
   }
 
-  // ========================================
-  // NORMATIVAS PAGE - Tarjetas y secciones
-  // ========================================
+  // Normativas
   const normativaCards = document.querySelectorAll('.normativa-card, .policy-card, .rule-item, .decorator-card');
   normativaCards.forEach((card, index) => {
     if (!card.classList.contains('reveal-scale')) {
@@ -326,9 +300,7 @@ function addAnimationClasses() {
     }
   });
 
-  // ========================================
-  // BOTONES - Ripple y Glow
-  // ========================================
+  // Botones
   const buttons = document.querySelectorAll('.reserva-btn, .btn-submit, .cta-button, .quick-nav-item');
   buttons.forEach(btn => {
     if (!btn.classList.contains('btn-ripple')) {
@@ -336,9 +308,7 @@ function addAnimationClasses() {
     }
   });
 
-  // ========================================
-  // ICONOS - Bounce en hover
-  // ========================================
+  // Iconos
   const iconContainers = document.querySelectorAll('.social-icon, .beneficio-icon, .rule-icon');
   iconContainers.forEach(icon => {
     if (!icon.classList.contains('icon-bounce')) {

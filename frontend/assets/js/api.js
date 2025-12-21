@@ -134,9 +134,7 @@ async function verificarBackend() {
   }
 }
 
-// ==========================================
-// CONFIGURACIÓN Y PRECIOS
-// ==========================================
+// Config y precios
 
 /**
  * Obtener configuración actual del sistema
@@ -199,9 +197,7 @@ async function obtenerPrecios() {
   }
 }
 
-// ==========================================
-// ANALYTICS Y ESTADÍSTICAS
-// ==========================================
+// Analytics
 
 /**
  * Obtener estadísticas avanzadas

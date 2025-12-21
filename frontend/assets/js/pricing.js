@@ -1,5 +1,4 @@
-// pricing.js - Sistema de precios dinámicos OPTIMIZADO para BRINCAPARK
-// Versión 2.1 - Carga instantánea con caché local
+// Precios dinámicos - carga instantánea con caché
 
 // Detección de entorno
 const isLocalPricing = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
@@ -11,11 +10,8 @@ let pollingInterval = null;
 const CACHE_KEY = "brincapark_precios_cache";
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos de caché válido
 
-// ==========================================
-// FUNCIONES DE CACHÉ LOCAL
-// ==========================================
+// Caché
 
-// Guardar precios en localStorage
 function guardarEnCache(config) {
   try {
     const cacheData = {
@@ -28,7 +24,6 @@ function guardarEnCache(config) {
   }
 }
 
-// Obtener precios del localStorage
 function obtenerDeCache() {
   try {
     const cached = localStorage.getItem(CACHE_KEY);
@@ -45,11 +40,8 @@ function obtenerDeCache() {
   }
 }
 
-// ==========================================
-// FUNCIONES PRINCIPALES
-// ==========================================
+// Funciones principales
 
-// Obtener configuración de precios del backend
 async function obtenerConfiguracionPrecios() {
   try {
     const urlSinCache = `${API_PRICING}/config/precios?t=${Date.now()}`;
@@ -73,13 +65,11 @@ async function obtenerConfiguracionPrecios() {
   }
 }
 
-// Formatear moneda según el tipo
 function formatearMoneda(valor, moneda) {
   const valorFormateado = parseFloat(valor).toFixed(2);
   return moneda === "USD" ? `$${valorFormateado}` : `Bs ${valorFormateado}`;
 }
 
-// Actualizar precios en la UI (versión optimizada, menos logs)
 function actualizarPreciosUI(config) {
   if (!config) return;
 
@@ -126,9 +116,7 @@ function actualizarPreciosUI(config) {
   });
 }
 
-// ==========================================
-// SKELETON LOADING
-// ==========================================
+// Skeleton
 
 function mostrarSkeletonPrecios() {
   // IDs de precios de tickets
@@ -159,9 +147,7 @@ function ocultarSkeletonPrecios() {
   });
 }
 
-// ==========================================
-// INICIALIZACION OPTIMIZADA
-// ==========================================
+// Inicialización
 
 async function inicializarPreciosDinamicos() {
   // PASO 1: Verificar caché
@@ -200,7 +186,6 @@ async function inicializarPreciosDinamicos() {
   }, 10000); // 10 segundos - actualización rápida
 }
 
-// Detener polling
 function detenerPreciosDinamicos() {
   if (pollingInterval) {
     clearInterval(pollingInterval);
@@ -208,9 +193,7 @@ function detenerPreciosDinamicos() {
   }
 }
 
-// ==========================================
-// EVENT LISTENERS OPTIMIZADOS
-// ==========================================
+// Event listeners
 
 // Escuchar evento de actualización desde admin
 window.addEventListener('configUpdated', async () => {
@@ -250,9 +233,7 @@ window.addEventListener('focus', async () => {
   }
 });
 
-// ==========================================
-// EXPORTAR FUNCIONES
-// ==========================================
+// Exportar
 window.inicializarPreciosDinamicos = inicializarPreciosDinamicos;
 window.detenerPreciosDinamicos = detenerPreciosDinamicos;
 window.obtenerConfiguracionPrecios = obtenerConfiguracionPrecios;

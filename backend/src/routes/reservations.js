@@ -2,8 +2,7 @@
 const router = express.Router();
 const Reservation = require("../models/Reservation");
 
-//POST /api/reservations
-//Crear una nueva reserva pública formulario de cliente publico desde pagina principal
+// POST - crear reserva pública
 
 router.post("/", async (req, res) => {
   try {
@@ -19,7 +18,7 @@ router.post("/", async (req, res) => {
       tipoEvento,
     } = req.body;
 
-    // Validación de campos obligatorios para crear reserva
+    // Validar campos
     if (
       !nombreCompleto ||
       !correo ||
@@ -34,7 +33,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
 
-    // Validar duplicidad de reserva para mismo fecha, hora y parque
+    // Evitar reserva duplicada
     const existe = await Reservation.findOne({
       fechaServicio,
       horaReservacion,
@@ -46,7 +45,7 @@ router.post("/", async (req, res) => {
         .json({ error: "El horario ya está ocupado en ese parque." });
     }
 
-    // Validar lógica de paquetes y cantidades de personas por paquete
+    // Límites por paquete
     let maxNinos = 0,
       maxAdultos = 0,
       maxTotal = 0;
@@ -63,9 +62,9 @@ router.post("/", async (req, res) => {
       maxAdultos = 45;
       maxTotal = 85;
     }
-    // Si se envían los campos de cantidad, validar aquí ojo solo es opcional
+    // Si se envían cantidades, validar aquí (opcional)
 
-    // Crear la reserva a bases de datos mongoDB
+    // Crear reserva
     const nuevaReserva = await Reservation.create({
       nombreCompleto,
       correo,
@@ -85,8 +84,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//GET /api/reservations
-//Poder ver todas las reservas -> listar todas las reservas solo en el panel administrador
+// GET - listar todas las reservas (admin)
 
 router.get("/", async (req, res) => {
   try {
@@ -98,8 +96,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /api/reservations/horarios-ocupados
-// Endpoint para obtener horarios ocupados por fecha y parque
+// GET - horarios ocupados por fecha y parque
 router.get("/horarios-ocupados", async (req, res) => {
   const { fechaServicio, parque } = req.query;
   if (!fechaServicio || !parque) {
@@ -114,11 +111,11 @@ router.get("/horarios-ocupados", async (req, res) => {
   }
 });
 
-// ==========================================
-// RUTAS DE ANALYTICS (DEBEN ESTAR ANTES DE /:id)
-// ==========================================
+// ----------------------
+// RUTAS DE ANALYTICS
+// ----------------------
 
-// GET /api/reservations/analytics/stats
+// GET - estadísticas generales
 router.get("/analytics/stats", async (req, res) => {
   try {
     const reservas = await Reservation.find();
@@ -209,7 +206,7 @@ router.get("/analytics/stats", async (req, res) => {
   }
 });
 
-// GET /api/reservations/analytics/monthly
+// GET - datos mensuales
 router.get("/analytics/monthly", async (req, res) => {
   try {
     const reservas = await Reservation.find();
@@ -268,7 +265,7 @@ router.get("/analytics/monthly", async (req, res) => {
   }
 });
 
-// GET /api/reservations/analytics/top-clients
+// GET - top clientes
 router.get("/analytics/top-clients", async (req, res) => {
   try {
     const reservas = await Reservation.find();
@@ -289,7 +286,7 @@ router.get("/analytics/top-clients", async (req, res) => {
   }
 });
 
-// GET /api/reservations/analytics/cancellations
+// GET - análisis de cancelaciones
 router.get("/analytics/cancellations", async (req, res) => {
   try {
     const reservas = await Reservation.find({ estadoReserva: "cancelado" });
@@ -312,12 +309,11 @@ router.get("/analytics/cancellations", async (req, res) => {
   }
 });
 
-// ==========================================
-// RUTAS CON PARÁMETROS (DEBEN ESTAR AL FINAL)
-// ==========================================
+// ----------------------
+// RUTAS CON PARÁMETROS
+// ----------------------
 
-//GET /api/reservations/:id
-// Obtener una reserva específica por id
+// GET - reserva por ID
 router.get("/:id", async (req, res) => {
   try {
     const reserva = await Reservation.findById(req.params.id);
@@ -331,9 +327,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//PUT /api/reservations/:id
-//Editar datos del formulario estadoUbicacion, ciudad, paquete, etc
-//No toca el estado administrativo
+// PUT - editar datos de reserva (no cambia estado)
 
 router.put("/:id", async (req, res) => {
   try {
@@ -351,7 +345,7 @@ router.put("/:id", async (req, res) => {
       tipoEvento: req.body.tipoEvento,
     };
 
-    // Validar duplicidad al editar reserva para mismo fecha, hora y parque
+    // Evitar duplicado al editar
     const existe = await Reservation.findOne({
       _id: { $ne: id },
       fechaServicio: datosEditables.fechaServicio,
@@ -381,8 +375,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-//PUT /api/reservations/:id/estado
-// Cambiar el estado administrativo: pndiente, aprobado, cancelado, solo un administrador puede hacerlo desde el panel
+// PUT - cambiar estado (pendiente/aprobado/cancelado)
 router.put("/:id/estado", async (req, res) => {
   try {
     const { id } = req.params;
@@ -410,8 +403,7 @@ router.put("/:id/estado", async (req, res) => {
   }
 });
 
-//DELETE /api/reservations/:id
-// Eliminar reserva solo los administradores pueden hacerlo
+// DELETE - eliminar reserva
 
 router.delete("/:id", async (req, res) => {
   try {

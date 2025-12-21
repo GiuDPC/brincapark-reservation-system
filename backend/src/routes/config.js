@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Config = require("../models/Config");
 
-// GET /api/config
-// Obtener la configuración actual del sistema
+// GET - config actual
 router.get("/", async (req, res) => {
   try {
     const config = await Config.getConfig();
@@ -14,8 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// PUT /api/config
-// Actualizar la configuración del sistema
+// PUT - actualizar config
 router.put("/", async (req, res) => {
   try {
     const { moneda, tasaBCV, tickets, paquetes } = req.body;
@@ -84,11 +82,10 @@ router.put("/", async (req, res) => {
   }
 });
 
-// GET /api/config/precios
-// Obtener precios convertidos según la moneda actual, aqui calcula los precios segun la moneda, y los convierte todos
+// GET - precios convertidos
 router.get("/precios", async (req, res) => {
   try {
-    // CORRECCIÓN: Agregar headers para evitar caché
+    // No cache
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
