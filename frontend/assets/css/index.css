@@ -1,4 +1,4 @@
-﻿/* Estilos Brincapark  diseÃ±o exacto*/
+﻿/* Estilos Brincapark  diseño exacto*/
 @font-face {
   font-family: "Bobby Jones";
   src: url("../fonts/Bobby Jones Soft.otf") format("opentype");
@@ -203,8 +203,6 @@ body::after {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  opacity: 1;
-  transform: translateX(0);
 }
 
 .hero-logo-stars {
@@ -256,7 +254,7 @@ body::after {
   overflow: visible;
 }
 
-/* Estrella detrÃ¡s del logo */
+/* Estrella detrás del logo */
 .hero-logo-text::before {
   content: "";
   position: absolute;
@@ -356,8 +354,6 @@ body::after {
 /* Imagen hero con efecto burbuja */
 .hero-image {
   display: flex;
-  opacity: 1;
-  transform: translateX(0) scale(1);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -390,7 +386,7 @@ body::after {
   z-index: 2;
 }
 
-/* TÃ­tulos con estrellas */
+/* Títulos con estrellas */
 .section-title {
   text-align: center;
   margin: 4rem 0 3rem;
@@ -411,10 +407,10 @@ body::after {
   z-index: 2;
 }
 
-/* Estrellas alrededor del tÃ­tulo */
+/* Estrellas alrededor del título */
 .section-title::before,
 .section-title::after {
-  content: "â­";
+  content: "⭐";
   position: absolute;
   font-size: 2.5rem;
   top: 50%;
@@ -819,7 +815,7 @@ body::after {
   padding: 0.5rem;
 }
 
-/* BotÃ³n de Normativas */
+/* Botón de Normativas */
 .normativas-cta {
   text-align: center;
   margin: 4rem auto 0;
@@ -1041,7 +1037,7 @@ body::after {
 
 .formulario-section::before,
 .formulario-section::after {
-  content: "â­";
+  content: "⭐";
   position: absolute;
   font-size: 4rem;
   opacity: 0.6;
@@ -1122,7 +1118,7 @@ body::after {
 
 .formulario-form h3::before,
 .formulario-form h3::after {
-  content: "â­";
+  content: "⭐";
   font-size: 2rem;
 }
 
@@ -1209,12 +1205,12 @@ body::after {
 }
 
 .formulario-footer p::before {
-  content: "ðŸ“";
+  content: "📍";
   font-size: 1.2rem;
 }
 
 .formulario-footer p:last-child::before {
-  content: "ðŸ’œ";
+  content: "💜";
 }
 
 /* Galeria del parque*/
@@ -1575,7 +1571,7 @@ body::after {
   }
 }
 
-/* Skeleton especÃ­fico para precios */
+/* Skeleton específico para precios */
 .precio-skeleton {
   width: 80px;
   height: 1.5em;
@@ -1583,7 +1579,7 @@ body::after {
   vertical-align: middle;
 }
 
-/* Ocultar skeleton cuando el precio estÃ¡ cargado */
+/* Ocultar skeleton cuando el precio está cargado */
 .precio-loaded .skeleton {
   display: none;
 }
@@ -1729,7 +1725,7 @@ body::after {
   }
 }
 
-/* GalerÃ­a y carrusel */
+/* Galería y carrusel */
 
 .galeria-section {
   background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
@@ -2073,7 +2069,7 @@ body::after {
 
 /* Responsive y animaciones */
 
-/* TransiciÃ³n Barba.js */
+/* Transición Barba.js */
 .transition-overlay {
   position: fixed;
   top: 0;
@@ -2147,14 +2143,14 @@ body::after {
   }
 }
 
-/* 2. MENÃš HAMBURGUESA (Estilos Base) */
+/* 2. MENÚ HAMBURGUESA (Estilos Base) */
 .menu-toggle {
   display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 6px;
   z-index: 10001;
-  /* Encima del menÃº desplegable */
+  /* Encima del menú desplegable */
   padding: 10px;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
@@ -2168,7 +2164,7 @@ body::after {
   transition: all 0.4s ease;
 }
 
-/* AnimaciÃ³n de la X al abrir */
+/* Animación de la X al abrir */
 .menu-toggle.is-active .bar:nth-child(2) {
   opacity: 0;
 }
@@ -2198,16 +2194,16 @@ body::after {
     align-items: center;
     gap: 2rem;
     z-index: 10000;
-    /* Efecto de cortina para el menÃº */
+    /* Efecto de cortina para el menú */
     clip-path: circle(0px at 100% 0px);
     transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
     pointer-events: none;
-    /* No clickear cuando estÃ¡ cerrado */
+    /* No clickear cuando está cerrado */
   }
 
   .navbar-menu.active {
     clip-path: circle(150% at 100% 0px);
-    /* Se abre el cÃ­rculo */
+    /* Se abre el círculo */
     pointer-events: all;
   }
 
@@ -2219,7 +2215,7 @@ body::after {
     transition: 0.4s ease;
   }
 
-  /* AnimaciÃ³n de enlaces al abrir */
+  /* Animación de enlaces al abrir */
   .navbar-menu.active a {
     opacity: 1;
     transform: translateY(0);
@@ -2253,7 +2249,7 @@ body::after {
 
 
 
-/* Tablets y mÃ³viles */
+/* Tablets y móviles */
 @media (max-width: 1024px) {
 
   .navbar-menu {
@@ -2327,7 +2323,7 @@ body::after {
 }
 
 
-/* MÃ³viles */
+/* Móviles */
 @media (max-width: 768px) {
 
   .hero {
@@ -2462,4 +2458,3 @@ body::after {
     overflow-x: hidden;
   }
 }
-
