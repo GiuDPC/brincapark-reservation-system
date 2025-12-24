@@ -110,6 +110,23 @@ BRINCAPARK es una plataforma web integral que permite a los usuarios realizar re
                     +------------------+
 ```
 
+### Arquitectura Backend (Capas)
+
+El backend implementa arquitectura por capas para mejor mantenibilidad y testabilidad:
+
+```
+Request → Routes → Controllers → Services → Repositories → Models → MongoDB
+```
+
+| Capa | Responsabilidad |
+|------|-----------------|
+| Routes | Define URLs y metodos HTTP |
+| Controllers | Maneja request/response HTTP |
+| Services | Contiene logica de negocio |
+| Repositories | Acceso a datos (queries) |
+| Models | Estructura de datos MongoDB |
+| Middleware | Autenticacion y manejo de errores |
+
 ---
 
 ## Tecnologias Utilizadas
@@ -399,18 +416,34 @@ brincapark-reservation-system/
 │   ├── src/
 │   │   ├── config/
 │   │   │   └── db.js              # Conexion a MongoDB
+│   │   ├── controllers/
+│   │   │   └── reservation.controller.js  # Controladores HTTP
+│   │   ├── services/
+│   │   │   ├── reservation.service.js     # Logica de negocio
+│   │   │   └── pricing.service.js         # Calculo de precios
+│   │   ├── repositories/
+│   │   │   ├── reservation.repository.js  # Acceso a datos
+│   │   │   └── config.repository.js       # Acceso a configuracion
 │   │   ├── middleware/
-│   │   │   └── adminAuth.js       # Autenticacion admin
+│   │   │   ├── adminAuth.js               # Autenticacion JWT
+│   │   │   └── errorHandler.middleware.js # Manejo de errores
 │   │   ├── models/
 │   │   │   ├── Reservation.js     # Modelo de Reserva
-│   │   │   ├── Config.js          # Modelo de Configuracion
+│   │   │   ├── Config.js          # Modelo de Configuracion (Singleton)
 │   │   │   └── index.js           # Exportador de modelos
 │   │   ├── routes/
-│   │   │   ├── reservations.js    # Rutas de reservas
-│   │   │   ├── admin.js           # Rutas administrativas
-│   │   │   └── config.js          # Rutas de configuracion
+│   │   │   ├── reservation.routes.js # Rutas de reservas
+│   │   │   ├── admin.js              # Rutas administrativas
+│   │   │   ├── config.routes.js      # Rutas de configuracion
+│   │   │   └── analytics.routes.js   # Rutas de analytics
+│   │   ├── utils/
+│   │   │   └── AppError.js        # Clase de errores personalizados
 │   │   └── index.js               # Punto de entrada
+│   ├── test/
+│   │   ├── unit/                  # Tests unitarios
+│   │   └── integration/           # Tests de integracion
 │   ├── .env.example               # Ejemplo de variables de entorno
+│   ├── vitest.config.js           # Configuracion de tests
 │   └── package.json
 │
 ├── frontend/
