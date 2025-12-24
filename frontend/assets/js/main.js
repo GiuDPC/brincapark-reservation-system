@@ -127,29 +127,98 @@ function initCarousel() {
 }
 
 // Placeholder para formulario (si no existe)
+// Placeholder para formulario (si no existe)
 function initFormulario() {
   const form = document.getElementById('reservation-form');
   if (!form) return;
 
+  // Mapa de parques a estados
+  const parqueEstadoMap = {
+    'Maracaibo': 'Zulia',
+    'Caracas': 'Distrito Capital',
+    'Punto Fijo': 'Falcón'
+  };
+
+  // Función de sanitización básica (prevenir XSS simple)
+  const sanitizeInput = (str) => {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  };
+
+  // Validaciones regex
+  const validations = {
+    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+    phone: /^[0-9]{11}$/,
+    name: /^[a-zA-ZÀ-ÿ\s]{3,50}$/ // Solo letras y espacios, mín 3, máx 50
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
+
+    // Obtener valores
+    const nameVal = form.querySelector('#name').value.trim();
+    const emailVal = form.querySelector('#email').value.trim();
+    const phoneVal = form.querySelector('#phone').value.trim();
+    const packageVal = form.querySelector('#package').value;
+    const dateVal = form.querySelector('#date').value;
+    const parqueVal = form.querySelector('#parque').value;
+    const horaVal = form.querySelector('#horaReservacion').value;
+    const tipoVal = form.querySelector('#tipoEvento').value;
+
+    // Validación lado cliente estricta
+    if (!validations.name.test(nameVal)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nombre inválido',
+        text: 'El nombre debe contener solo letras y tener al menos 3 caracteres.',
+        confirmButtonColor: '#4b0082'
+      });
+      return;
+    }
+
+    if (!validations.email.test(emailVal)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Correo inválido',
+        text: 'Por favor ingresa un correo electrónico válido.',
+        confirmButtonColor: '#4b0082'
+      });
+      return;
+    }
+
+    if (!validations.phone.test(phoneVal)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Teléfono inválido',
+        text: 'El teléfono debe tener 11 dígitos numéricos.',
+        confirmButtonColor: '#4b0082'
+      });
+      return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';
 
     try {
+      // Construir objeto con claves que espera el backend
       const datos = {
-        nombre: form.querySelector('#name').value,
-        email: form.querySelector('#email').value,
-        telefono: form.querySelector('#phone').value,
-        paquete: form.querySelector('#package').value,
-        fecha: form.querySelector('#date').value,
-        parque: form.querySelector('#parque').value,
-        horaReservacion: form.querySelector('#horaReservacion').value,
-        tipoEvento: form.querySelector('#tipoEvento').value
+        nombreCompleto: sanitizeInput(nameVal),
+        correo: sanitizeInput(emailVal),
+        telefono: sanitizeInput(phoneVal),
+        paquete: packageVal,
+        fechaServicio: dateVal,
+        parque: parqueVal,
+        horaReservacion: horaVal,
+        tipoEvento: tipoVal,
+        // Derivar estadoUbicacion del parque seleccionado
+        estadoUbicacion: parqueEstadoMap[parqueVal] || 'Desconocido'
       };
+
+      console.log('Enviando datos:', datos); // Debug
 
       await crearReserva(datos);
 
@@ -162,6 +231,7 @@ function initFormulario() {
 
       form.reset();
     } catch (error) {
+      console.error('Error al enviar:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -174,7 +244,7 @@ function initFormulario() {
     }
   });
 
-  console.log('Formulario inicializado');
+  console.log('Formulario inicializado con validaciones y seguridad');
 }
 
 // Parallax

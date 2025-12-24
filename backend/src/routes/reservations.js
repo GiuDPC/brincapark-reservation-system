@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
       tipoEvento,
     } = req.body;
 
-    // Validar campos
+    // Validar campos obligatorios
     if (
       !nombreCompleto ||
       !correo ||
@@ -31,6 +31,24 @@ router.post("/", async (req, res) => {
       !tipoEvento
     ) {
       return res.status(400).json({ error: "Faltan campos obligatorios" });
+    }
+
+    // Validaciones de formato y seguridad (Backend)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{11}$/;
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (!emailRegex.test(correo)) {
+      return res.status(400).json({ error: "Formato de correo inválido" });
+    }
+    if (!phoneRegex.test(telefono)) {
+      return res.status(400).json({ error: "El teléfono debe tener 11 dígitos" });
+    }
+    if (!dateRegex.test(fechaServicio)) {
+      return res.status(400).json({ error: "Formato de fecha inválido (YYYY-MM-DD)" });
+    }
+    if (nombreCompleto.length < 3) {
+      return res.status(400).json({ error: "El nombre es muy corto" });
     }
 
     // Evitar reserva duplicada
