@@ -1,5 +1,3 @@
-//Test para la API de Brincapark
-
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 
@@ -7,13 +5,12 @@ const API_URL = 'http://localhost:4000';
 
 describe('API de Brincapark', () => {
 
-    //para verificar que la api responda correctamente
+
     it('GET / deberia responder con status 200', async () => {
         const response = await request(API_URL).get('/');
         expect(response.status).toBe(200);
     });
 
-    //verificar el endpoint de configuracion
     it('GET /api/config/precios deberia devolver precios', async () => {
         const response = await request(API_URL).get('/api/config/precios');
         expect(response.status).toBe(200);

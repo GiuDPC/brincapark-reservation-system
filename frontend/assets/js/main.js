@@ -128,7 +128,52 @@ function initCarousel() {
 
 // Placeholder para formulario (si no existe)
 function initFormulario() {
-  // El formulario se maneja en otro lugar o no existe
+  const form = document.getElementById('reservation-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    try {
+      const datos = {
+        nombre: form.querySelector('#name').value,
+        email: form.querySelector('#email').value,
+        telefono: form.querySelector('#phone').value,
+        paquete: form.querySelector('#package').value,
+        fecha: form.querySelector('#date').value,
+        parque: form.querySelector('#parque').value,
+        horaReservacion: form.querySelector('#horaReservacion').value,
+        tipoEvento: form.querySelector('#tipoEvento').value
+      };
+
+      await crearReserva(datos);
+
+      Swal.fire({
+        icon: 'success',
+        title: '¡Reserva enviada!',
+        text: 'Te contactaremos pronto para confirmar tu reserva.',
+        confirmButtonColor: '#4b0082'
+      });
+
+      form.reset();
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message || 'No se pudo enviar la reserva. Intenta nuevamente.',
+        confirmButtonColor: '#4b0082'
+      });
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
   console.log('Formulario inicializado');
 }
 
@@ -423,6 +468,17 @@ document.addEventListener("DOMContentLoaded", () => {
     barba.init({
       sync: true,
       preventRunning: true,
+      prevent: ({ el }) => {
+        if (el.href && el.href.includes('#')) {
+          const url = new URL(el.href);
+          const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+          const targetPath = url.pathname.split('/').pop() || 'index.html';
+          if (currentPath === targetPath) {
+            return true;
+          }
+        }
+        return false;
+      },
       transitions: [{
         name: 'spectacular-slide',
 
