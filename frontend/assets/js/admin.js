@@ -318,9 +318,8 @@ function clearAllFilters() {
   renderTable();
 }
 
-/**
- * LISTENERS DE CAMBIO DE ESTADO (Corregido con la ruta correcta)
- */
+
+
 function attachTableEventListeners() {
   document.querySelectorAll(".estado-select").forEach((sel) => {
     sel.addEventListener("change", async (e) => {
@@ -329,14 +328,13 @@ function attachTableEventListeners() {
       sel.disabled = true;
 
       try {
-        // RUTA CORRECTA: PUT /reservations/:id/estado
-        const res = await fetch(`${API}/reservations/${id}/estado`, {
-          method: "PUT",
+        const res = await fetch(`${API}/admin/reservas/${id}`, {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${authToken}` // Token incluido
+            "Authorization": `Bearer ${authToken}`
           },
-          body: JSON.stringify({ estadoReserva: estado }),
+          body: JSON.stringify({ estado: estado }),  // Usar "estado" no "estadoReserva"
         });
 
         if (res.ok) {
