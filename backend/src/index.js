@@ -1,26 +1,34 @@
-﻿// Backend Brincapark - servidor Express + MongoDB
-require("dotenv").config();
-
+﻿require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
 
 const connectDB = require("./config/db");
-const reservationsRoute = require("./routes/reservations");
-const adminRoute = require("./routes/admin");
-const configRoute = require("./routes/config");
+const errorHandler = require("./middleware/errorHandler.middleware");
+
+//rutas
+const reservationRoutes = require("./routes/reservation.routes");
+const analyticsRoutes = require("./routes/analytics.routes");
+const configRoutes = require("./routes/config.routes");
+const adminRoutes = require("./routes/admin.js");
 
 app.use(express.json());
 app.use(cors());
 
-// Rutas
-app.use("/api/reservations", reservationsRoute);
-app.use("/api/admin", adminRoute);
-app.use("/api/config", configRoute);
+//montar rutas
+app.use("/api/reservations", reservationRoutes);
+app.use("/api/analytics", analyticsRoutes);
+app.use("/api/config", configRoutes);
+app.use("/api/admin", adminRoutes);
 
-app.get("/", (req, res) => res.send("Backend BRINCAPARK - funcionando"));
+// ruta raiz para verificar que el servidor está activo
+app.get("/", (req, res) => {
+  res.json({ message: "API de Brincapark funcionando", status: "ok" });
+});
 
-// Iniciar
+//manejo de errores
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 4000;
 
 (async () => {
@@ -28,9 +36,9 @@ const PORT = process.env.PORT || 4000;
     await connectDB();
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    });
-  } catch (err) {
-    console.error("Error iniciando servidor:", err);
+    })
+  } catch (error) {
+    console.log(error);
     process.exit(1);
   }
 })();

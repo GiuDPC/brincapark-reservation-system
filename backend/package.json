@@ -6,6 +6,8 @@
   "scripts": {
     "test": "vitest",
     "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
     "start": "node src/index.js",
     "dev": "nodemon --watch src --exec \"node ./src/index.js\""
   },
@@ -27,6 +29,8 @@
     "mongoose": "^8.19.3"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.16",
+    "mongodb-memory-server": "^11.0.1",
     "nodemon": "^3.1.11",
     "supertest": "^7.1.4",
     "vitest": "^4.0.16"
