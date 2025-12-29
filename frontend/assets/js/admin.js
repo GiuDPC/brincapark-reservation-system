@@ -222,7 +222,7 @@ async function renderStats() {
   let dinero = 0;
   let moneda = "$";
   try {
-    const res = await fetch(`${API}/reservations/analytics/stats`, {
+    const res = await fetch(`${API}/analytics/stats`, {
       headers: { "Authorization": `Bearer ${authToken}` },
     });
     if (res.ok) {

@@ -14,7 +14,7 @@ let tipoEventoChart = null;
 async function renderizarMetricasAdicionales() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/stats`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
 
@@ -62,7 +62,7 @@ async function renderizarMetricasAdicionales() {
 async function renderizarGraficaIngresosMensuales() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/monthly`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
@@ -108,7 +108,7 @@ async function renderizarGraficaIngresosMensuales() {
 async function renderizarGraficaTipoEvento() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/stats`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
@@ -139,7 +139,7 @@ async function renderizarGraficaTipoEvento() {
 async function renderizarTopClientes() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/top-clients`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/top-clients`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
@@ -162,7 +162,7 @@ async function renderizarTopClientes() {
 async function renderizarAnalisisCancelaciones() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/cancellations`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/cancellations`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
@@ -205,7 +205,7 @@ let parksComparisonChartInstance = null;
 async function renderizarGraficaMensual() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/monthly`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/monthly`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
@@ -254,7 +254,7 @@ async function renderizarGraficaMensual() {
 async function renderizarComparativaParques() {
   try {
     const token = sessionStorage.getItem("adminToken");
-    const res = await fetch(`${API_ANALYTICS}/reservations/analytics/stats`, {
+    const res = await fetch(`${API_ANALYTICS}/analytics/stats`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     if (!res.ok) return;
