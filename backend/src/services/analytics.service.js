@@ -7,20 +7,72 @@ class AnalyticsService {
     async getStats() {
         const reservas = await reservationRepository.findAll();
         const aprobadas = reservas.filter(r => r.estadoReserva === 'aprobado');
+        const pendientes = reservas.filter(r => r.estadoReserva === 'pendiente');
 
+        // Calcular ingresos totales
         let ingresoTotal = 0;
         for (const reserva of aprobadas) {
             const precio = await pricingService.calculatePrice(reserva);
             ingresoTotal += precio;
         }
 
+        // Ingreso promedio
+        const ingresoPromedio = aprobadas.length > 0 ? ingresoTotal / aprobadas.length : 0;
+
+        // Tasa de conversion (pendientes que se volvieron aprobados)
+        const tasaConversion = reservas.length > 0
+            ? ((aprobadas.length / reservas.length) * 100).toFixed(2)
+            : 0;
+
+        // Por tipo de evento
+        const porTipoEvento = {};
+        reservas.forEach(r => {
+            const tipo = r.tipoEvento || 'Otros';
+            porTipoEvento[tipo] = (porTipoEvento[tipo] || 0) + 1;
+        });
+
+        // Por parque
+        const porParque = {};
+        reservas.forEach(r => {
+            porParque[r.parque] = (porParque[r.parque] || 0) + 1;
+        });
+
+        // Dia mas popular (por fecha de servicio)
+        const diasSemana = {};
+        reservas.forEach(r => {
+            if (r.fechaServicio) {
+                const [year, month, day] = r.fechaServicio.split('-').map(Number);
+                const fecha = new Date(year, month - 1, day);
+                const diaSemana = fecha.toLocaleDateString('es', { weekday: 'long' });
+                diasSemana[diaSemana] = (diasSemana[diaSemana] || 0) + 1;
+            }
+        });
+        const diaMasPopular = Object.keys(diasSemana).length > 0
+            ? Object.entries(diasSemana).sort((a, b) => b[1] - a[1])[0][0]
+            : 'N/A';
+
+        // Paquete mas vendido
+        const paquetes = {};
+        reservas.forEach(r => {
+            paquetes[r.paquete] = (paquetes[r.paquete] || 0) + 1;
+        });
+        const paqueteMasVendido = Object.keys(paquetes).length > 0
+            ? Object.entries(paquetes).sort((a, b) => b[1] - a[1])[0][0]
+            : 'N/A';
+
         return {
             totalReservas: reservas.length,
             reservasAprobadas: aprobadas.length,
-            reservasPendientes: reservas.filter(r => r.estadoReserva === 'pendiente').length,
+            reservasPendientes: pendientes.length,
             reservasCanceladas: reservas.filter(r => r.estadoReserva === 'cancelado').length,
             ingresoTotal: ingresoTotal,
-            moneda: 'USD'
+            ingresoPromedio: ingresoPromedio,
+            tasaConversion: parseFloat(tasaConversion),
+            moneda: 'USD',
+            porTipoEvento: porTipoEvento,
+            porParque: porParque,
+            diaMasPopular: diaMasPopular.charAt(0).toUpperCase() + diaMasPopular.slice(1),
+            paqueteMasVendido: paqueteMasVendido
         };
     }
 
@@ -95,22 +147,36 @@ class AnalyticsService {
         const reservas = await reservationRepository.findAll();
         const canceladas = reservas.filter(r => r.estadoReserva === 'cancelado');
 
+        // Por parque
         const porParque = {
             Maracaibo: 0,
             Caracas: 0,
             'Punto Fijo': 0
         };
 
+        // Por paquete
+        const porPaquete = {
+            mini: 0,
+            mediano: 0,
+            full: 0
+        };
+
         canceladas.forEach(r => {
+            // Contar por parque
             if (porParque[r.parque] !== undefined) {
                 porParque[r.parque]++;
+            }
+            // Contar por paquete
+            if (porPaquete[r.paquete] !== undefined) {
+                porPaquete[r.paquete]++;
             }
         });
 
         return {
-            totalCanceladas: canceladas.length,
+            total: canceladas.length,
             tasaCancelacion: reservas.length > 0 ? (canceladas.length / reservas.length * 100).toFixed(2) : 0,
-            porParque: porParque
+            porParque: porParque,
+            porPaquete: porPaquete
         };
     }
 }
