@@ -1,710 +1,572 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
-    <title>Panel Administrativo - BRINCAPARK</title>
 
-    <!-- CONEXION CSS -->
-    <link rel="stylesheet" href="./assets/css/admin.css" />
-    <link rel="stylesheet" href="./assets/css/admin-mejoras.css" />
-    <link rel="stylesheet" href="./assets/css/admin-funcionalidades.css" />
-    <link rel="stylesheet" href="./assets/css/admin-analytics.css" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+  <title>Panel Administrativo - BRINCAPARK</title>
 
-    <!-- PARTE DE LOGIN -->
-    <div id="login-screen">
-      <!-- Botón volver al inicio - solo visible en login -->
-      <a href="index.html" class="back-to-home-btn" style="position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; color: white; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(5px); z-index: 50; display: flex; align-items: center; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <span>←</span> Volver al Inicio
-      </a>
-      
-      <div class="login-container">
-        <div class="login-logo">
-          <img src="./assets/img/Logo.png" alt="BRINCAPARK" />
-          <h1>BRINCAPARK</h1>
-        </div>
-        <div class="login-card">
-          <h2>Acceso Administrativo</h2>
-          <form id="login-form">
-            <div class="form-group">
-              <label for="admin-secret">Código de acceso</label>
-              <input
-                type="password"
-                id="admin-secret"
-                placeholder="Ingresa el código"
-                required
-              />
-            </div>
-            <button type="submit" class="btn-primary">Acceder</button>
-          </form>
-        </div>
+  <!-- CONEXION CSS -->
+  <link rel="stylesheet" href="./assets/css/admin.css" />
+  <link rel="stylesheet" href="./assets/css/admin-mejoras.css" />
+  <link rel="stylesheet" href="./assets/css/admin-funcionalidades.css" />
+  <link rel="stylesheet" href="./assets/css/admin-analytics.css" />
+</head>
+
+<body>
+
+  <!-- PARTE DE LOGIN -->
+  <div id="login-screen">
+    <!-- Botón volver al inicio - solo visible en login -->
+    <a href="index.html" class="back-to-home-btn"
+      style="position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; color: white; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(5px); z-index: 50; display: flex; align-items: center; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <span>←</span> Volver al Inicio
+    </a>
+
+    <div class="login-container">
+      <div class="login-logo">
+        <img src="./assets/img/Logo.png" alt="BRINCAPARK" width="100" height="100" />
+        <h1>BRINCAPARK</h1>
+      </div>
+      <div class="login-card">
+        <h2>Acceso Administrativo</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="admin-secret">Código de acceso</label>
+            <input type="password" id="admin-secret" placeholder="Ingresa el código" required />
+          </div>
+          <button type="submit" class="btn-primary">Acceder</button>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- PANTALLA DE DASHBOARD -->
-    <div id="dashboard-screen" class="hidden">
-      <!-- SIDEBAR DE DSAHBOARD -->
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <img src="./assets/img/Logo.png" alt="BRINCAPARK" />
-          <h2>BRINCAPARK</h2>
-          <button id="close-sidebar" class="btn-icon mobile-only">✕</button>
+  <!-- PANTALLA DE DASHBOARD -->
+  <div id="dashboard-screen" class="hidden">
+    <!-- SIDEBAR DE DSAHBOARD -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="./assets/img/Logo.png" alt="BRINCAPARK" width="50" height="50" />
+        <h2>BRINCAPARK</h2>
+        <button id="close-sidebar" class="btn-icon mobile-only" aria-label="Cerrar menú lateral">✕</button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="inicio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Inicio</span>
+        </a>
+        <a href="#" class="nav-item" data-section="reservas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>Gestión de Reservas</span>
+        </a>
+        <a href="#" class="nav-item" data-section="reportes">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Reportes</span>
+        </a>
+
+        <a href="#" class="nav-item" data-section="configuracion">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6"></path>
+          </svg>
+          <span>Configuración</span>
+        </a>
+
+        <a href="#" class="nav-item" id="logout-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Cerrar Sesión</span>
+        </a>
+      </nav>
+    </aside>
+
+
+    <!-- PAGINA PRINCIPAL DE INFORMACION DE DASHBOARD -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="dashboard-header">
+        <div class="header-title">
+          <button id="open-sidebar" class="btn-icon mobile-only" aria-label="Abrir menú lateral">☰</button>
+          <h1>Panel Principal</h1>
+          <p>Bienvenido al sistema de gestión BRINCAPARK</p>
         </div>
-        <nav class="sidebar-nav">
-          <a href="#" class="nav-item active" data-section="inicio">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
+        <div class="header-actions">
+          <!-- BOTON DE LAS NOTIFICIONES DE DASHBOARD -->
+          <button id="notifications-btn" class="btn-icon" title="Notificaciones">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
             </svg>
-            <span>Inicio</span>
-          </a>
-          <a href="#" class="nav-item" data-section="reservas">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
+            <span class="notification-badge" id="notification-count">0</span>
+          </button>
+          <button id="refresh-btn" class="btn-icon" aria-label="Actualizar datos">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
             </svg>
-            <span>Gestión de Reservas</span>
-          </a>
-          <a href="#" class="nav-item" data-section="reportes">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              ></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            <span>Reportes</span>
-          </a>
+          </button>
+        </div>
+      </header>
 
-          <a href="#" class="nav-item" data-section="configuracion">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M12 1v6m0 6v6"></path>
-            </svg>
-            <span>Configuración</span>
-          </a>
-
-          <a href="#" class="nav-item" id="logout-btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            <span>Cerrar Sesión</span>
-          </a>
-        </nav>
-      </aside>
-
-
-      <!-- PAGINA PRINCIPAL DE INFORMACION DE DASHBOARD -->
-      <main class="main-content">
-        <!-- Header -->
-        <header class="dashboard-header">
-          <div class="header-title">
-            <button id="open-sidebar" class="btn-icon mobile-only">☰</button>
-            <h1>Panel Principal</h1>
-            <p>Bienvenido al sistema de gestión BRINCAPARK</p>
-          </div>
-          <div class="header-actions">
-            <!-- BOTON DE LAS NOTIFICIONES DE DASHBOARD -->
-            <button
-              id="notifications-btn"
-              class="btn-icon"
-              title="Notificaciones"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      <!-- SECCION DE INICIO DE DASHBOARD LA PARTE PRINCIPAL -->
+      <div id="section-inicio" class="content-section">
+        <!-- CARTA DE LAS ESTADISTICAS -->
+        <div class="stats-grid">
+          <div class="stat-card stat-primary">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-              <span class="notification-badge" id="notification-count">0</span>
-            </button>
-            <button id="refresh-btn" class="btn-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="23 4 23 10 17 10"></polyline>
-                <polyline points="1 20 1 14 7 14"></polyline>
-                <path
-                  d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
-                ></path>
+            </div>
+            <div class="stat-content">
+              <p class="stat-label">Total Reservas</p>
+              <h3 class="stat-value" id="total-reservas">0</h3>
+            </div>
+          </div>
+
+          <div class="stat-card stat-success">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
               </svg>
-            </button>
-          </div>
-        </header>
-
-        <!-- SECCION DE INICIO DE DASHBOARD LA PARTE PRINCIPAL -->
-        <div id="section-inicio" class="content-section">
-          <!-- CARTA DE LAS ESTADISTICAS -->
-          <div class="stats-grid">
-            <div class="stat-card stat-primary">
-              <div class="stat-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-              </div>
-              <div class="stat-content">
-                <p class="stat-label">Total Reservas</p>
-                <h3 class="stat-value" id="total-reservas">0</h3>
-              </div>
             </div>
-
-            <div class="stat-card stat-success">
-              <div class="stat-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <line x1="12" y1="1" x2="12" y2="23"></line>
-                  <path
-                    d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-                  ></path>
-                </svg>
-              </div>
-              <div class="stat-content">
-                <p class="stat-label">Ingresos Totales</p>
-                <h3 class="stat-value" id="total-dinero">$0</h3>
-              </div>
-            </div>
-
-            <div class="stat-card stat-info">
-              <div class="stat-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                  ></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-              </div>
-              <div class="stat-content">
-                <p class="stat-label">Maracaibo</p>
-                <h3 class="stat-value" id="total-maracaibo">0</h3>
-              </div>
-            </div>
-
-            <div class="stat-card stat-warning">
-              <div class="stat-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                  ></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-              </div>
-              <div class="stat-content">
-                <p class="stat-label">Caracas</p>
-                <h3 class="stat-value" id="total-caracas">0</h3>
-              </div>
-            </div>
-
-            <div class="stat-card stat-purple">
-              <div class="stat-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                  ></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-              </div>
-              <div class="stat-content">
-                <p class="stat-label">Punto Fijo</p>
-                <h3 class="stat-value" id="total-puntofijo">0</h3>
-              </div>
+            <div class="stat-content">
+              <p class="stat-label">Ingresos Totales</p>
+              <h3 class="stat-value" id="total-dinero">$0</h3>
             </div>
           </div>
 
-          <!-- DASHBOARD GRID PRINCIPAL -->
-          <div class="dashboard-grid">
-            <!-- Calendar Widget -->
-            <div class="widget-card">
-              <div class="widget-header">
-                <h3>Calendario de Reservas</h3>
-              </div>
-              <div class="widget-body">
-                <div id="calendar-widget"></div>
-              </div>
+          <div class="stat-card stat-info">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
             </div>
-
-            <!-- RESERVAS POR PARQUE -->
-            <div class="widget-card">
-              <div class="widget-header">
-                <h3>Reservas por Parque</h3>
-              </div>
-              <div class="widget-body">
-                <canvas id="reservasChart"></canvas>
-              </div>
+            <div class="stat-content">
+              <p class="stat-label">Maracaibo</p>
+              <h3 class="stat-value" id="total-maracaibo">0</h3>
             </div>
+          </div>
 
-            <!-- Gráfica de Ingresos Mensuales -->
-            <div class="widget-card" style="margin-top: 2rem;">
-              <div class="widget-header">
-                <h3>Ingresos por Mes (Últimos 6 Meses)</h3>
-              </div>
-              <div class="widget-body" style="height: 300px;">
-                <canvas id="ingresos-mensuales-chart"></canvas>
-              </div>
+          <div class="stat-card stat-warning">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
             </div>
-
-            <!-- Gráfica de Tipo de Evento -->
-            <div class="widget-card" style="margin-top: 2rem;">
-              <div class="widget-header">
-                <h3>Reservas por Tipo de Evento</h3>
-              </div>
-              <div class="widget-body" style="height: 300px;">
-                <canvas id="tipo-evento-chart"></canvas>
-              </div>
+            <div class="stat-content">
+              <p class="stat-label">Caracas</p>
+              <h3 class="stat-value" id="total-caracas">0</h3>
             </div>
+          </div>
 
-            <!-- Gráfica de Dona - Distribución por Parque -->
-            <div class="chart-container" style="margin-top: 2rem;">
-              <div class="chart-header">
-                <h2>Distribución de Reservas por Parque</h2>
-              </div>
-              <div class="chart-body">
-                <canvas id="parque-dona-chart"></canvas>
-              </div>
+          <div class="stat-card stat-purple">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <p class="stat-label">Punto Fijo</p>
+              <h3 class="stat-value" id="total-puntofijo">0</h3>
             </div>
           </div>
         </div>
 
-        <!-- Sección Reservas -->
-        <div id="section-reservas" class="content-section hidden">
-          <div class="table-container">
-            <div class="table-header">
-              <h2>Gestión de Reservas</h2>
-              
-              <!-- BARRA DE BÚSQUEDA Y FILTROS MEJORADOS -->
-              <div class="search-filters-container">
-                <!-- busqueda -->
-                <div class="search-box">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                  </svg>
-                  <input 
-                    type="text" 
-                    id="search-input" 
-                    placeholder="Buscar por nombre, teléfono o email..."
-                    class="search-input"
-                  />
-                </div>
-
-                <!-- filtros -->
-                <div class="filters-row">
-                  <div class="filter-group">
-                    <label for="filtro-parque">Parque:</label>
-                    <select id="filtro-parque" class="filter-select">
-                      <option value="">Todos</option>
-                      <option value="Maracaibo">Maracaibo</option>
-                      <option value="Caracas">Caracas</option>
-                      <option value="Punto Fijo">Punto Fijo</option>
-                    </select>
-                  </div>
-
-                  <div class="filter-group">
-                    <label for="filtro-estado">Estado:</label>
-                    <select id="filtro-estado" class="filter-select">
-                      <option value="">Todos</option>
-                      <option value="pendiente">Pendiente</option>
-                      <option value="aprobado">Aprobado</option>
-                      <option value="cancelado">Cancelado</option>
-                    </select>
-                  </div>
-
-                  <div class="filter-group">
-                    <label for="filtro-fecha-desde">Desde:</label>
-                    <input type="date" id="filtro-fecha-desde" class="filter-date" />
-                  </div>
-
-                  <div class="filter-group">
-                    <label for="filtro-fecha-hasta">Hasta:</label>
-                    <input type="date" id="filtro-fecha-hasta" class="filter-date" />
-                  </div>
-
-                  <button id="clear-filters-btn" class="btn-clear-filters" title="Limpiar filtros">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                    Limpiar
-                  </button>
-                </div>
-
-                <!-- Contador de resultados -->
-                <div class="results-counter" id="results-counter">
-                  Mostrando <strong id="results-count">0</strong> de <strong id="total-count">0</strong> reservas
-                </div>
-              </div>
+        <!-- DASHBOARD GRID PRINCIPAL -->
+        <div class="dashboard-grid">
+          <!-- Calendar Widget -->
+          <div class="widget-card">
+            <div class="widget-header">
+              <h3>Calendario de Reservas</h3>
             </div>
-            <div class="table-wrapper">
-              <table id="tabla-reservas">
-                <thead>
-                  <tr>
-                    <th>Cliente</th>
-                    <th>Contacto</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Parque</th>
-                    <th>Paquete</th>
-                    <th>Evento</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
+            <div class="widget-body">
+              <div id="calendar-widget"></div>
+            </div>
+          </div>
+
+          <!-- RESERVAS POR PARQUE -->
+          <div class="widget-card">
+            <div class="widget-header">
+              <h3>Reservas por Parque</h3>
+            </div>
+            <div class="widget-body">
+              <canvas id="reservasChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfica de Ingresos Mensuales -->
+          <div class="widget-card" style="margin-top: 2rem;">
+            <div class="widget-header">
+              <h3>Ingresos por Mes (Últimos 6 Meses)</h3>
+            </div>
+            <div class="widget-body" style="height: 300px;">
+              <canvas id="ingresos-mensuales-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfica de Tipo de Evento -->
+          <div class="widget-card" style="margin-top: 2rem;">
+            <div class="widget-header">
+              <h3>Reservas por Tipo de Evento</h3>
+            </div>
+            <div class="widget-body" style="height: 300px;">
+              <canvas id="tipo-evento-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfica de Dona - Distribución por Parque -->
+          <div class="chart-container" style="margin-top: 2rem;">
+            <div class="chart-header">
+              <h2>Distribución de Reservas por Parque</h2>
+            </div>
+            <div class="chart-body">
+              <canvas id="parque-dona-chart"></canvas>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- SECCION DE REPORTES -->
-        <div id="section-reportes" class="content-section hidden">
-          <div class="reports-container">
-            <div class="reports-header">
-              <h2>Exportar Reportes</h2>
-              <p>Descarga reportes de reservas en diferentes formatos</p>
-            </div>
+      <!-- Sección Reservas -->
+      <div id="section-reservas" class="content-section hidden">
+        <div class="table-container">
+          <div class="table-header">
+            <h2>Gestión de Reservas</h2>
 
-            <div class="export-options">
-              <div class="export-card">
-                <div class="export-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="48"
-                    height="48"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                    ></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                  </svg>
-                </div>
-                <h3>Exportar a PDF</h3>
-                <p>Genera un reporte en formato PDF con todas las reservas</p>
-                <button id="export-pdf-btn" class="btn-export btn-pdf">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                  Descargar PDF
-                </button>
+            <!-- BARRA DE BÚSQUEDA Y FILTROS MEJORADOS -->
+            <div class="search-filters-container">
+              <!-- busqueda -->
+              <div class="search-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="search-input" placeholder="Buscar por nombre, teléfono o email..."
+                  class="search-input" />
               </div>
 
-              <div class="export-card">
-                <div class="export-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="48"
-                    height="48"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                    ></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="12" y1="18" x2="12" y2="12"></line>
-                    <line x1="9" y1="15" x2="15" y2="15"></line>
-                  </svg>
-                </div>
-                <h3>Exportar a Excel</h3>
-                <p>Descarga un archivo Excel con los datos de las reservas</p>
-                <button id="export-excel-btn" class="btn-export btn-excel">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                  Descargar Excel
-                </button>
-              </div>
-            </div>
-
-            <!-- METRICAS AVANZADAS DE LA SECCION DE REPORTES (LAS METRICAS SON DE RESERVAS) -->
-            <div class="metrics-section">
-              <h3>Métricas Avanzadas</h3>
-              <div class="metrics-grid">
-                <div class="metric-card">
-                  <h4>Reservas por Mes</h4>
-                  <canvas id="monthlyChart"></canvas>
-                </div>
-                <div class="metric-card">
-                  <h4>Comparativa de Parques</h4>
-                  <canvas id="parksComparisonChart"></canvas>
-                </div>
-              </div>
-            </div>
-
-            <!-- Top Clientes Frecuentes -->
-            <div class="metrics-section" style="margin-top: 2rem;">
-              <h3>Top Clientes Frecuentes</h3>
-              <div id="top-clientes-container" class="top-clientes-wrapper">
-                <p>Cargando datos...</p>
-              </div>
-            </div>
-
-            <!-- Análisis de Cancelaciones -->
-            <div class="metrics-section" style="margin-top: 2rem;">
-              <h3>Análisis de Cancelaciones</h3>
-              <div id="analisis-cancelaciones-container" class="cancelaciones-wrapper">
-                <p>Cargando datos...</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECCION CONFIGURACION -->
-        <section id="section-configuracion" class="content-section hidden">
-          <div class="config-container">
-            <div class="config-header">
-              <h2>Configuración del Sistema</h2>
-              <p>Gestiona moneda, tasas y precios</p>
-            </div>
-            <div class="config-card">
-              <h3>Moneda y Tasa de Cambio</h3>
-              <div class="config-row">
-                <div class="config-group">
-                  <label for="moneda-select">Moneda Principal</label>
-                  <select id="moneda-select" class="config-input">
-                    <option value="USD">Dólares (USD)</option>
-                    <option value="BS">Bolívares (Bs)</option>
+              <!-- filtros -->
+              <div class="filters-row">
+                <div class="filter-group">
+                  <label for="filtro-parque">Parque:</label>
+                  <select id="filtro-parque" class="filter-select">
+                    <option value="">Todos</option>
+                    <option value="Maracaibo">Maracaibo</option>
+                    <option value="Caracas">Caracas</option>
+                    <option value="Punto Fijo">Punto Fijo</option>
                   </select>
                 </div>
-                <div class="config-group">
-                  <label for="tasa-bcv">Tasa BCV (Bs por USD)</label>
-                  <input type="number" id="tasa-bcv" class="config-input" placeholder="244.65" step="0.01" min="0" />
+
+                <div class="filter-group">
+                  <label for="filtro-estado">Estado:</label>
+                  <select id="filtro-estado" class="filter-select">
+                    <option value="">Todos</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobado">Aprobado</option>
+                    <option value="cancelado">Cancelado</option>
+                  </select>
                 </div>
+
+                <div class="filter-group">
+                  <label for="filtro-fecha-desde">Desde:</label>
+                  <input type="date" id="filtro-fecha-desde" class="filter-date" />
+                </div>
+
+                <div class="filter-group">
+                  <label for="filtro-fecha-hasta">Hasta:</label>
+                  <input type="date" id="filtro-fecha-hasta" class="filter-date" />
+                </div>
+
+                <button id="clear-filters-btn" class="btn-clear-filters" title="Limpiar filtros">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                  Limpiar
+                </button>
               </div>
-            </div>
-            <div class="config-card">
-              <h3>Precios de Tickets</h3>
-              <div class="config-row">
-                <div class="config-group">
-                  <label for="ticket-15min">15 Minutos</label>
-                  <input type="number" id="ticket-15min" class="config-input" placeholder="6" step="0.01" min="0" />
-                </div>
-                <div class="config-group">
-                  <label for="ticket-30min">30 Minutos</label>
-                  <input type="number" id="ticket-30min" class="config-input" placeholder="9" step="0.01" min="0" />
-                </div>
-                <div class="config-group">
-                  <label for="ticket-60min">60 Minutos</label>
-                  <input type="number" id="ticket-60min" class="config-input" placeholder="10" step="0.01" min="0" />
-                </div>
+
+              <!-- Contador de resultados -->
+              <div class="results-counter" id="results-counter">
+                Mostrando <strong id="results-count">0</strong> de <strong id="total-count">0</strong> reservas
               </div>
-              <div class="config-row">
-                <div class="config-group">
-                  <label for="ticket-fullday">Full Day</label>
-                  <input type="number" id="ticket-fullday" class="config-input" placeholder="11" step="0.01" min="0" />
-                </div>
-                <div class="config-group">
-                  <label for="ticket-combo">Combo Full Day</label>
-                  <input type="number" id="ticket-combo" class="config-input" placeholder="13" step="0.01" min="0" />
-                </div>
-              </div>
-            </div>
-            <div class="config-card">
-              <h3>Precios de Paquetes de Fiesta</h3>
-              <div class="paquete-config">
-                <h4>Paquete Mini (30 personas)</h4>
-                <div class="config-row">
-                  <div class="config-group">
-                    <label for="mini-lunes">Lunes a Jueves</label>
-                    <input type="number" id="mini-lunes" class="config-input" placeholder="150" step="1" min="0" />
-                  </div>
-                  <div class="config-group">
-                    <label for="mini-viernes">Viernes a Domingo</label>
-                    <input type="number" id="mini-viernes" class="config-input" placeholder="180" step="1" min="0" />
-                  </div>
-                </div>
-              </div>
-              <div class="paquete-config">
-                <h4>Paquete Mediano (60 personas)</h4>
-                <div class="config-row">
-                  <div class="config-group">
-                    <label for="mediano-lunes">Lunes a Jueves</label>
-                    <input type="number" id="mediano-lunes" class="config-input" placeholder="200" step="1" min="0" />
-                  </div>
-                  <div class="config-group">
-                    <label for="mediano-viernes">Viernes a Domingo</label>
-                    <input type="number" id="mediano-viernes" class="config-input" placeholder="230" step="1" min="0" />
-                  </div>
-                </div>
-              </div>
-              <div class="paquete-config">
-                <h4>Paquete Full (80 personas)</h4>
-                <div class="config-row">
-                  <div class="config-group">
-                    <label for="full-lunes">Lunes a Jueves</label>
-                    <input type="number" id="full-lunes" class="config-input" placeholder="250" step="1" min="0" />
-                  </div>
-                  <div class="config-group">
-                    <label for="full-viernes">Viernes a Domingo</label>
-                    <input type="number" id="full-viernes" class="config-input" placeholder="280" step="1" min="0" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="config-actions">
-              <button id="guardar-config-btn" class="btn-save-config">Guardar Configuración</button>
-              <button id="reset-config-btn" class="btn-reset-config">Restaurar Valores Por Defecto</button>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
-
-    <!-- Panel de Notificaciones -->
-    <div class="notifications-panel hidden" id="notifications-panel">
-      <div class="notifications-header">
-        <h3>Notificaciones</h3>
-        <button class="close-notifications" id="close-notifications">×</button>
+          <div class="table-wrapper">
+            <table id="tabla-reservas">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Contacto</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Parque</th>
+                  <th>Paquete</th>
+                  <th>Evento</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="notifications-list" id="notifications-list"></div>
-    </div>
 
-    <!-- Scipts utilizados en proyectos y librerias externas -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="./assets/js/api.js"></script>
-    <script src="./assets/js/admin.js"></script>
-    <script src="./assets/js/admin-funcionalidades.js"></script>
-    <script src="./assets/js/admin-analytics.js"></script>
-  </body>
+      <!-- SECCION DE REPORTES -->
+      <div id="section-reportes" class="content-section hidden">
+        <div class="reports-container">
+          <div class="reports-header">
+            <h2>Exportar Reportes</h2>
+            <p>Descarga reportes de reservas en diferentes formatos</p>
+          </div>
+
+          <div class="export-options">
+            <div class="export-card">
+              <div class="export-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <h3>Exportar a PDF</h3>
+              <p>Genera un reporte en formato PDF con todas las reservas</p>
+              <button id="export-pdf-btn" class="btn-export btn-pdf">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Descargar PDF
+              </button>
+            </div>
+
+            <div class="export-card">
+              <div class="export-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="12" y1="18" x2="12" y2="12"></line>
+                  <line x1="9" y1="15" x2="15" y2="15"></line>
+                </svg>
+              </div>
+              <h3>Exportar a Excel</h3>
+              <p>Descarga un archivo Excel con los datos de las reservas</p>
+              <button id="export-excel-btn" class="btn-export btn-excel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Descargar Excel
+              </button>
+            </div>
+          </div>
+
+          <!-- METRICAS AVANZADAS DE LA SECCION DE REPORTES (LAS METRICAS SON DE RESERVAS) -->
+          <div class="metrics-section">
+            <h3>Métricas Avanzadas</h3>
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <h4>Reservas por Mes</h4>
+                <canvas id="monthlyChart"></canvas>
+              </div>
+              <div class="metric-card">
+                <h4>Comparativa de Parques</h4>
+                <canvas id="parksComparisonChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Clientes Frecuentes -->
+          <div class="metrics-section" style="margin-top: 2rem;">
+            <h3>Top Clientes Frecuentes</h3>
+            <div id="top-clientes-container" class="top-clientes-wrapper">
+              <p>Cargando datos...</p>
+            </div>
+          </div>
+
+          <!-- Análisis de Cancelaciones -->
+          <div class="metrics-section" style="margin-top: 2rem;">
+            <h3>Análisis de Cancelaciones</h3>
+            <div id="analisis-cancelaciones-container" class="cancelaciones-wrapper">
+              <p>Cargando datos...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCION CONFIGURACION -->
+      <section id="section-configuracion" class="content-section hidden">
+        <div class="config-container">
+          <div class="config-header">
+            <h2>Configuración del Sistema</h2>
+            <p>Gestiona moneda, tasas y precios</p>
+          </div>
+          <div class="config-card">
+            <h3>Moneda y Tasa de Cambio</h3>
+            <div class="config-row">
+              <div class="config-group">
+                <label for="moneda-select">Moneda Principal</label>
+                <select id="moneda-select" class="config-input">
+                  <option value="USD">Dólares (USD)</option>
+                  <option value="BS">Bolívares (Bs)</option>
+                </select>
+              </div>
+              <div class="config-group">
+                <label for="tasa-bcv">Tasa BCV (Bs por USD)</label>
+                <input type="number" id="tasa-bcv" class="config-input" placeholder="244.65" step="0.01" min="0" />
+              </div>
+            </div>
+          </div>
+          <div class="config-card">
+            <h3>Precios de Tickets</h3>
+            <div class="config-row">
+              <div class="config-group">
+                <label for="ticket-15min">15 Minutos</label>
+                <input type="number" id="ticket-15min" class="config-input" placeholder="6" step="0.01" min="0" />
+              </div>
+              <div class="config-group">
+                <label for="ticket-30min">30 Minutos</label>
+                <input type="number" id="ticket-30min" class="config-input" placeholder="9" step="0.01" min="0" />
+              </div>
+              <div class="config-group">
+                <label for="ticket-60min">60 Minutos</label>
+                <input type="number" id="ticket-60min" class="config-input" placeholder="10" step="0.01" min="0" />
+              </div>
+            </div>
+            <div class="config-row">
+              <div class="config-group">
+                <label for="ticket-fullday">Full Day</label>
+                <input type="number" id="ticket-fullday" class="config-input" placeholder="11" step="0.01" min="0" />
+              </div>
+              <div class="config-group">
+                <label for="ticket-combo">Combo Full Day</label>
+                <input type="number" id="ticket-combo" class="config-input" placeholder="13" step="0.01" min="0" />
+              </div>
+            </div>
+          </div>
+          <div class="config-card">
+            <h3>Precios de Paquetes de Fiesta</h3>
+            <div class="paquete-config">
+              <h4>Paquete Mini (30 personas)</h4>
+              <div class="config-row">
+                <div class="config-group">
+                  <label for="mini-lunes">Lunes a Jueves</label>
+                  <input type="number" id="mini-lunes" class="config-input" placeholder="150" step="1" min="0" />
+                </div>
+                <div class="config-group">
+                  <label for="mini-viernes">Viernes a Domingo</label>
+                  <input type="number" id="mini-viernes" class="config-input" placeholder="180" step="1" min="0" />
+                </div>
+              </div>
+            </div>
+            <div class="paquete-config">
+              <h4>Paquete Mediano (60 personas)</h4>
+              <div class="config-row">
+                <div class="config-group">
+                  <label for="mediano-lunes">Lunes a Jueves</label>
+                  <input type="number" id="mediano-lunes" class="config-input" placeholder="200" step="1" min="0" />
+                </div>
+                <div class="config-group">
+                  <label for="mediano-viernes">Viernes a Domingo</label>
+                  <input type="number" id="mediano-viernes" class="config-input" placeholder="230" step="1" min="0" />
+                </div>
+              </div>
+            </div>
+            <div class="paquete-config">
+              <h4>Paquete Full (80 personas)</h4>
+              <div class="config-row">
+                <div class="config-group">
+                  <label for="full-lunes">Lunes a Jueves</label>
+                  <input type="number" id="full-lunes" class="config-input" placeholder="250" step="1" min="0" />
+                </div>
+                <div class="config-group">
+                  <label for="full-viernes">Viernes a Domingo</label>
+                  <input type="number" id="full-viernes" class="config-input" placeholder="280" step="1" min="0" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="config-actions">
+            <button id="guardar-config-btn" class="btn-save-config">Guardar Configuración</button>
+            <button id="reset-config-btn" class="btn-reset-config">Restaurar Valores Por Defecto</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Panel de Notificaciones -->
+  <div class="notifications-panel hidden" id="notifications-panel">
+    <div class="notifications-header">
+      <h3>Notificaciones</h3>
+      <button class="close-notifications" id="close-notifications" aria-label="Cerrar notificaciones">×</button>
+    </div>
+    <div class="notifications-list" id="notifications-list"></div>
+  </div>
+
+  <!-- Scipts utilizados en proyectos y librerias externas -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"
+    defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/admin.js"></script>
+  <script src="./assets/js/admin-funcionalidades.js"></script>
+  <script src="./assets/js/admin-analytics.js"></script>
+</body>
+
 </html>
