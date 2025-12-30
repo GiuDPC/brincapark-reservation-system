@@ -8,7 +8,16 @@
   <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
   <title>BRINCAPARK - Diversión para Toda la Familia</title>
 
-  <!-- Cache-busting para forzar recarga en móviles -->
+  <!-- Preconnect para CDNs externos mejora velocidad de conexion -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Preload de imagen LCP la mas importante para el primer renderizado -->
+  <link rel="preload" as="image" href="./assets/img/FotoInicio.webp" fetchpriority="high" />
+
+  <!-- Cache-busting para forzar recarga en moviles -->
   <link rel="stylesheet" href="./assets/css/index.css?v=3.5" />
 
   <script src="https://unpkg.com/@barba/core" defer></script>
