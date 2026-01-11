@@ -1,6 +1,4 @@
 // Precios dinámicos - carga instantánea con caché
-
-// Detección de entorno
 const isLocalPricing = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 const API_PRICING = isLocalPricing ? "http://localhost:4000/api" : "https://brincapark-api.onrender.com/api";
 
@@ -34,7 +32,7 @@ function obtenerDeCache() {
     if (Date.now() - cacheData.timestamp < CACHE_DURATION) {
       return cacheData.config;
     }
-    return cacheData.config; // Devolver aunque sea viejo para mostrar algo
+    return cacheData.config;
   } catch (e) {
     return null;
   }
@@ -60,7 +58,6 @@ async function obtenerConfiguracionPrecios() {
     return data;
   } catch (error) {
     console.error("Error obteniendo precios:", error);
-    // Si falla, intentar devolver del caché
     return obtenerDeCache();
   }
 }
@@ -150,32 +147,25 @@ function ocultarSkeletonPrecios() {
 // Inicialización
 
 async function inicializarPreciosDinamicos() {
-  // PASO 1: Verificar caché
   const cached = obtenerDeCache();
 
   if (cached) {
-    // Si hay caché, mostrar inmediatamente
     actualizarPreciosUI(cached);
     console.log("✓ Precios cargados instantáneamente desde caché");
   } else {
-    // Si no hay caché, mostrar skeleton loading
     mostrarSkeletonPrecios();
   }
 
-  // PASO 2: Obtener precios frescos del servidor en segundo plano
   const config = await obtenerConfiguracionPrecios();
   if (config) {
-    // Ocultar skeleton si estaba visible
     ocultarSkeletonPrecios();
 
-    // Solo actualizar UI si los precios cambiaron
     if (JSON.stringify(currentConfig) !== JSON.stringify(config)) {
       actualizarPreciosUI(config);
       console.log("✓ Precios actualizados desde servidor");
     }
   }
 
-  // PASO 3: Polling cada 30 segundos (no tan agresivo)
   if (pollingInterval) clearInterval(pollingInterval);
 
   pollingInterval = setInterval(async () => {
@@ -183,7 +173,7 @@ async function inicializarPreciosDinamicos() {
     if (nuevaConfig && JSON.stringify(currentConfig) !== JSON.stringify(nuevaConfig)) {
       actualizarPreciosUI(nuevaConfig);
     }
-  }, 10000); // 10 segundos - actualización rápida
+  }, 10000); // 10 segundos actualización rápida
 }
 
 function detenerPreciosDinamicos() {
@@ -197,7 +187,6 @@ function detenerPreciosDinamicos() {
 
 // Escuchar evento de actualización desde admin
 window.addEventListener('configUpdated', async () => {
-  // Limpiar caché viejo
   localStorage.removeItem(CACHE_KEY);
   currentConfig = null;
 
@@ -208,7 +197,6 @@ window.addEventListener('configUpdated', async () => {
 // Recargar al volver a la página (navegación atrás/adelante)
 window.addEventListener('pageshow', async (event) => {
   if (event.persisted) {
-    // Mostrar caché primero
     const cached = obtenerDeCache();
     if (cached) actualizarPreciosUI(cached);
 
@@ -223,7 +211,6 @@ window.addEventListener('pageshow', async (event) => {
 // Recargar cuando la ventana recibe foco
 let lastFocusCheck = 0;
 window.addEventListener('focus', async () => {
-  // Evitar múltiples llamadas seguidas (throttle de 5 segundos)
   if (Date.now() - lastFocusCheck < 5000) return;
   lastFocusCheck = Date.now();
 
@@ -233,7 +220,7 @@ window.addEventListener('focus', async () => {
   }
 });
 
-// Exportar
+
 window.inicializarPreciosDinamicos = inicializarPreciosDinamicos;
 window.detenerPreciosDinamicos = detenerPreciosDinamicos;
 window.obtenerConfiguracionPrecios = obtenerConfiguracionPrecios;

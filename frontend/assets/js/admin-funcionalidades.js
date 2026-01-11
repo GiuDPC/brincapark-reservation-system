@@ -1,7 +1,5 @@
 // Panel de configuración, notificaciones y gráficas
 
-// PANEL DE CONFIGURACIÓN
-
 // Valores por defecto de precios
 const PRECIOS_DEFAULT = {
   moneda: "USD",
@@ -512,7 +510,6 @@ document.addEventListener("DOMContentLoaded", () => {
     configNav.addEventListener("click", () => {
       setTimeout(() => {
         inicializarConfiguracion();
-        // Guardar precios originales cuando se carga la configuración
         setTimeout(guardarPreciosOriginales, 200);
       }, 100);
     });

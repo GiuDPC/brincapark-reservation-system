@@ -127,7 +127,6 @@ function initCarousel() {
 }
 
 // Placeholder para formulario (si no existe)
-// Placeholder para formulario (si no existe)
 function initFormulario() {
   const form = document.getElementById('reservation-form');
   if (!form) return;
@@ -479,16 +478,13 @@ function initApp() {
   if (document.getElementById("reservation-form")) initFormulario();
   if (typeof inicializarPreciosDinamicos === 'function') inicializarPreciosDinamicos();
 
-  // Agregar clases de animacion automaticamente
+
   addAnimationClasses();
 
-  // Inicializar scroll reveal
   initScrollReveal();
 
-  // Inicializar efecto parallax
   initParallax();
 
-  // Animaciones de entrada para secciones (GSAP)
   animarSeccionesAlCargar();
 }
 
@@ -529,7 +525,6 @@ function animarSeccionesAlCargar() {
   }
 }
 
-// BARBA.JS CONFIGURACIÓN MEJORADA
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof gsap !== 'undefined' && typeof barba !== 'undefined') {
 
@@ -552,7 +547,6 @@ document.addEventListener("DOMContentLoaded", () => {
       transitions: [{
         name: 'spectacular-slide',
 
-        // Antes de salir: Fade out del contenido actual
         beforeLeave(data) {
           // Animar elementos específicos hacia afuera
           const cards = data.current.container.querySelectorAll('.ticket-card, .paquete-card');
@@ -567,7 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         },
 
-        // SALIDA: Cortina sube y tapa con efecto de onda
+        // Cortina sube y tapa con efecto de onda
         leave(data) {
           const tl = gsap.timeline();
 
@@ -615,7 +609,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return tl;
         },
 
-        // Después de entrar: Reiniciar scripts y animar elementos
+        //Reiniciar scripts y animar elementos
         afterEnter(data) {
           initApp();
         }

@@ -26,8 +26,8 @@ const configSchema = new mongoose.Schema(
       min15: { type: Number, default: 6, min: 0 }, // 15 minutos
       min30: { type: Number, default: 9, min: 0 }, // 30 minutos
       min60: { type: Number, default: 10, min: 0 }, // 1 hora
-      fullday: { type: Number, default: 11, min: 0 }, // Día completo
-      combo: { type: Number, default: 13, min: 0 }, // Combo especial
+      fullday: { type: Number, default: 11, min: 0 }, // Full day
+      combo: { type: Number, default: 13, min: 0 }, // Combo Super Magico
     },
 
     // Paquetes de fiestas (lunes-jueves vs viernes-domingo)
@@ -49,7 +49,7 @@ const configSchema = new mongoose.Schema(
       },
     },
 
-    // Singleton - solo puede haber un doc de config
+    // Singleton solo puede haber un doc de config
     isSingleton: {
       type: Boolean,
       default: true,

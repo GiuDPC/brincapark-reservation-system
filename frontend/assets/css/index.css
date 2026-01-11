@@ -2195,16 +2195,13 @@ body::after {
     align-items: center;
     gap: 2rem;
     z-index: 10000;
-    /* Efecto de cortina para el menú */
     clip-path: circle(0px at 100% 0px);
     transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
     pointer-events: none;
-    /* No clickear cuando está cerrado */
   }
 
   .navbar-menu.active {
     clip-path: circle(150% at 100% 0px);
-    /* Se abre el círculo */
     pointer-events: all;
   }
 
@@ -2216,7 +2213,6 @@ body::after {
     transition: 0.4s ease;
   }
 
-  /* Animación de enlaces al abrir */
   .navbar-menu.active a {
     opacity: 1;
     transform: translateY(0);
@@ -2235,7 +2231,6 @@ body::after {
   .hero-image {
     order: 1;
     max-width: 500px;
-    /* Limitamos el ancho en tablets */
     margin: 0 auto;
   }
 

@@ -1,16 +1,13 @@
 // admin.js - Panel administrativo BRINCAPARK (VERSIÓN COMPLETA FINAL)
 
-// 1. URL DINÁMICA
 const API = window.API_BASE_URL || "http://localhost:4000/api";
 console.log("Admin conectando a:", API);
 
-// 2. ESTADO GLOBAL (Con Token JWT)
 let authToken = sessionStorage.getItem("adminToken") || "";
 let reservas = [];
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
-// 3. INICIALIZACIÓN
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Panel Admin cargado");
 
@@ -79,7 +76,6 @@ function cambiarSeccion(seccion) {
   });
   document.getElementById(`section-${seccion}`)?.classList.remove("hidden");
 
-  // Cargar gráficas avanzadas si es la sección de reportes
   if (seccion === "reportes") {
     setTimeout(() => {
       if (typeof renderAdvancedMetrics === 'function') renderAdvancedMetrics();
@@ -92,7 +88,7 @@ function cambiarSeccion(seccion) {
 }
 
 /**
- * LOGIN (Con JWT)
+ * LOGIN
  */
 async function handleLogin(e) {
   e.preventDefault();
@@ -119,8 +115,7 @@ async function handleLogin(e) {
 
     if (response.ok && data.token) {
       authToken = data.token;
-      sessionStorage.setItem("adminToken", authToken); // Guardamos Token
-
+      sessionStorage.setItem("adminToken", authToken);
       mostrarDashboard();
       cargarReservas();
 
@@ -162,13 +157,13 @@ function mostrarDashboard() {
 }
 
 /**
- * CARGAR RESERVAS (Con Token)
+ * CARGAR RESERVAS
  */
 async function cargarReservas() {
   try {
     console.log("Cargando reservas...");
     const response = await fetch(`${API}/admin/reservas`, {
-      headers: { "Authorization": `Bearer ${authToken}` }, // Header JWT
+      headers: { "Authorization": `Bearer ${authToken}` },
     });
 
     if (!response.ok) {
@@ -365,7 +360,7 @@ function attachTableEventListeners() {
 }
 
 /**
- * ELIMINAR RESERVA (Global para onclick)
+ * ELIMINAR RESERVA
  */
 window.eliminarReservaUI = async (id) => {
   const result = await Swal.fire({
@@ -388,7 +383,7 @@ window.eliminarReservaUI = async (id) => {
 };
 
 /**
- * EDITAR RESERVA (Formulario Completo)
+ * EDITAR RESERVA DEL FORMULARIO COMPLETO
  */
 window.editarReserva = async (id) => {
   const r = reservas.find(item => item._id === id);
@@ -467,7 +462,7 @@ window.editarReserva = async (id) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${authToken}`  // Token JWT incluido
+          "Authorization": `Bearer ${authToken}`
         },
         body: JSON.stringify(formValues),
       });
@@ -481,7 +476,7 @@ window.editarReserva = async (id) => {
 };
 
 /**
- * GRÁFICAS Y UTILIDADES VISUALES (Tus 400 líneas restantes integradas)
+ * GRÁFICAS Y UTILIDADES VISUALES
  */
 function renderGraph() {
   if (window.reservasChart && typeof window.reservasChart.destroy === "function") {
@@ -619,7 +614,6 @@ function exportarExcel() {
   XLSX.writeFile(wb, "Reporte_Brincapark.xlsx");
 }
 
-// Exponer funciones globales
 window.changeMonth = changeMonth;
 window.showDayReservations = showDayReservations;
 window.editarReserva = editarReserva;

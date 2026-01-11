@@ -1,10 +1,7 @@
 // admin-analytics.js - Módulo de analytics y métricas avanzadas
-
-// CORRECCIÓN: Usar la misma lógica de detección de entorno que api.js
 const isLocalAnalytics = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 const API_ANALYTICS = isLocalAnalytics ? "http://localhost:4000/api" : "https://brincapark-api.onrender.com/api";
 
-// Variables globales para charts
 let ingresosMensualesChart = null;
 let tipoEventoChart = null;
 
@@ -309,7 +306,6 @@ async function renderizarComparativaParques() {
   }
 }
 
-// EXPORTAR FUNCIONES
 window.renderizarMetricasAdicionales = renderizarMetricasAdicionales;
 window.renderizarGraficaIngresosMensuales = renderizarGraficaIngresosMensuales;
 window.renderizarGraficaTipoEvento = renderizarGraficaTipoEvento;
@@ -317,6 +313,4 @@ window.renderizarTopClientes = renderizarTopClientes;
 window.renderizarAnalisisCancelaciones = renderizarAnalisisCancelaciones;
 window.renderizarGraficaMensual = renderizarGraficaMensual;
 window.renderizarComparativaParques = renderizarComparativaParques;
-
-// CORRECCIÓN CRÍTICA: Conectamos la función con el nombre que busca admin.js
 window.renderAdvancedMetrics = renderizarMetricasAdicionales;

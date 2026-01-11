@@ -138,7 +138,7 @@ async function verificarBackend() {
 
 /**
  * Obtener configuración actual del sistema
- * @returns {Promise<Object>} Configuración
+ * @returns {Promise<Object>} 
  */
 async function obtenerConfiguracion() {
   try {
@@ -156,7 +156,7 @@ async function obtenerConfiguracion() {
 
 /**
  * Actualizar configuración del sistema
- * @param {Object} config - Nueva configuración
+ * @param {Object} config  Nueva configuración
  * @returns {Promise<Object>} Configuración actualizada
  */
 async function actualizarConfiguracion(config) {
@@ -271,5 +271,4 @@ async function obtenerAnalisisCancelaciones() {
   }
 }
 
-// Exportar para uso global
 window.API_BASE_URL = API_URL;
