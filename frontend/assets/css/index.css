@@ -1424,11 +1424,13 @@ body::after {
   background: white;
   border: 5px solid #4b0082;
   border-radius: 30px;
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .horarios-table table {
+  min-width: 500px;
   width: 100%;
   border-collapse: collapse;
 }

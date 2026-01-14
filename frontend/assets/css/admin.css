@@ -1929,7 +1929,6 @@ body {
     padding-right: 12px;
   }
 
-  /* Asegurar que todos los contenedores de formulario respeten el ancho */
   .form-group,
   .input-group,
   .price-input-container {
@@ -1939,10 +1938,8 @@ body {
   }
 }
 
-/* PROBLEMA 3: Tablas y gráficas que se salen de la pantalla */
 @media (max-width: 1024px) {
 
-  /* Contenedor principal con padding lateral */
   .main-content {
     padding-left: 16px;
     padding-right: 16px;
@@ -1950,7 +1947,6 @@ body {
     overflow-x: hidden;
   }
 
-  /* Sección de métricas */
   .metrics-section {
     padding-left: 0;
     padding-right: 0;
@@ -1960,7 +1956,6 @@ body {
     width: 100%;
   }
 
-  /* Grid de métricas en una columna */
   .metrics-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1968,7 +1963,6 @@ body {
     max-width: 100%;
   }
 
-  /* Tarjetas de métricas */
   .metric-card {
     padding: 1rem;
     margin: 0;
@@ -1977,13 +1971,11 @@ body {
     box-sizing: border-box;
   }
 
-  /* Gráficas dentro de tarjetas */
   .metric-card canvas {
     max-width: 100%;
     height: auto !important;
   }
 
-  /* Contenedor de reportes */
   .reports-container {
     padding: 1rem;
     margin: 0;
@@ -1992,7 +1984,6 @@ body {
     max-width: 100%;
   }
 
-  /* Opciones de exportación */
   .export-options {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -2004,10 +1995,8 @@ body {
   }
 }
 
-/* Tablas con scroll horizontal */
 @media (max-width: 768px) {
 
-  /* Contenedor wrapper para tablas */
   .table-responsive,
   .table-container,
   .table-wrapper {
@@ -2019,7 +2008,6 @@ body {
     padding: 0;
   }
 
-  /* Tablas específicas */
   .reservations-table,
   #tabla-reservas,
   table {
@@ -2027,19 +2015,16 @@ body {
     width: max-content;
   }
 
-  /* Tabla de clientes frecuentes */
   .top-customers-table,
   .clients-table {
     min-width: 500px;
   }
 
-  /* Widget cards para gráficas */
   .widget-card {
     padding: 1rem;
     overflow-x: auto;
   }
 
-  /* Charts container */
   .chart-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -2050,19 +2035,16 @@ body {
     max-width: 100%;
   }
 
-  /* Dashboard grid en una columna en móvil */
   .dashboard-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
     padding: 0;
   }
 
-  /* Prevenir overflow en el body */
   body {
     overflow-x: hidden;
   }
 
-  /* Header del dashboard más compacto */
   .dashboard-header {
     padding: 1rem;
     margin-bottom: 1rem;
