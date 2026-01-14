@@ -30,6 +30,10 @@
 /* Top clientes */
 .top-clientes-wrapper {
   margin-top: 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
 }
 
 .top-clientes-table {
@@ -149,10 +153,19 @@
 
   .top-clientes-table {
     font-size: 0.85rem;
+    min-width: 550px;
+    /* Permite scroll horizontal */
   }
 
   .top-clientes-table th,
   .top-clientes-table td {
     padding: 0.75rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  /* Asegurar que el wrapper de cancelaciones también tenga scroll */
+  .cancelaciones-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
