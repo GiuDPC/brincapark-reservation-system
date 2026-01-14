@@ -1724,6 +1724,12 @@ body {
     transform: scale(1.1);
   }
 
+  /* Header del sidebar en móvil */
+  .sidebar-new-header {
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
   /* Mostrar título en móvil cuando sidebar está abierto */
   .sidebar-new.active .sidebar-new-title {
     display: block;
