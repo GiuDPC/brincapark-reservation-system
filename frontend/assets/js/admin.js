@@ -23,9 +23,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.querySelector('.sidebar-new');
   const openBtn = document.getElementById('open-sidebar');
   const closeBtn = document.getElementById('close-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
 
-  if (openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('active'));
-  if (closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+  // Función para abrir sidebar
+  function openSidebar() {
+    if (sidebar) sidebar.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Función para cerrar sidebar
+  function closeSidebar() {
+    if (sidebar) sidebar.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (openBtn) openBtn.addEventListener('click', openSidebar);
+  if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
 
   // Eventos de botones principales
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
@@ -55,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
       cambiarSeccion(section);
 
       // Cierre automático del menú en móvil
-      if (window.innerWidth <= 1024 && sidebar) {
-        sidebar.classList.remove('active');
+      if (window.innerWidth <= 1024) {
+        closeSidebar();
       }
     });
   });
