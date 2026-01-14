@@ -76,7 +76,7 @@ async function renderizarGraficaIngresosMensuales() {
       data: {
         labels: data.meses,
         datasets: [{
-          label: `Ingresos (${data.moneda})`,
+          label: `Ingresos (${data.moneda || 'USD'})`,
           data: data.ingresos,
           borderColor: "rgb(75, 192, 192)",
           backgroundColor: "rgba(75, 192, 192, 0.2)",
@@ -149,7 +149,7 @@ async function renderizarTopClientes() {
 
     let html = `<div class="top-clientes-list"><table class="top-clientes-table"><thead><tr><th>#</th><th>Cliente</th><th>Email</th><th>Total Reservas</th><th>Aprobadas</th><th>Canceladas</th></tr></thead><tbody>`;
     clientes.forEach((cliente, index) => {
-      html += `<tr><td>${index + 1}</td><td>${cliente.nombre}</td><td>${cliente.correo}</td><td><strong>${cliente.totalReservas}</strong></td><td class="text-success">${cliente.aprobadas}</td><td class="text-danger">${cliente.canceladas}</td></tr>`;
+      html += `<tr><td>${index + 1}</td><td>${cliente.nombre}</td><td>${cliente.correo}</td><td><strong>${cliente.totalReservas}</strong></td><td class="text-success">${cliente.aprobadas || 0}</td><td class="text-danger">${cliente.canceladas || 0}</td></tr>`;
     });
     html += `</tbody></table></div>`;
     container.innerHTML = html;

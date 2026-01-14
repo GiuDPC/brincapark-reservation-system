@@ -108,7 +108,8 @@ class AnalyticsService {
         return {
             meses: meses.map(m => m.mes),
             reservas: meses.map(m => m.reservas),
-            ingresos: meses.map(m => m.ingresos)
+            ingresos: meses.map(m => m.ingresos),
+            moneda: 'USD'
         };
     }
 
@@ -122,10 +123,19 @@ class AnalyticsService {
                     nombre: r.nombreCompleto,
                     correo: r.correo,
                     totalReservas: 0,
-                    totalGastado: 0
+                    totalGastado: 0,
+                    aprobadas: 0,
+                    canceladas: 0
                 };
             }
             clientesMap[r.correo].totalReservas++;
+
+            // Contar por estado
+            if (r.estadoReserva === 'aprobado') {
+                clientesMap[r.correo].aprobadas++;
+            } else if (r.estadoReserva === 'cancelado') {
+                clientesMap[r.correo].canceladas++;
+            }
         });
 
         for (const correo in clientesMap) {

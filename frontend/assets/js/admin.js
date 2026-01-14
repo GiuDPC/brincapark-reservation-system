@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- LÓGICA DEL MENÚ MÓVIL ---
-  const sidebar = document.querySelector('.sidebar');
+  const sidebar = document.querySelector('.sidebar-new');
   const openBtn = document.getElementById('open-sidebar');
   const closeBtn = document.getElementById('close-sidebar');
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("export-excel-btn")?.addEventListener("click", exportarExcel);
 
   // Navegación entre secciones
-  document.querySelectorAll(".nav-item[data-section]").forEach((item) => {
+  document.querySelectorAll(".sidebar-new-item[data-section]").forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
       const section = item.dataset.section;
@@ -66,10 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
  * Cambiar Sección
  */
 function cambiarSeccion(seccion) {
-  document.querySelectorAll(".nav-item").forEach((item) => {
+  document.querySelectorAll(".sidebar-new-item").forEach((item) => {
     item.classList.remove("active");
   });
-  document.querySelector(`.nav-item[data-section="${seccion}"]`)?.classList.add("active");
+  document.querySelector(`.sidebar-new-item[data-section="${seccion}"]`)?.classList.add("active");
 
   document.querySelectorAll(".content-section").forEach((section) => {
     section.classList.add("hidden");
