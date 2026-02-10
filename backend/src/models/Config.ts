@@ -1,9 +1,34 @@
-// Configuración del sistema - precios, moneda y tasa BCV
-// Se guarda en BD para poder actualizar desde el panel admin sin redeployar
+import mongoose, { Document, Schema } from "mongoose";
 
-const mongoose = require("mongoose");
 
-const configSchema = new mongoose.Schema(
+export interface IConfig extends Document {
+  moneda: "USD" | "BS";
+  tasaBCV: number;
+  tickets: {
+    min15: number;
+    min30: number;
+    min60: number;
+    fullday: number;
+    combo: number;
+  };
+  paquetes: {
+    mini: {
+      lunes: number;
+      viernes: number;
+    };
+    mediano: {
+      lunes: number;
+      viernes: number;
+    };
+    full: {
+      lunes: number;
+      viernes: number;
+    };
+  };
+  isSingleton: boolean;
+}
+
+const configSchema = new Schema(
   {
     // USD o BS (Bolívares)
     moneda: {
@@ -21,7 +46,6 @@ const configSchema = new mongoose.Schema(
       required: true,
     },
 
-    // Precios de tickets
     tickets: {
       min15: { type: Number, default: 6, min: 0 }, // 15 minutos
       min30: { type: Number, default: 9, min: 0 }, // 30 minutos
@@ -30,7 +54,7 @@ const configSchema = new mongoose.Schema(
       combo: { type: Number, default: 13, min: 0 }, // Combo Super Magico
     },
 
-    // Paquetes de fiestas (lunes-jueves vs viernes-domingo)
+    // Paquetes de fiestas lunes-jueves y viernes-domingo
     paquetes: {
       // Mini: hasta 30 personas
       mini: {
@@ -49,7 +73,6 @@ const configSchema = new mongoose.Schema(
       },
     },
 
-    // Singleton solo puede haber un doc de config
     isSingleton: {
       type: Boolean,
       default: true,
@@ -62,18 +85,18 @@ const configSchema = new mongoose.Schema(
 );
 
 // Obtiene o crea la config
-configSchema.statics.getConfig = async function () {
+configSchema.statics.getConfig = async function (): Promise<IConfig> {
   let config = await this.findOne({ isSingleton: true });
   if (!config) config = await this.create({ isSingleton: true });
   return config;
 };
 
 // Actualiza la config
-configSchema.statics.updateConfig = async function (updates) {
-  let config = await this.getConfig();
+configSchema.statics.updateConfig = async function (updates: Partial<IConfig>): Promise<IConfig> {
+  let config = await (this as any).getConfig();
   Object.assign(config, updates);
   await config.save();
   return config;
 };
 
-module.exports = mongoose.model("Config", configSchema);
+export default mongoose.model("Config", configSchema);

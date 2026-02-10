@@ -1,10 +1,11 @@
-const reservationRepository = require('../repositories/reservation.repository');
-const pricingService = require('./pricing.service');
+import reservationRepository from '../repositories/reservation.repository';
+import pricingService from './pricing.service';
+import { IReservation } from '../models/Reservation';
 
 class AnalyticsService {
 
 
-    async getStats() {
+    async getStats()  {
         const reservas = await reservationRepository.findAll();
         const aprobadas = reservas.filter(r => r.estadoReserva === 'aprobado');
         const pendientes = reservas.filter(r => r.estadoReserva === 'pendiente');
@@ -25,20 +26,20 @@ class AnalyticsService {
             : 0;
 
         // Por tipo de evento
-        const porTipoEvento = {};
+        const porTipoEvento: Record<string, number> = {};
         reservas.forEach(r => {
             const tipo = r.tipoEvento || 'Otros';
             porTipoEvento[tipo] = (porTipoEvento[tipo] || 0) + 1;
         });
 
         // Por parque
-        const porParque = {};
+        const porParque: Record<string, number> = {};
         reservas.forEach(r => {
             porParque[r.parque] = (porParque[r.parque] || 0) + 1;
         });
 
         // Dia mas popular (por fecha de servicio)
-        const diasSemana = {};
+        const diasSemana: Record<string, number> = {};
         reservas.forEach(r => {
             if (r.fechaServicio) {
                 const [year, month, day] = r.fechaServicio.split('-').map(Number);
@@ -48,11 +49,11 @@ class AnalyticsService {
             }
         });
         const diaMasPopular = Object.keys(diasSemana).length > 0
-            ? Object.entries(diasSemana).sort((a, b) => b[1] - a[1])[0][0]
+            ? Object.entries(diasSemana).sort((a, b) => (b[1] as number) - (a[1] as number))[0][0]
             : 'N/A';
 
         // Paquete mas vendido
-        const paquetes = {};
+        const paquetes: Record<string, number> = {};
         reservas.forEach(r => {
             paquetes[r.paquete] = (paquetes[r.paquete] || 0) + 1;
         });
@@ -67,7 +68,7 @@ class AnalyticsService {
             reservasCanceladas: reservas.filter(r => r.estadoReserva === 'cancelado').length,
             ingresoTotal: ingresoTotal,
             ingresoPromedio: ingresoPromedio,
-            tasaConversion: parseFloat(tasaConversion),
+            tasaConversion: Number(tasaConversion),
             moneda: 'USD',
             porTipoEvento: porTipoEvento,
             porParque: porParque,
@@ -93,7 +94,7 @@ class AnalyticsService {
             const mesIndex = meses.findIndex(m => {
                 const [mesNombre, anio] = m.mes.split(' ');
                 const mesNum = fechaReserva.toLocaleString('es', { month: 'short' });
-                return mesNombre === mesNum && anio == fechaReserva.getFullYear();
+                return mesNombre === mesNum && Number(anio) == fechaReserva.getFullYear();
             });
 
             if (mesIndex !== -1) {
@@ -115,7 +116,7 @@ class AnalyticsService {
 
     async getTopClients() {
         const reservas = await reservationRepository.findAll();
-        const clientesMap = {};
+        const clientesMap: Record<string, any> = {};
 
         reservas.forEach(r => {
             if (!clientesMap[r.correo]) {
@@ -147,7 +148,7 @@ class AnalyticsService {
         }
 
         const topClientes = Object.values(clientesMap)
-            .sort((a, b) => b.totalReservas - a.totalReservas)
+            .sort((a: any, b: any) => b.totalReservas - a.totalReservas)
             .slice(0, 10);
 
         return topClientes;
@@ -158,14 +159,14 @@ class AnalyticsService {
         const canceladas = reservas.filter(r => r.estadoReserva === 'cancelado');
 
         // Por parque
-        const porParque = {
+        const porParque: Record<string, number> = {
             Maracaibo: 0,
             Caracas: 0,
             'Punto Fijo': 0
         };
 
         // Por paquete
-        const porPaquete = {
+        const porPaquete: Record<string, number> = {
             mini: 0,
             mediano: 0,
             full: 0
@@ -191,4 +192,4 @@ class AnalyticsService {
     }
 }
 
-module.exports = new AnalyticsService();
+export default new AnalyticsService();

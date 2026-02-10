@@ -1,24 +1,16 @@
-// Precios dinámicos - carga instantánea con caché
 const isLocalPricing = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 const API_PRICING = isLocalPricing ? "http://localhost:4000/api" : "https://brincapark-api.onrender.com/api";
 
-// Variables globales
 let currentConfig = null;
 let pollingInterval = null;
 const CACHE_KEY = "brincapark_precios_cache";
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos de caché válido
-
-// Caché
+const CACHE_DURATION = 5 * 60 * 1000;
 
 function guardarEnCache(config) {
   try {
-    const cacheData = {
-      config: config,
-      timestamp: Date.now()
-    };
-    localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ config, timestamp: Date.now() }));
   } catch (e) {
-    console.warn("No se pudo guardar en caché local:", e);
+    console.warn("No se pudo guardar en caché:", e);
   }
 }
 
@@ -26,35 +18,22 @@ function obtenerDeCache() {
   try {
     const cached = localStorage.getItem(CACHE_KEY);
     if (!cached) return null;
-
     const cacheData = JSON.parse(cached);
-    // Verificar si el caché sigue siendo válido
-    if (Date.now() - cacheData.timestamp < CACHE_DURATION) {
-      return cacheData.config;
-    }
-    return cacheData.config;
+    return (Date.now() - cacheData.timestamp < CACHE_DURATION) ? cacheData.config : cacheData.config;
   } catch (e) {
     return null;
   }
 }
 
-// Funciones principales
-
 async function obtenerConfiguracionPrecios() {
   try {
-    const urlSinCache = `${API_PRICING}/config/precios?t=${Date.now()}`;
-
-    const response = await fetch(urlSinCache, {
+    const response = await fetch(`${API_PRICING}/config/precios?t=${Date.now()}`, {
       cache: 'no-store',
       headers: { 'Pragma': 'no-cache' }
     });
-
     if (!response.ok) throw new Error("Error al obtener precios");
     const data = await response.json();
-
-    // Guardar en caché local para próxima carga instantánea
     guardarEnCache(data);
-
     return data;
   } catch (error) {
     console.error("Error obteniendo precios:", error);
@@ -69,17 +48,12 @@ function formatearMoneda(valor, moneda) {
 
 function actualizarPreciosUI(config) {
   if (!config) return;
-
   currentConfig = config;
   const moneda = config.moneda;
 
-  // Actualizar indicador de moneda
   const indicadorMoneda = document.getElementById("moneda-actual");
-  if (indicadorMoneda) {
-    indicadorMoneda.textContent = moneda === "USD" ? "Dólares (USD)" : "Bolívares (Bs)";
-  }
+  if (indicadorMoneda) indicadorMoneda.textContent = moneda === "USD" ? "Dólares (USD)" : "Bolívares (Bs)";
 
-  // Actualizar precios de tickets
   const tickets = {
     "precio-15min": config.tickets?.min15?.actual,
     "precio-30min": config.tickets?.min30?.actual,
@@ -90,12 +64,9 @@ function actualizarPreciosUI(config) {
 
   Object.entries(tickets).forEach(([id, valor]) => {
     const elemento = document.getElementById(id);
-    if (elemento && valor !== undefined) {
-      elemento.textContent = formatearMoneda(valor, moneda);
-    }
+    if (elemento && valor !== undefined) elemento.textContent = formatearMoneda(valor, moneda);
   });
 
-  // Actualizar precios de paquetes
   const paquetes = {
     "precio-mini-lunes": config.paquetes?.mini?.lunes?.actual,
     "precio-mini-viernes": config.paquetes?.mini?.viernes?.actual,
@@ -107,26 +78,14 @@ function actualizarPreciosUI(config) {
 
   Object.entries(paquetes).forEach(([id, valor]) => {
     const elemento = document.getElementById(id);
-    if (elemento && valor !== undefined) {
-      elemento.textContent = formatearMoneda(valor, moneda);
-    }
+    if (elemento && valor !== undefined) elemento.textContent = formatearMoneda(valor, moneda);
   });
 }
 
-// Skeleton
-
 function mostrarSkeletonPrecios() {
-  // IDs de precios de tickets
-  const ticketIds = ["precio-15min", "precio-30min", "precio-60min", "precio-fullday", "precio-combo"];
-
-  // IDs de precios de paquetes
-  const paqueteIds = [
-    "precio-mini-lunes", "precio-mini-viernes",
-    "precio-mediano-lunes", "precio-mediano-viernes",
-    "precio-full-lunes", "precio-full-viernes"
-  ];
-
-  const allIds = [...ticketIds, ...paqueteIds];
+  const allIds = ["precio-15min", "precio-30min", "precio-60min", "precio-fullday", "precio-combo",
+    "precio-mini-lunes", "precio-mini-viernes", "precio-mediano-lunes", "precio-mediano-viernes",
+    "precio-full-lunes", "precio-full-viernes"];
 
   allIds.forEach(id => {
     const elemento = document.getElementById(id);
@@ -138,20 +97,14 @@ function mostrarSkeletonPrecios() {
 }
 
 function ocultarSkeletonPrecios() {
-  const elementos = document.querySelectorAll('.skeleton');
-  elementos.forEach(el => {
-    el.classList.remove('skeleton');
-  });
+  document.querySelectorAll('.skeleton').forEach(el => el.classList.remove('skeleton'));
 }
-
-// Inicialización
 
 async function inicializarPreciosDinamicos() {
   const cached = obtenerDeCache();
-
   if (cached) {
     actualizarPreciosUI(cached);
-    console.log("✓ Precios cargados instantáneamente desde caché");
+    console.log("✓ Precios cargados desde caché");
   } else {
     mostrarSkeletonPrecios();
   }
@@ -159,7 +112,6 @@ async function inicializarPreciosDinamicos() {
   const config = await obtenerConfiguracionPrecios();
   if (config) {
     ocultarSkeletonPrecios();
-
     if (JSON.stringify(currentConfig) !== JSON.stringify(config)) {
       actualizarPreciosUI(config);
       console.log("✓ Precios actualizados desde servidor");
@@ -167,13 +119,12 @@ async function inicializarPreciosDinamicos() {
   }
 
   if (pollingInterval) clearInterval(pollingInterval);
-
   pollingInterval = setInterval(async () => {
     const nuevaConfig = await obtenerConfiguracionPrecios();
     if (nuevaConfig && JSON.stringify(currentConfig) !== JSON.stringify(nuevaConfig)) {
       actualizarPreciosUI(nuevaConfig);
     }
-  }, 10000); // 10 segundos actualización rápida
+  }, 10000);
 }
 
 function detenerPreciosDinamicos() {
@@ -183,24 +134,17 @@ function detenerPreciosDinamicos() {
   }
 }
 
-// Event listeners
-
-// Escuchar evento de actualización desde admin
 window.addEventListener('configUpdated', async () => {
   localStorage.removeItem(CACHE_KEY);
   currentConfig = null;
-
   const config = await obtenerConfiguracionPrecios();
   if (config) actualizarPreciosUI(config);
 });
 
-// Recargar al volver a la página (navegación atrás/adelante)
 window.addEventListener('pageshow', async (event) => {
   if (event.persisted) {
     const cached = obtenerDeCache();
     if (cached) actualizarPreciosUI(cached);
-
-    // Luego actualizar del servidor
     const config = await obtenerConfiguracionPrecios();
     if (config && JSON.stringify(currentConfig) !== JSON.stringify(config)) {
       actualizarPreciosUI(config);
@@ -208,18 +152,15 @@ window.addEventListener('pageshow', async (event) => {
   }
 });
 
-// Recargar cuando la ventana recibe foco
 let lastFocusCheck = 0;
 window.addEventListener('focus', async () => {
   if (Date.now() - lastFocusCheck < 5000) return;
   lastFocusCheck = Date.now();
-
   const config = await obtenerConfiguracionPrecios();
   if (config && JSON.stringify(currentConfig) !== JSON.stringify(config)) {
     actualizarPreciosUI(config);
   }
 });
-
 
 window.inicializarPreciosDinamicos = inicializarPreciosDinamicos;
 window.detenerPreciosDinamicos = detenerPreciosDinamicos;

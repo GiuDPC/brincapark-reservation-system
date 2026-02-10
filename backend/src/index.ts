@@ -1,28 +1,28 @@
-﻿require("dotenv").config();
-const express = require("express");
+﻿import "dotenv/config";
+import express, {Request, Response} from "express";
 const app = express();
-const cors = require("cors");
+import cors from "cors";
 
-const connectDB = require("./config/db");
-const errorHandler = require("./middleware/errorHandler.middleware");
+import connectDB from "./config/db";
+import errorHandler from "./middleware/errorHandler.middleware";
 
 //rutas
-const reservationRoutes = require("./routes/reservation.routes");
-const analyticsRoutes = require("./routes/analytics.routes");
-const configRoutes = require("./routes/config.routes");
-const adminRoutes = require("./routes/admin.js");
+import reservationRoutes from "./routes/reservation.routes";
+import analyticsRoutes from "./routes/analytics.routes";
+import configRoutes from "./routes/config.routes";
+import adminRoutes from "./routes/admin";
 
 app.use(express.json());
 app.use(cors());
 
-//montar rutas
+
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/config", configRoutes);
 app.use("/api/admin", adminRoutes);
 
 // ruta raiz para verificar que el servidor está activo
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.json({ message: "API de Brincapark funcionando", status: "ok" });
 });
 
@@ -43,4 +43,4 @@ const PORT = process.env.PORT || 4000;
   }
 })();
 
-module.exports = app;
+export default app;

@@ -1,11 +1,11 @@
-const express = require("express");
+import express, { Request, Response } from "express";
 const router = express.Router();
-const Config = require("../models/Config");
+import Config, { IConfig } from "../models/Config";
 
 // GET - config actual
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
-    const config = await Config.getConfig();
+    const config = await (Config as any).getConfig();
     return res.json(config);
   } catch (err) {
     console.error("Error obteniendo configuración:", err);
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // PUT - actualizar config
-router.put("/", async (req, res) => {
+router.put("/", async (req: Request, res: Response) => {
   try {
     const { moneda, tasaBCV, tickets, paquetes } = req.body;
 
@@ -68,13 +68,13 @@ router.put("/", async (req, res) => {
     }
 
     // Actualizar configuración
-    const updates = {};
+    const updates: Partial<IConfig> = {};
     if (moneda) updates.moneda = moneda;
     if (tasaBCV !== undefined) updates.tasaBCV = tasaBCV;
     if (tickets) updates.tickets = tickets;
     if (paquetes) updates.paquetes = paquetes;
 
-    const config = await Config.updateConfig(updates);
+    const config = await (Config as any).updateConfig(updates);
     return res.json(config);
   } catch (err) {
     console.error("Error actualizando configuración:", err);
@@ -83,16 +83,15 @@ router.put("/", async (req, res) => {
 });
 
 // GET - precios convertidos
-router.get("/precios", async (req, res) => {
+router.get("/precios", async (req: Request, res: Response) => {
   try {
-    // No cache
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
 
-    const config = await Config.getConfig();
+    const config = await (Config as any).getConfig() as IConfig;
 
-    const precios = {
+    const precios: any = {
       moneda: config.moneda,
       tasaBCV: config.tasaBCV,
       tickets: {},
@@ -100,7 +99,7 @@ router.get("/precios", async (req, res) => {
     };
 
     // Convertir precios de tickets
-    const ticketKeys = ["min15", "min30", "min60", "fullday", "combo"];
+    const ticketKeys = ["min15", "min30", "min60", "fullday", "combo"] as const;
     for (const key of ticketKeys) {
       const precioUSD = config.tickets[key];
       precios.tickets[key] = {
@@ -114,7 +113,7 @@ router.get("/precios", async (req, res) => {
     }
 
     // Convertir precios de paquetes
-    const paqueteKeys = ["mini", "mediano", "full"];
+    const paqueteKeys = ["mini", "mediano", "full"] as const;
     for (const paquete of paqueteKeys) {
       precios.paquetes[paquete] = {
         lunes: {
@@ -152,4 +151,4 @@ router.get("/precios", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

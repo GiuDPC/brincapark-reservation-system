@@ -1,18 +1,18 @@
-﻿const express = require("express");
+﻿import express, {Request, Response} from "express";
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const Reservation = require("../models/Reservation");
-const adminAuth = require("../middleware/adminAuth");
+import jwt from "jsonwebtoken";
+import Reservation from "../models/Reservation";
+import adminAuth from "../middleware/adminAuth";
 
 // LOGIN - No requiere autenticación
-router.post("/login", async (req, res) => {
+router.post("/login", async (req: Request, res: Response) => {
   const { secret } = req.body;
 
   if (secret !== process.env.ADMIN_SECRET) {
     return res.status(401).json({ error: "Credenciales incorrectos" });
   }
 
-  const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET!, {
     expiresIn: "1h",
   });
 
@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
 router.use(adminAuth);
 
 // GET - Obtener todas las reservas
-router.get("/reservas", async (req, res) => {
+router.get("/reservas", async (req: Request, res: Response ) => {
   try {
     const all = await Reservation.find().sort({ createdAt: -1 });
     res.json(all);
@@ -34,7 +34,7 @@ router.get("/reservas", async (req, res) => {
 });
 
 // PATCH - Actualizar estado de una reserva
-router.patch("/reservas/:id", async (req, res) => {
+router.patch("/reservas/:id", async (req: Request, res: Response ) => {
   try {
     const { id } = req.params;
     const { estado } = req.body;
@@ -61,7 +61,7 @@ router.patch("/reservas/:id", async (req, res) => {
 });
 
 // DELETE - Eliminar una reserva
-router.delete("/reservas/:id", async (req, res) => {
+router.delete("/reservas/:id", async (req: Request, res: Response ) => {
   try {
     const deleted = await Reservation.findByIdAndDelete(req.params.id);
     if (!deleted) {
@@ -74,4 +74,4 @@ router.delete("/reservas/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

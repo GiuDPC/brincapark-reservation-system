@@ -2,14 +2,17 @@
   "name": "brincapark-backend",
   "version": "1.0.0",
   "description": "Backend API para BRINCAPARK - Sistema de gestión de reservas para parques de diversiones",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "start": "node src/index.js",
-    "dev": "nodemon --watch src --exec \"node ./src/index.js\""
+    "start": "node dist/index.js",
+    "dev": "npx ts-node src/index.ts",
+    "dev:watch": "nodemon --watch src --ext ts --exec \"npx ts-node src/index.ts\"",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "brincapark",
@@ -29,10 +32,17 @@
     "mongoose": "^8.19.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^25.2.2",
     "@vitest/coverage-v8": "^4.0.16",
     "mongodb-memory-server": "^11.0.1",
     "nodemon": "^3.1.11",
     "supertest": "^7.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
     "vitest": "^4.0.16"
   }
 }

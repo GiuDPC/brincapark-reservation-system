@@ -1,6 +1,21 @@
-﻿const mongoose = require("mongoose");
+﻿import mongoose, { Document, Schema } from "mongoose";
 
-const ReservationSchema = new mongoose.Schema({
+export interface IReservation extends Document {
+  nombreCompleto: string;
+  correo: string;
+  telefono: string;
+  paquete: string;
+  fechaServicio: string;
+  horaReservacion: "10am-1pm" | "2pm-5pm" | "6pm-9pm";
+  parque: "Maracaibo" | "Caracas" | "Punto Fijo";
+  estadoUbicacion: string;
+  tipoEvento: string;
+  estadoReserva: "pendiente" | "aprobado" | "cancelado";
+  createdAt: Date;
+}
+
+
+const ReservationSchema = new Schema({
   nombreCompleto: {
     type: String,
     required: true,
@@ -21,7 +36,6 @@ const ReservationSchema = new mongoose.Schema({
     required: true,
   },
 
-  // Formato: YYYY-MM-DD
   fechaServicio: {
     type: String,
     required: true,
@@ -30,13 +44,13 @@ const ReservationSchema = new mongoose.Schema({
   horaReservacion: {
     type: String,
     required: true,
-    enum: ["10am-1pm", "2pm-5pm", "6pm-9pm"], // Solo estos valores son validos
+    enum: ["10am-1pm", "2pm-5pm", "6pm-9pm"], 
   },
 
   parque: {
     type: String,
     required: true,
-    enum: ["Maracaibo", "Caracas", "Punto Fijo"], // Solo estos parques existen
+    enum: ["Maracaibo", "Caracas", "Punto Fijo"],
   },
 
   estadoUbicacion: {
@@ -49,7 +63,6 @@ const ReservationSchema = new mongoose.Schema({
     required: true,
   },
 
-  // pendiente | aprobado | cancelado
   estadoReserva: {
     type: String,
     enum: ["pendiente", "aprobado", "cancelado"],
@@ -62,4 +75,4 @@ const ReservationSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Reservation", ReservationSchema);
+export default mongoose.model<IReservation>("Reservation", ReservationSchema);

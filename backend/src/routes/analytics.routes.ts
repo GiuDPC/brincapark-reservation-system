@@ -1,12 +1,12 @@
-const express = require('express');
+import express, { Request, Response, NextFunction } from 'express';
 const router = express.Router();
-const analyticsService = require('../services/analytics.service');
-const adminAuth = require('../middleware/adminAuth');
+import analyticsService from '../services/analytics.service';
+import adminAuth from '../middleware/adminAuth';
 
 router.use(adminAuth);
 
 // Estadísticas generales
-router.get('/stats', async (req, res, next) => {
+router.get('/stats', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const stats = await analyticsService.getStats();
         res.json(stats);
@@ -16,7 +16,7 @@ router.get('/stats', async (req, res, next) => {
 });
 
 // Datos mensuales
-router.get('/monthly', async (req, res, next) => {
+router.get('/monthly', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = await analyticsService.getMonthlyData();
         res.json(data);
@@ -26,7 +26,7 @@ router.get('/monthly', async (req, res, next) => {
 });
 
 // Top clientes
-router.get('/top-clients', async (req, res, next) => {
+router.get('/top-clients', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const topClientes = await analyticsService.getTopClients();
         res.json(topClientes);
@@ -36,7 +36,7 @@ router.get('/top-clients', async (req, res, next) => {
 });
 
 // Análisis de cancelaciones
-router.get('/cancellations', async (req, res, next) => {
+router.get('/cancellations', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const analysis = await analyticsService.getCancellationAnalysis();
         res.json(analysis);
@@ -45,4 +45,4 @@ router.get('/cancellations', async (req, res, next) => {
     }
 });
 
-module.exports = router;
+export default router;
