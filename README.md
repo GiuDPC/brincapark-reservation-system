@@ -417,30 +417,30 @@ brincapark-reservation-system/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   └── db.js              # Conexion a MongoDB
+│   │   │   └── db.ts              # Conexion a MongoDB
 │   │   ├── controllers/
-│   │   │   └── reservation.controller.js  # Controladores HTTP
+│   │   │   └── reservation.controller.ts  # Controladores HTTP
 │   │   ├── services/
-│   │   │   ├── reservation.service.js     # Logica de negocio
-│   │   │   └── pricing.service.js         # Calculo de precios
+│   │   │   ├── reservation.service.ts     # Logica de negocio
+│   │   │   └── pricing.service.ts         # Calculo de precios
 │   │   ├── repositories/
-│   │   │   ├── reservation.repository.js  # Acceso a datos
-│   │   │   └── config.repository.js       # Acceso a configuracion
+│   │   │   ├── reservation.repository.ts  # Acceso a datos
+│   │   │   └── config.repository.ts       # Acceso a configuracion
 │   │   ├── middleware/
-│   │   │   ├── adminAuth.js               # Autenticacion JWT
-│   │   │   └── errorHandler.middleware.js # Manejo de errores
+│   │   │   ├── adminAuth.ts               # Autenticacion JWT
+│   │   │   └── errorHandler.middleware.ts # Manejo de errores
 │   │   ├── models/
-│   │   │   ├── Reservation.js     # Modelo de Reserva
-│   │   │   ├── Config.js          # Modelo de Configuracion (Singleton)
-│   │   │   └── index.js           # Exportador de modelos
+│   │   │   ├── Reservation.ts     # Modelo de Reserva
+│   │   │   ├── Config.ts          # Modelo de Configuracion (Singleton)
+│   │   │   └── index.ts           # Exportador de modelos
 │   │   ├── routes/
-│   │   │   ├── reservation.routes.js # Rutas de reservas
-│   │   │   ├── admin.js              # Rutas administrativas
-│   │   │   ├── config.routes.js      # Rutas de configuracion
-│   │   │   └── analytics.routes.js   # Rutas de analytics
+│   │   │   ├── reservation.routes.ts # Rutas de reservas
+│   │   │   ├── admin.ts              # Rutas administrativas
+│   │   │   ├── config.routes.ts      # Rutas de configuracion
+│   │   │   └── analytics.routes.ts   # Rutas de analytics
 │   │   ├── utils/
-│   │   │   └── AppError.js        # Clase de errores personalizados
-│   │   └── index.js               # Punto de entrada
+│   │   │   └── AppError.ts        # Clase de errores personalizados
+│   │   └── index.ts               # Punto de entrada
 │   ├── test/
 │   │   ├── unit/                  # Tests unitarios
 │   │   └── integration/           # Tests de integracion
