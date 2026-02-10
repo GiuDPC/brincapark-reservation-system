@@ -63,11 +63,11 @@ BRINCAPARK es una plataforma web integral que permite a los usuarios realizar re
 
 ## Demo en Vivo
 
-| Componente | URL | Servicio |
-|------------|-----|----------|
-| **Frontend** | [brincapark-reservation-system.vercel.app](https://brincapark-reservation-system.vercel.app/) | Vercel |
-| **Backend API** | brincapark-api.onrender.com | Render |
-| **Base de Datos** | MongoDB Atlas | MongoDB Cloud |
+| Componente        | URL                                                                                           | Servicio      |
+| ----------------- | --------------------------------------------------------------------------------------------- | ------------- |
+| **Frontend**      | [brincapark-reservation-system.vercel.app](https://brincapark-reservation-system.vercel.app/) | Vercel        |
+| **Backend API**   | brincapark-api.onrender.com                                                                   | Render        |
+| **Base de Datos** | MongoDB Atlas                                                                                 | MongoDB Cloud |
 
 ### Acceso al Panel Administrativo
 
@@ -118,14 +118,14 @@ El backend implementa arquitectura por capas para mejor mantenibilidad y testabi
 Request → Routes → Controllers → Services → Repositories → Models → MongoDB
 ```
 
-| Capa | Responsabilidad |
-|------|-----------------|
-| Routes | Define URLs y metodos HTTP |
-| Controllers | Maneja request/response HTTP |
-| Services | Contiene logica de negocio |
-| Repositories | Acceso a datos (queries) |
-| Models | Estructura de datos MongoDB |
-| Middleware | Autenticacion y manejo de errores |
+| Capa         | Responsabilidad                   |
+| ------------ | --------------------------------- |
+| Routes       | Define URLs y metodos HTTP        |
+| Controllers  | Maneja request/response HTTP      |
+| Services     | Contiene logica de negocio        |
+| Repositories | Acceso a datos (queries)          |
+| Models       | Estructura de datos MongoDB       |
+| Middleware   | Autenticacion y manejo de errores |
 
 ---
 
@@ -133,40 +133,42 @@ Request → Routes → Controllers → Services → Repositories → Models → 
 
 ### Frontend
 
-| Tecnologia | Version | Proposito |
-|------------|---------|-----------|
-| HTML5 | - | Estructura semantica |
-| CSS3 | - | Diseño responsive con variables CSS |
-| JavaScript | ES6+ | Logica del cliente (Vanilla JS) |
-| Barba.js | 2.x | Transiciones de pagina fluidas |
-| GSAP | 3.12 | Animaciones avanzadas |
-| Chart.js | 4.x | Visualizacion de datos y graficas |
-| SweetAlert2 | 11.x | Alertas elegantes y modales |
-| jsPDF | 2.x | Generacion de PDFs |
-| SheetJS | - | Exportacion a Excel |
+| Tecnologia  | Version | Proposito                           |
+| ----------- | ------- | ----------------------------------- |
+| HTML5       | -       | Estructura semantica                |
+| CSS3        | -       | Diseño responsive con variables CSS |
+| JavaScript  | ES6+    | Logica del cliente (Vanilla JS)     |
+| Barba.js    | 2.x     | Transiciones de pagina fluidas      |
+| GSAP        | 3.12    | Animaciones avanzadas               |
+| Chart.js    | 4.x     | Visualizacion de datos y graficas   |
+| SweetAlert2 | 11.x    | Alertas elegantes y modales         |
+| jsPDF       | 2.x     | Generacion de PDFs                  |
+| SheetJS     | -       | Exportacion a Excel                 |
 
 ### Backend
 
-| Tecnologia | Version | Proposito |
-|------------|---------|-----------|
-| Node.js | 14+ | Entorno de ejecucion |
-| Express.js | 5.1 | Framework web |
-| MongoDB | Atlas | Base de datos NoSQL |
-| Mongoose | 8.x | ODM para MongoDB |
-| CORS | - | Manejo de peticiones cross-origin |
-| dotenv | - | Gestion de variables de entorno |
+| Tecnologia | Version | Proposito                          |
+| ---------- | ------- | ---------------------------------- |
+| Node.js    | 20+     | Entorno de ejecucion               |
+| TypeScript | 5.9     | Type safety y mejor DX             |
+| Express.js | 5.1     | Framework web                      |
+| MongoDB    | Atlas   | Base de datos NoSQL                |
+| Mongoose   | 8.x     | ODM para MongoDB                   |
+| CORS       | -       | Manejo de peticiones cross-origin  |
+| dotenv     | -       | Gestion de variables de entorno    |
+| ts-node    | -       | Ejecucion TypeScript en desarrollo |
 
 ### Infraestructura
 
-| Servicio | Proposito |
-|----------|-----------|
-| Vercel | Hosting del frontend |
-| Render | Hosting del backend |
-| MongoDB Atlas | Base de datos en la nube |
-| pnpm | Gestor de paquetes |
-| Docker | Contenedorizacion |
-| Vitest | Testing framework |
-| GitHub Actions | CI/CD |
+| Servicio       | Proposito                |
+| -------------- | ------------------------ |
+| Vercel         | Hosting del frontend     |
+| Render         | Hosting del backend      |
+| MongoDB Atlas  | Base de datos en la nube |
+| pnpm           | Gestor de paquetes       |
+| Docker         | Contenedorizacion        |
+| Vitest         | Testing framework        |
+| GitHub Actions | CI/CD                    |
 
 ---
 
@@ -278,12 +280,12 @@ El servidor estara corriendo en `http://localhost:4000`
 
 ### Comandos Docker utiles
 
-| Comando | Descripcion |
-|---------|-------------|
-| `docker compose up` | Inicia el contenedor |
-| `docker compose down` | Detiene el contenedor |
-| `docker compose build --no-cache` | Reconstruye la imagen |
-| `docker compose logs -f` | Ver logs en tiempo real |
+| Comando                           | Descripcion             |
+| --------------------------------- | ----------------------- |
+| `docker compose up`               | Inicia el contenedor    |
+| `docker compose down`             | Detiene el contenedor   |
+| `docker compose build --no-cache` | Reconstruye la imagen   |
+| `docker compose logs -f`          | Ver logs en tiempo real |
 
 ---
 
@@ -305,11 +307,11 @@ pnpm test:run
 
 ### Cobertura de tests
 
-| Tipo | Descripcion |
-|------|-------------|
-| Tests unitarios | Verificacion de logica basica |
-| Tests de API | Verificacion de endpoints REST |
-| Tests de autenticacion | Verificacion de acceso admin |
+| Tipo                   | Descripcion                    |
+| ---------------------- | ------------------------------ |
+| Tests unitarios        | Verificacion de logica basica  |
+| Tests de API           | Verificacion de endpoints REST |
+| Tests de autenticacion | Verificacion de acceso admin   |
 
 ### Resultado esperado
 
@@ -342,11 +344,11 @@ El workflow se encuentra en `.github/workflows/ci.yml`
 
 Configurar en GitHub Settings > Secrets:
 
-| Secret | Descripcion |
-|--------|-------------|
-| `MONGO_URI` | URL de conexion a MongoDB |
+| Secret         | Descripcion                    |
+| -------------- | ------------------------------ |
+| `MONGO_URI`    | URL de conexion a MongoDB      |
 | `ADMIN_SECRET` | Clave de acceso administrativo |
-| `JWT_SECRET` | Clave para tokens JWT |
+| `JWT_SECRET`   | Clave para tokens JWT          |
 
 ---
 
@@ -386,23 +388,23 @@ Configurar en GitHub Settings > Secrets:
 
 ### Endpoints Publicos
 
-| Metodo | Ruta | Descripcion |
-|--------|------|-------------|
-| POST | `/api/reservations` | Crear nueva reserva |
-| GET | `/api/reservations` | Listar reservas |
-| GET | `/api/reservations/horarios-ocupados` | Obtener horarios ocupados |
-| GET | `/api/config/precios` | Obtener precios actuales |
+| Metodo | Ruta                                  | Descripcion               |
+| ------ | ------------------------------------- | ------------------------- |
+| POST   | `/api/reservations`                   | Crear nueva reserva       |
+| GET    | `/api/reservations`                   | Listar reservas           |
+| GET    | `/api/reservations/horarios-ocupados` | Obtener horarios ocupados |
+| GET    | `/api/config/precios`                 | Obtener precios actuales  |
 
 ### Endpoints Administrativos
 
 Requieren header: `x-admin-secret: [ADMIN_SECRET]`
 
-| Metodo | Ruta | Descripcion |
-|--------|------|-------------|
-| GET | `/api/reservations/analytics/stats` | Obtener estadisticas |
-| PATCH | `/api/admin/reservations/:id` | Actualizar reserva |
-| DELETE | `/api/admin/reservations/:id` | Eliminar reserva |
-| PUT | `/api/config` | Actualizar configuracion |
+| Metodo | Ruta                                | Descripcion              |
+| ------ | ----------------------------------- | ------------------------ |
+| GET    | `/api/reservations/analytics/stats` | Obtener estadisticas     |
+| PATCH  | `/api/admin/reservations/:id`       | Actualizar reserva       |
+| DELETE | `/api/admin/reservations/:id`       | Eliminar reserva         |
+| PUT    | `/api/config`                       | Actualizar configuracion |
 
 Para documentacion completa de la API, consultar [DOCUMENTACION_TECNICA.md](DOCUMENTACION_TECNICA.md).
 
