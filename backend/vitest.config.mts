@@ -8,6 +8,6 @@ export default defineConfig({
             reporter: ['text', 'html'],
             exclude: ['node_modules/', 'test/']
         },
-        setupFiles: ['./test/setup.js']
+        setupFiles: ['./test/setup.ts']
     }
 });

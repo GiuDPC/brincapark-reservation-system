@@ -1,5 +1,5 @@
 ﻿import "dotenv/config";
-import express, {Request, Response} from "express";
+import express, { Request, Response } from "express";
 const app = express();
 import cors from "cors";
 

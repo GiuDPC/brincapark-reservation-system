@@ -1,11 +1,13 @@
 import { describe, it, expect } from 'vitest';
+import reservationService from '../../src/services/reservation.service';
+
+import { IReservation } from '../../src/models/Reservation';
 
 // Test simple del ReservationService (solo validaciones)
 describe('ReservationService', () => {
-    const reservationService = require('../../src/services/reservation.service');
 
     describe('validateReservation', () => {
-        const validData = {
+        const validData: Partial<IReservation> = {
             nombreCompleto: 'Juan Pérez',
             correo: 'juan@email.com',
             telefono: '04241234567',

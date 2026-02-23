@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
+import pricingService from '../../src/services/pricing.service';
 
 describe('PricingService', () => {
 
     describe('isWeekend (lógica pura)', () => {
-        const pricingService = require('../../src/services/pricing.service');
 
         it('debería retornar true para viernes (2024-01-05)', () => {
             expect(pricingService.isWeekend('2024-01-05')).toBe(true);
