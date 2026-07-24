@@ -1,4 +1,13 @@
 services:
+  mongo:
+    image: mongo:7
+    container_name: brincapark-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
   api:
     build: ./backend
     container_name: brincapark-api
@@ -6,4 +15,11 @@ services:
       - "4000:4000"
     env_file:
       - ./backend/.env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/brincapark
+    depends_on:
+      - mongo
     restart: unless-stopped
+
+volumes:
+  mongo_data:

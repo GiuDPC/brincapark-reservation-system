@@ -26,22 +26,17 @@ jobs:
           node-version: '20'
 
       - name: Instalar pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
       - name: Instalar dependencias
         run: |
           cd backend
           pnpm install
-      - name: Compilar TypeScript
+      - name: Verificar typescript
         run: |
           cd backend
-          pnpm build
-      - name: Iniciar servidor
-        run: |
-          cd backend
-          pnpm start &
-          sleep 5
+          pnpm typecheck
       - name: Ejecutar tests
         run: |
           cd backend

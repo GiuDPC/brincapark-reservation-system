@@ -1,4 +1,4 @@
-﻿/* Estilos Brincapark  diseño exacto*/
+/* Estilos Brincapark  diseño exacto*/
 @font-face {
   font-family: "Bobby Jones";
   src: url("../fonts/Bobby Jones Soft.otf") format("opentype");
@@ -154,8 +154,11 @@ body::after {
 
 /*Parte de seccion principal o Hero */
 .hero {
-  background: linear-gradient(180deg, #8cd9ff 0%, #ffffff 100%);
-  padding: 6rem 2rem 4rem;
+  background: linear-gradient(180deg, #8cd9ff 0%, #6ec6ff 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  padding: 6rem 2rem 10rem;
   position: relative;
   overflow: hidden;
   min-height: 600px;
@@ -187,6 +190,29 @@ body::after {
   width: 100px;
   height: 100px;
   transform: rotate(25deg);
+}
+
+/* Wave Shape Divider */
+.hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 5;
+}
+
+.hero-wave svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 120px;
+  transform: rotate(180deg);
+}
+
+.hero-wave .shape-fill {
+  fill: #ffffff;
 }
 
 .hero-container {
@@ -371,6 +397,7 @@ body::after {
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
   /*Animacion liquida */
   animation: liquid-bubble 8s ease-in-out infinite;
+  z-index: 10;
 }
 
 /*Aqui para que la imagen que esta atras del efecto de burbuja quede encima de ese fondo*/
@@ -1964,7 +1991,7 @@ body::after {
   /* Hero responsive */
   .hero {
     min-height: auto;
-    padding: 3rem 1.5rem;
+    padding: 6rem 1.5rem 8rem;
   }
 
   .hero-container {
@@ -2025,6 +2052,7 @@ body::after {
   .social-icon {
     width: 50px;
     height: 50px;
+    box-shadow: none;
   }
 
   .social-icon svg {
@@ -2325,7 +2353,7 @@ body::after {
 @media (max-width: 768px) {
 
   .hero {
-    padding: 8rem 1rem 3rem;
+    padding: 8rem 1rem 10rem;
     width: 100%;
     overflow-x: hidden;
   }

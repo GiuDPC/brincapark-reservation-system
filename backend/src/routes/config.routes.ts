@@ -1,20 +1,20 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 const router = express.Router();
 import Config, { IConfig } from "../models/Config";
+import adminAuth from "../middleware/adminAuth";
 
 // GET - config actual
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const config = await (Config as any).getConfig();
     return res.json(config);
   } catch (err) {
-    console.error("Error obteniendo configuración:", err);
-    return res.status(500).json({ error: "Error al obtener configuración" });
+    next(err);
   }
 });
 
-// PUT - actualizar config
-router.put("/", async (req: Request, res: Response) => {
+// PUT - actualizar config (solo admin)
+router.put("/", adminAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { moneda, tasaBCV, tickets, paquetes } = req.body;
 
@@ -77,13 +77,12 @@ router.put("/", async (req: Request, res: Response) => {
     const config = await (Config as any).updateConfig(updates);
     return res.json(config);
   } catch (err) {
-    console.error("Error actualizando configuración:", err);
-    return res.status(500).json({ error: "Error al actualizar configuración" });
+    next(err);
   }
 });
 
 // GET - precios convertidos
-router.get("/precios", async (req: Request, res: Response) => {
+router.get("/precios", async (req: Request, res: Response, next: NextFunction) => {
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.set('Pragma', 'no-cache');
@@ -146,8 +145,7 @@ router.get("/precios", async (req: Request, res: Response) => {
 
     return res.json(precios);
   } catch (err) {
-    console.error("Error obteniendo precios:", err);
-    return res.status(500).json({ error: "Error al obtener precios" });
+    next(err);
   }
 });
 

@@ -1,9 +1,14 @@
 import configRepository from '../repositories/config.repository';
+import { IConfig } from '../models/Config';
 import { IReservation } from '../models/Reservation';
 
-class PrincingService {
+class PricingService {
     async calculatePrice(reserva: IReservation) {
         const config = await configRepository.getConfig();
+        return this.calculatePriceWithConfig(reserva, config);
+    }
+
+    calculatePriceWithConfig(reserva: IReservation, config: IConfig) {
         const esFinDeSemana = this.isWeekend(reserva.fechaServicio);
 
         const preciosMap = {
@@ -21,15 +26,6 @@ class PrincingService {
         const dia = fecha.getDay();
         return dia === 0 || dia === 5 || dia === 6;
     }
-
-    async calculateTotalRevenue(reservas: IReservation[]) {
-        let total = 0;
-        for (const reserva of reservas) {
-            const precio = await this.calculatePrice(reserva);
-            total += precio;
-        }
-        return total;
-    }
 }
 
-export default new PrincingService();
+export default new PricingService();

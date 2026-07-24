@@ -1,5 +1,4 @@
 node_modules/
-pnpm-lock.yaml
 package-lock.json
 yarn.lock
 .env
@@ -20,6 +19,7 @@ dist/
 dist-ssr/
 build/
 .vite/
+.atl/
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json

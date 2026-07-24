@@ -1,4 +1,4 @@
-﻿import express, {Request, Response} from "express";
+﻿import express, {Request, Response, NextFunction} from "express";
 const router = express.Router();
 import jwt from "jsonwebtoken";
 import Reservation from "../models/Reservation";
@@ -23,18 +23,17 @@ router.post("/login", async (req: Request, res: Response) => {
 router.use(adminAuth);
 
 // GET - Obtener todas las reservas
-router.get("/reservas", async (req: Request, res: Response ) => {
+router.get("/reservas", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const all = await Reservation.find().sort({ createdAt: -1 });
     res.json(all);
   } catch (err) {
-    console.error("Error obteniendo las reservas", err);
-    res.status(500).json({ error: "Error interno" });
+    next(err);
   }
 });
 
 // PATCH - Actualizar estado de una reserva
-router.patch("/reservas/:id", async (req: Request, res: Response ) => {
+router.patch("/reservas/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const { estado } = req.body;
@@ -55,13 +54,12 @@ router.patch("/reservas/:id", async (req: Request, res: Response ) => {
 
     res.json(reserva);
   } catch (err) {
-    console.error("Error actualizando la reserva", err);
-    res.status(500).json({ error: "Error interno" });
+    next(err);
   }
 });
 
 // DELETE - Eliminar una reserva
-router.delete("/reservas/:id", async (req: Request, res: Response ) => {
+router.delete("/reservas/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const deleted = await Reservation.findByIdAndDelete(req.params.id);
     if (!deleted) {
@@ -69,8 +67,7 @@ router.delete("/reservas/:id", async (req: Request, res: Response ) => {
     }
     res.json({ message: "Reserva eliminada" });
   } catch (err) {
-    console.error("Error eliminando reserva", err);
-    res.status(500).json({ error: "Error interno" });
+    next(err);
   }
 });
 

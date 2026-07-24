@@ -1,6 +1,5 @@
 // admin-analytics.js - Módulo de analytics y métricas avanzadas
-const isLocalAnalytics = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const API_ANALYTICS = isLocalAnalytics ? "http://localhost:4000/api" : "https://brincapark-api.onrender.com/api";
+const API_ANALYTICS = window.API_BASE_URL || "http://localhost:4000/api";
 
 let ingresosMensualesChart = null;
 let tipoEventoChart = null;

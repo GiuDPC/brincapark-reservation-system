@@ -1,5 +1,4 @@
-const isLocalPricing = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const API_PRICING = isLocalPricing ? "http://localhost:4000/api" : "https://brincapark-api.onrender.com/api";
+const API_PRICING = window.API_BASE_URL || "http://localhost:4000/api";
 
 let currentConfig = null;
 let pollingInterval = null;

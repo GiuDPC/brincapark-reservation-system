@@ -1,3 +1,4 @@
+import configRepository from '../repositories/config.repository';
 import reservationRepository from '../repositories/reservation.repository';
 import pricingService from './pricing.service';
 import { IReservation } from '../models/Reservation';
@@ -10,11 +11,11 @@ class AnalyticsService {
         const aprobadas = reservas.filter(r => r.estadoReserva === 'aprobado');
         const pendientes = reservas.filter(r => r.estadoReserva === 'pendiente');
 
-        // Calcular ingresos totales
+        // Calcular ingresos totales (cargando config una sola vez)
+        const config = await configRepository.getConfig();
         let ingresoTotal = 0;
         for (const reserva of aprobadas) {
-            const precio = await pricingService.calculatePrice(reserva);
-            ingresoTotal += precio;
+            ingresoTotal += pricingService.calculatePriceWithConfig(reserva, config);
         }
 
         // Ingreso promedio
@@ -89,6 +90,7 @@ class AnalyticsService {
             meses.push({ mes: `${mes} ${anio}`, reservas: 0, ingresos: 0 });
         }
 
+        const config = await configRepository.getConfig();
         for (const reserva of reservas) {
             const fechaReserva = new Date(reserva.createdAt);
             const mesIndex = meses.findIndex(m => {
@@ -100,8 +102,7 @@ class AnalyticsService {
             if (mesIndex !== -1) {
                 meses[mesIndex].reservas++;
                 if (reserva.estadoReserva === 'aprobado') {
-                    const precio = await pricingService.calculatePrice(reserva);
-                    meses[mesIndex].ingresos += precio;
+                    meses[mesIndex].ingresos += pricingService.calculatePriceWithConfig(reserva, config);
                 }
             }
         }
@@ -139,11 +140,11 @@ class AnalyticsService {
             }
         });
 
+        const config = await configRepository.getConfig();
         for (const correo in clientesMap) {
             const reservasCliente = reservas.filter(r => r.correo === correo && r.estadoReserva === 'aprobado');
             for (const reserva of reservasCliente) {
-                const precio = await pricingService.calculatePrice(reserva);
-                clientesMap[correo].totalGastado += precio;
+                clientesMap[correo].totalGastado += pricingService.calculatePriceWithConfig(reserva, config);
             }
         }
 

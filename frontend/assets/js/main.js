@@ -183,8 +183,8 @@ function animarSeccionesAlCargar() {
   const heroImage = document.querySelector('.hero-image');
 
   if (heroContent && heroImage) {
-    gsap.fromTo(heroContent, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.2 });
-    gsap.fromTo(heroImage, { opacity: 0, x: 50, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: "power2.out", delay: 0.4 });
+    gsap.fromTo(heroContent, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 });
+    gsap.fromTo(heroImage, { y: 60, scale: 0.85 }, { y: 0, scale: 1, duration: 0.7, ease: "back.out(1.2)", delay: 0.2 });
   }
 
   const ticketCards = document.querySelectorAll('.ticket-card');

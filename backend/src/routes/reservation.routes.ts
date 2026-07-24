@@ -1,14 +1,15 @@
 import express from 'express';
 const router = express.Router();
 import reservationController from '../controllers/reservation.controller';
+import adminAuth from '../middleware/adminAuth';
 
-//rutas publicas
+//ruta publica
 router.post('/', reservationController.create);
-router.get('/', reservationController.getAll);
-router.get('/:id', reservationController.getById);
 
-//rutas protegidas
-router.put('/:id', reservationController.update);
-router.delete('/:id', reservationController.delete);
+//rutas protegidas (admin)
+router.get('/', adminAuth, reservationController.getAll);
+router.get('/:id', adminAuth, reservationController.getById);
+router.put('/:id', adminAuth, reservationController.update);
+router.delete('/:id', adminAuth, reservationController.delete);
 
 export default router;

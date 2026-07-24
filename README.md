@@ -367,8 +367,8 @@ Configurar en GitHub Settings > Secrets:
 2. Conectar repositorio
 3. Configurar:
    - Root Directory: `backend`
-   - Build Command: `pnpm install`
-   - Start Command: `node src/index.js`
+   - Build Command: `pnpm install && pnpm build`
+   - Start Command: `node dist/index.js`
 4. Agregar variables de entorno:
    - `MONGO_URI`: URL de conexion a MongoDB Atlas
    - `ADMIN_SECRET`: Clave de acceso administrativo
