@@ -45,7 +45,7 @@ class ReservationService {
             data.parque!
         );
 
-        if (exists && exists._id.toString() !== id) {
+        if (exists && String(exists._id) !== id) {
             throw new AppError('El horario ya esta ocupado', 409);
         }
 
