@@ -1,0 +1,3 @@
+# El frontend es estático: no cuenta como "lenguaje principal" del proyecto
+frontend/assets/css/*.css linguist-detectable=false
+frontend/*.html linguist-detectable=false
