@@ -1,4 +1,4 @@
-// admin.js - Panel administrativo BRINCAPARK (VERSIÓN COMPLETA FINAL)
+// admin.js - panel administrativo
 
 const API = window.API_BASE_URL || "http://localhost:4000/api";
 console.log("Admin conectando a:", API);
@@ -11,7 +11,7 @@ let currentYear = new Date().getFullYear();
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Panel Admin cargado");
 
-  // Verificar autenticación
+  // auth check
   if (authToken) {
     mostrarDashboard();
     cargarReservas();
@@ -19,20 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarLogin();
   }
 
-  // --- LÓGICA DEL MENÚ MÓVIL ---
+  // menu movil
   const sidebar = document.querySelector('.sidebar-new');
   const openBtn = document.getElementById('open-sidebar');
   const closeBtn = document.getElementById('close-sidebar');
   const overlay = document.getElementById('sidebar-overlay');
 
-  // Función para abrir sidebar
   function openSidebar() {
     if (sidebar) sidebar.classList.add('active');
     if (overlay) overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
-  // Función para cerrar sidebar
   function closeSidebar() {
     if (sidebar) sidebar.classList.remove('active');
     if (overlay) overlay.classList.remove('active');
@@ -43,14 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
   if (overlay) overlay.addEventListener('click', closeSidebar);
 
-  // Eventos de botones principales
+  // eventos
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
   document.getElementById("logout-btn")?.addEventListener("click", handleLogout);
-
-  // Botón Demo rápido de 1-Clic
   document.getElementById("demo-login-btn")?.addEventListener("click", handleDemoLogin);
 
-  // Click en el código demo resaltado
   document.getElementById("copy-demo-code")?.addEventListener("click", () => {
     const input = document.getElementById("admin-secret");
     if (input) {
@@ -59,18 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Toggle de visibilidad de contraseña (ojo)
   document.getElementById("toggle-password-btn")?.addEventListener("click", togglePasswordVisibility);
 
   document.getElementById("refresh-btn")?.addEventListener("click", () => {
-    // Animación de refresco
     const icon = document.querySelector("#refresh-btn svg");
     if (icon) {
       icon.style.transition = "transform 0.5s ease";
       icon.style.transform = "rotate(360deg)";
       setTimeout(() => icon.style.transform = "none", 500);
     }
-    console.log("Actualizando datos...");
     cargarReservas();
   });
 
@@ -78,14 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("export-pdf-btn")?.addEventListener("click", exportarPDF);
   document.getElementById("export-excel-btn")?.addEventListener("click", exportarExcel);
 
-  // Navegación entre secciones
+  // navegacion
   document.querySelectorAll(".sidebar-new-item[data-section]").forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
       const section = item.dataset.section;
       cambiarSeccion(section);
 
-      // Cierre automático del menú en móvil
       if (window.innerWidth <= 1024) {
         closeSidebar();
       }
@@ -93,9 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/**
- * Alternar visibilidad de contraseña (ojo)
- */
+// toggle pass
 function togglePasswordVisibility() {
   const secretInput = document.getElementById("admin-secret");
   const icon = document.getElementById("toggle-password-icon");
@@ -110,9 +99,7 @@ function togglePasswordVisibility() {
   }
 }
 
-/**
- * Inicio de sesión demo de 1-clic
- */
+// demo login
 async function handleDemoLogin() {
   const secretInput = document.getElementById("admin-secret");
   if (secretInput) {
@@ -124,9 +111,7 @@ async function handleDemoLogin() {
   }
 }
 
-/**
- * Cambiar Sección
- */
+// cambiar seccion
 function cambiarSeccion(seccion) {
   document.querySelectorAll(".sidebar-new-item").forEach((item) => {
     item.classList.remove("active");
@@ -149,9 +134,7 @@ function cambiarSeccion(seccion) {
   }
 }
 
-/**
- * LOGIN
- */
+// login
 async function handleLogin(e) {
   e.preventDefault();
   const secretInput = document.getElementById("admin-secret");
@@ -161,7 +144,7 @@ async function handleLogin(e) {
     return Swal.fire({
       text: "Ingresa el código de acceso o pulsa 'Entrar como demo'",
       icon: "warning",
-      confirmButtonColor: "#0f172a"
+      confirmButtonColor: "#4c1d95"
     });
   }
 
@@ -169,7 +152,7 @@ async function handleLogin(e) {
   const originalHtml = submitBtn ? submitBtn.innerHTML : "";
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.innerHTML = `<span class="material-icons-round">sync</span> <span>Verificando...</span>`;
+    submitBtn.innerHTML = `<span>Verificando...</span>`;
   }
 
   try {
@@ -196,7 +179,7 @@ async function handleLogin(e) {
         title: data.isDemo ? "¡Acceso Demo Concedido!" : "¡Acceso Concedido!",
         text: data.isDemo ? "Explorando en modo de prueba seguro para evaluadores." : "Sesión administrativa iniciada.",
         icon: "success",
-        confirmButtonColor: "#0f172a",
+        confirmButtonColor: "#4c1d95",
         timer: 1600,
         showConfirmButton: false,
       });
@@ -207,7 +190,7 @@ async function handleLogin(e) {
         iniciarSesionDemoLocal();
         return;
       }
-      Swal.fire({ text: data.error || "Código incorrecto", icon: "error", confirmButtonColor: "#0f172a" });
+      Swal.fire({ text: data.error || "Código incorrecto", icon: "error", confirmButtonColor: "#4c1d95" });
     }
   } catch (error) {
     console.warn("Backend no disponible de inmediato o en hibernación:", error);
@@ -220,7 +203,7 @@ async function handleLogin(e) {
       title: "Servidor en hibernación",
       text: "El backend en Render puede tardar unos segundos en reactivarse. Puedes ingresar de inmediato con el botón 'Entrar como demo'.",
       icon: "info",
-      confirmButtonColor: "#0f172a"
+      confirmButtonColor: "#4c1d95"
     });
   } finally {
     if (submitBtn) {
@@ -230,9 +213,7 @@ async function handleLogin(e) {
   }
 }
 
-/**
- * Sesión Demo Local (Resiliencia para demostración de portafolio)
- */
+// sesion demo
 function iniciarSesionDemoLocal() {
   authToken = "demo-session-token-" + Date.now();
   sessionStorage.setItem("adminToken", authToken);
@@ -244,7 +225,7 @@ function iniciarSesionDemoLocal() {
     title: "¡Bienvenido al Modo Demo!",
     text: "Acceso como evaluador concedido con datos sintéticos.",
     icon: "success",
-    confirmButtonColor: "#0f172a",
+    confirmButtonColor: "#4c1d95",
     timer: 1800,
     showConfirmButton: false,
   });
@@ -260,18 +241,32 @@ function handleLogout(e) {
 }
 
 function mostrarLogin() {
-  document.getElementById("login-screen").classList.remove("hidden");
-  document.getElementById("dashboard-screen").classList.add("hidden");
+  const login = document.getElementById("login-screen");
+  const dashboard = document.getElementById("dashboard-screen");
+  if (login) {
+    login.classList.remove("hidden");
+    login.style.setProperty("display", "flex", "important");
+  }
+  if (dashboard) {
+    dashboard.classList.add("hidden");
+    dashboard.style.setProperty("display", "none", "important");
+  }
 }
 
 function mostrarDashboard() {
-  document.getElementById("login-screen").classList.add("hidden");
-  document.getElementById("dashboard-screen").classList.remove("hidden");
+  const login = document.getElementById("login-screen");
+  const dashboard = document.getElementById("dashboard-screen");
+  if (login) {
+    login.classList.add("hidden");
+    login.style.setProperty("display", "none", "important");
+  }
+  if (dashboard) {
+    dashboard.classList.remove("hidden");
+    dashboard.style.setProperty("display", "flex", "important");
+  }
 }
 
-/**
- * Dataset sintético para garantizar dashboard siempre poblado en el portafolio
- */
+// dataset demo
 function obtenerReservasSinteticasDemo() {
   const hoy = new Date();
   const formatFecha = (d) => d.toISOString().split("T")[0];
@@ -400,9 +395,7 @@ function obtenerReservasSinteticasDemo() {
   ];
 }
 
-/**
- * CARGAR RESERVAS
- */
+// cargar reservas
 async function cargarReservas() {
   try {
     console.log("Cargando reservas...");
@@ -443,6 +436,7 @@ async function cargarReservas() {
   }
 }
 
+// renderizar todo
 async function renderizarTodo() {
   try { await renderStats(); } catch (e) { }
   try { renderTable(); } catch (e) { }
@@ -450,18 +444,13 @@ async function renderizarTodo() {
   try { renderCalendar(); } catch (e) { }
   try { updateNotifications(); } catch (e) { }
 
-  // Métricas adicionales de analytics
   if (typeof renderizarMetricasAdicionales === 'function') renderizarMetricasAdicionales();
-
-  // Gráficas de analytics del dashboard
   if (typeof renderizarGraficaIngresosMensuales === 'function') renderizarGraficaIngresosMensuales();
   if (typeof renderizarGraficaTipoEvento === 'function') renderizarGraficaTipoEvento();
   if (typeof renderizarGraficaParques === 'function') renderizarGraficaParques();
 }
 
-/**
- * ESTADÍSTICAS
- */
+// stats
 async function renderStats() {
   const total = reservas.length;
   let maracaibo = 0, caracas = 0, puntofijo = 0;
@@ -485,7 +474,6 @@ async function renderStats() {
     }
   } catch (err) { console.error(err); }
 
-  // Respaldo para sesión demo o arranque en frío
   if (dinero === 0 && reservas.length > 0) {
     dinero = reservas.reduce((acc, r) => acc + (Number(r.montoTotal) || 0), 0);
   }
@@ -497,9 +485,7 @@ async function renderStats() {
   document.getElementById("total-puntofijo").textContent = puntofijo;
 }
 
-/**
- * TABLA DE RESERVAS
- */
+// tabla reservas
 function renderTable() {
   const tbody = document.querySelector("#tabla-reservas tbody");
   if (!tbody) return;

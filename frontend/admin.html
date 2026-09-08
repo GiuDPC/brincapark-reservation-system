@@ -18,9 +18,9 @@
 
 <body>
 
-  <!-- Login Screen -->
+  <!-- login -->
   <div id="login-screen">
-    <!-- Botón flotante volver al inicio -->
+    <!-- volver -->
     <a href="index.html" class="back-to-home-btn" title="Volver al portal principal">
       <span class="material-icons-round">arrow_back</span>
       Volver al inicio
@@ -28,35 +28,45 @@
 
     <div class="login-container">
       <div class="login-card">
-        <!-- Badge superior demo -->
+        <!-- badge demo -->
         <div class="login-badge-wrapper">
-          <span class="demo-public-badge">
-            <span class="demo-badge-dot"></span>
-            Demo pública con datos de prueba
-          </span>
+          <span class="demo-public-badge">Demo pública con datos de prueba</span>
         </div>
 
-        <!-- Marca e Identidad -->
+        <!-- marca -->
         <div class="login-brand-header">
           <div class="login-brand-symbol">
-            <span class="material-icons-round">castle</span>
+            <svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bpLogoStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7c3aed" />
+                  <stop offset="100%" stop-color="#3b0764" />
+                </linearGradient>
+                <linearGradient id="bpLogoInner" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#9333ea" />
+                  <stop offset="100%" stop-color="#6b21a8" />
+                </linearGradient>
+              </defs>
+              <path d="M24 4L42 14.5V33.5L24 44L6 33.5V14.5L24 4Z" stroke="url(#bpLogoStroke)" stroke-width="3.5" stroke-linejoin="round"/>
+              <path d="M16 18L24 13L32 18V28L24 33L16 28V18Z" fill="#7c3aed" fill-opacity="0.12" stroke="url(#bpLogoInner)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M24 18V28M19 23H29" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
           </div>
           <h1 class="login-brand-title">BRINCAPARK</h1>
           <p class="login-brand-subtitle">Panel de Gestión y Control</p>
         </div>
 
-        <!-- Botón Demo Rápido de 1-Clic -->
+        <!-- boton demo -->
         <button type="button" id="demo-login-btn" class="btn-demo-quick">
-          <span class="material-icons-round">bolt</span>
           <span>Entrar como demo</span>
         </button>
 
-        <!-- Separador -->
+        <!-- divisor -->
         <div class="login-divider">
           <span>O INGRESA CON TU CÓDIGO</span>
         </div>
 
-        <!-- Formulario de Acceso -->
+        <!-- form -->
         <form id="login-form">
           <div class="form-group">
             <label for="admin-secret">Código de acceso</label>
@@ -80,12 +90,16 @@
             </div>
           </div>
           <button type="submit" class="btn-primary-login" id="login-submit-btn">
-            <span class="material-icons-round">login</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
             <span>Iniciar Sesión</span>
           </button>
         </form>
 
-        <!-- Pie de tarjeta con accesos de prueba -->
+        <!-- footer -->
         <div class="login-card-footer">
           <p class="demo-credential-hint">
             ¿Evaluando el sistema? Código demo: <strong id="copy-demo-code" title="Clic para usar este código">1234</strong>
@@ -98,9 +112,9 @@
     </div>
   </div>
 
-  <!-- Dashboard -->
+  <!-- dashboard -->
   <div id="dashboard-screen" class="hidden">
-    <!-- Overlay para móvil -->
+    <!-- overlay movil -->
     <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
     <aside class="sidebar-new" id="sidebar-new">
