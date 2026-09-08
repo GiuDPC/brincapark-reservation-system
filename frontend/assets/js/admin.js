@@ -82,23 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
-  // sedes sidebar
-  document.querySelectorAll(".sidebar-collection-item[data-sede]").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sede = item.dataset.sede;
-      cambiarSeccion("reservas");
-      const filtro = document.getElementById("filtro-parque");
-      if (filtro) {
-        filtro.value = sede;
-        renderTable();
-      }
-      if (window.innerWidth <= 1024) {
-        closeSidebar();
-      }
-    });
-  });
 });
 
 // toggle pass
