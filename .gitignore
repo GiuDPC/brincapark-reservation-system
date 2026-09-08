@@ -20,9 +20,7 @@ dist-ssr/
 build/
 .vite/
 .atl/
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
+.vscode/
 .idea/
 *.suo
 *.ntvs*
