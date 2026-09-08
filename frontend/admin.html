@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -18,38 +18,82 @@
 
 <body>
 
-  <!-- Login -->
+  <!-- Login Screen -->
   <div id="login-screen">
-    <div class="login-bg-shape login-bg-diamond"></div>
-    <div class="login-bg-shape login-bg-diamond-2"></div>
-    <div class="login-bg-shape login-bg-circle"></div>
-    <div class="login-bg-shape login-bg-circle-2"></div>
-    <div class="login-bg-shape login-bg-circle-3"></div>
-
-    <!-- Botón volver al inicio -->
-    <a href="index.html" class="back-to-home-btn">
+    <!-- Botón flotante volver al inicio -->
+    <a href="index.html" class="back-to-home-btn" title="Volver al portal principal">
       <span class="material-icons-round">arrow_back</span>
       Volver al inicio
     </a>
 
     <div class="login-container">
-      <div class="login-logo">
-        <div class="login-logo-icon">
-          <span class="login-logo-dot"></span>
-          <span class="material-icons-round login-logo-castle">castle</span>
-        </div>
-        <h1 class="login-brand">BRINCAPARK</h1>
-      </div>
-
       <div class="login-card">
-        <h2>Acceso Administrativo</h2>
+        <!-- Badge superior demo -->
+        <div class="login-badge-wrapper">
+          <span class="demo-public-badge">
+            <span class="demo-badge-dot"></span>
+            Demo pública con datos de prueba
+          </span>
+        </div>
+
+        <!-- Marca e Identidad -->
+        <div class="login-brand-header">
+          <div class="login-brand-symbol">
+            <span class="material-icons-round">castle</span>
+          </div>
+          <h1 class="login-brand-title">BRINCAPARK</h1>
+          <p class="login-brand-subtitle">Panel de Gestión y Control</p>
+        </div>
+
+        <!-- Botón Demo Rápido de 1-Clic -->
+        <button type="button" id="demo-login-btn" class="btn-demo-quick">
+          <span class="material-icons-round">bolt</span>
+          <span>Entrar como demo</span>
+        </button>
+
+        <!-- Separador -->
+        <div class="login-divider">
+          <span>O INGRESA CON TU CÓDIGO</span>
+        </div>
+
+        <!-- Formulario de Acceso -->
         <form id="login-form">
           <div class="form-group">
             <label for="admin-secret">Código de acceso</label>
-            <input type="password" id="admin-secret" placeholder="Ingresa el código" required />
+            <div class="password-input-wrapper">
+              <input
+                type="password"
+                id="admin-secret"
+                placeholder="Ingresa el código o contraseña"
+                required
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                id="toggle-password-btn"
+                class="password-toggle-btn"
+                title="Mostrar u ocultar contraseña"
+                aria-label="Mostrar u ocultar código"
+              >
+                <span class="material-icons-round" id="toggle-password-icon">visibility</span>
+              </button>
+            </div>
           </div>
-          <button type="submit" class="btn-primary">Acceder</button>
+          <button type="submit" class="btn-primary-login" id="login-submit-btn">
+            <span class="material-icons-round">login</span>
+            <span>Iniciar Sesión</span>
+          </button>
         </form>
+
+        <!-- Pie de tarjeta con accesos de prueba -->
+        <div class="login-card-footer">
+          <p class="demo-credential-hint">
+            ¿Evaluando el sistema? Código demo: <strong id="copy-demo-code" title="Clic para usar este código">1234</strong>
+          </p>
+          <a href="index.html" class="login-card-backlink">
+            ¿Deseas volver a la web? <span>Volver al inicio</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

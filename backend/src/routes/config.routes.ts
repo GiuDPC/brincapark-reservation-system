@@ -74,6 +74,18 @@ router.put("/", adminAuth, async (req: Request, res: Response, next: NextFunctio
     if (tickets) updates.tickets = tickets;
     if (paquetes) updates.paquetes = paquetes;
 
+    // Si es demo, simular actualización para no alterar precios reales en producción
+    if ((req as any).user && (req as any).user.isDemo) {
+      const currentConfig = await (Config as any).getConfig();
+      const currentObj = currentConfig.toObject ? currentConfig.toObject() : currentConfig;
+      return res.json({
+        ...currentObj,
+        ...updates,
+        isDemo: true,
+        message: "Configuración actualizada exitosamente (Modo Demo Protegido)",
+      });
+    }
+
     const config = await (Config as any).updateConfig(updates);
     return res.json(config);
   } catch (err) {

@@ -46,7 +46,7 @@
 
 ## Acerca del Proyecto
 
-Este sistema nace como una solucion integral para digitalizar la gestion de un parque de atracciones que operaba manualmente. El software resuelve problemas criticos como la duplicidad de reservas, automatiza el calculo de ingresos diarios y ofrece metricas en tiempo real para la toma de decisiones, transformando procesos manuales en un flujo digital eficiente.
+Este sistema nace como solucion integral para digitalizar la gestion de reservas de parques de atracciones que operan manualmente. El software resuelve problemas criticos como la duplicidad de reservas, automatiza el calculo de ingresos diarios y ofrece metricas en tiempo real para la toma de decisiones, transformando procesos manuales en un flujo digital eficiente.
 
 BRINCAPARK es una plataforma web integral que permite a los usuarios realizar reservas de tickets y paquetes de fiestas de manera sencilla, mientras proporciona a los administradores herramientas completas para gestionar reservas, visualizar estadisticas en tiempo real y configurar el sistema.
 
@@ -63,16 +63,21 @@ BRINCAPARK es una plataforma web integral que permite a los usuarios realizar re
 
 ## Demo en Vivo
 
-| Componente        | URL                                                                                           | Servicio      |
-| ----------------- | --------------------------------------------------------------------------------------------- | ------------- |
-| **Frontend**      | [brincapark-reservation-system.vercel.app](https://brincapark-reservation-system.vercel.app/) | Vercel        |
-| **Backend API**   | brincapark-api.onrender.com                                                                   | Render        |
-| **Base de Datos** | MongoDB Atlas                                                                                 | MongoDB Cloud |
+| Componente | URL | Servicio |
+| :--- | :--- | :--- |
+| **Frontend Web** | [brincapark-reservation-system.vercel.app](https://brincapark-reservation-system.vercel.app/) | Vercel |
+| **Panel de Administración** | [brincapark-reservation-system.vercel.app/admin.html](https://brincapark-reservation-system.vercel.app/admin.html) | Vercel |
+| **Backend REST API** | [brincapark-api.onrender.com](https://brincapark-api.onrender.com) | Render |
+| **Base de Datos** | MongoDB Atlas Cloud Database | MongoDB Cloud |
 
-### Acceso al Panel Administrativo
+### 🚀 Acceso para Evaluadores y Demostración Pública
 
-1. Navegar a `/admin.html`
-2. Ingresar el codigo de acceso configurado en las variables de entorno
+El sistema incorpora un modo de demostración seguro especialmente preparado para reclutadores y jurados evaluadores:
+
+- **Acceso rápido de 1-Clic**: En la pantalla de login (`/admin.html`), pulsa el botón **"Entrar como demo"** para autenticarte al instante.
+- **Código de acceso manual**: `1234` (ingresable en el formulario con alternador de visibilidad de contraseña).
+- **Entorno Protegido**: La sesión de evaluación se ejecuta sobre un entorno seguro con datos sintéticos y protección contra mutaciones destructivas en la base de datos de producción MongoDB Atlas.
+
 
 ---
 
@@ -397,14 +402,16 @@ Configurar en GitHub Settings > Secrets:
 
 ### Endpoints Administrativos
 
-Requieren header: `x-admin-secret: [ADMIN_SECRET]`
+Requieren cabecera de autorización JWT: `Authorization: Bearer <token>` obtenido tras autenticación en `POST /api/admin/login`.
 
-| Metodo | Ruta                                | Descripcion              |
-| ------ | ----------------------------------- | ------------------------ |
-| GET    | `/api/reservations/analytics/stats` | Obtener estadisticas     |
-| PATCH  | `/api/admin/reservations/:id`       | Actualizar reserva       |
-| DELETE | `/api/admin/reservations/:id`       | Eliminar reserva         |
-| PUT    | `/api/config`                       | Actualizar configuracion |
+| Metodo | Ruta | Descripcion |
+| :--- | :--- | :--- |
+| POST | `/api/admin/login` | Autenticación administrativa (soporta credencial maestra y demo) |
+| GET | `/api/admin/reservas` | Listar todas las reservas |
+| PATCH | `/api/admin/reservas/:id` | Actualizar estado de una reserva |
+| DELETE | `/api/admin/reservas/:id` | Eliminar una reserva |
+| GET | `/api/reservations/analytics/stats` | Obtener estadísticas generales |
+| PUT | `/api/config` | Actualizar configuración de precios y tasas |
 
 Para documentacion completa de la API, consultar [DOCUMENTACION_TECNICA.md](DOCUMENTACION_TECNICA.md).
 
@@ -490,15 +497,17 @@ Crear archivo `.env` en la carpeta `backend/`:
 # Puerto del servidor
 PORT=4000
 
-# URL de conexion a MongoDB
-# Desarrollo local:
-MONGO_URI=mongodb://localhost:27017/brincapark
+# URL de conexión a MongoDB Atlas
+MONGO_URI=mongodb+srv://usuario:password@cluster.mongodb.net/brincapark
 
-# Produccion (MongoDB Atlas):
-# MONGO_URI=mongodb+srv://usuario:password@cluster.mongodb.net/brincapark
+# Clave maestra para acceso administrativo privado
+ADMIN_SECRET=tu_clave_secreta_maestra_aqui
 
-# Clave secreta para acceso administrativo
-ADMIN_SECRET=tu_clave_secreta_aqui
+# Clave pública para acceso demo evaluador
+DEMO_SECRET=1234
+
+# Clave para tokens JWT criptográficos
+JWT_SECRET=tu_jwt_secret_criptografico_aqui
 ```
 
 ### Precios por Defecto
@@ -558,7 +567,7 @@ Los precios se configuran desde el panel administrativo:
 
 ## Roadmap
 
-### Version 1.0 (Actual - Produccion)
+### Version 1.0 (Actual - Desplegado)
 
 - [x] Sistema de reservas publico
 - [x] Panel administrativo completo
@@ -568,7 +577,7 @@ Los precios se configuran desde el panel administrativo:
 - [x] Diseno responsive
 - [x] Transiciones fluidas con Barba.js
 - [x] Sistema de precios dinamicos con cache local
-- [x] Despliegue en produccion (Vercel + Render)
+- [x] Despliegue (Vercel + Render)
 
 ### Version 1.1 (Planificado)
 

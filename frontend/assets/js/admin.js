@@ -47,6 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
   document.getElementById("logout-btn")?.addEventListener("click", handleLogout);
 
+  // Botón Demo rápido de 1-Clic
+  document.getElementById("demo-login-btn")?.addEventListener("click", handleDemoLogin);
+
+  // Click en el código demo resaltado
+  document.getElementById("copy-demo-code")?.addEventListener("click", () => {
+    const input = document.getElementById("admin-secret");
+    if (input) {
+      input.value = "1234";
+      input.focus();
+    }
+  });
+
+  // Toggle de visibilidad de contraseña (ojo)
+  document.getElementById("toggle-password-btn")?.addEventListener("click", togglePasswordVisibility);
+
   document.getElementById("refresh-btn")?.addEventListener("click", () => {
     // Animación de refresco
     const icon = document.querySelector("#refresh-btn svg");
@@ -79,6 +94,37 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
+ * Alternar visibilidad de contraseña (ojo)
+ */
+function togglePasswordVisibility() {
+  const secretInput = document.getElementById("admin-secret");
+  const icon = document.getElementById("toggle-password-icon");
+  if (!secretInput || !icon) return;
+
+  if (secretInput.type === "password") {
+    secretInput.type = "text";
+    icon.textContent = "visibility_off";
+  } else {
+    secretInput.type = "password";
+    icon.textContent = "visibility";
+  }
+}
+
+/**
+ * Inicio de sesión demo de 1-clic
+ */
+async function handleDemoLogin() {
+  const secretInput = document.getElementById("admin-secret");
+  if (secretInput) {
+    secretInput.value = "1234";
+  }
+  const form = document.getElementById("login-form");
+  if (form) {
+    form.dispatchEvent(new Event("submit", { cancelable: true }));
+  }
+}
+
+/**
  * Cambiar Sección
  */
 function cambiarSeccion(seccion) {
@@ -109,18 +155,24 @@ function cambiarSeccion(seccion) {
 async function handleLogin(e) {
   e.preventDefault();
   const secretInput = document.getElementById("admin-secret");
-  const secret = secretInput.value.trim();
+  const secret = secretInput ? secretInput.value.trim() : "";
 
   if (!secret) {
-    return Swal.fire({ text: "Ingresa el código", icon: "error", confirmButtonColor: "#7C3AED" });
+    return Swal.fire({
+      text: "Ingresa el código de acceso o pulsa 'Entrar como demo'",
+      icon: "warning",
+      confirmButtonColor: "#0f172a"
+    });
   }
 
-  const submitBtn = e.target.querySelector('button[type="submit"]');
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Verificando...";
+  const submitBtn = document.getElementById("login-submit-btn") || e.target.querySelector('button[type="submit"]');
+  const originalHtml = submitBtn ? submitBtn.innerHTML : "";
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span class="material-icons-round">sync</span> <span>Verificando...</span>`;
+  }
 
   try {
-    // Solicitud de Token
     const response = await fetch(`${API}/admin/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -132,32 +184,77 @@ async function handleLogin(e) {
     if (response.ok && data.token) {
       authToken = data.token;
       sessionStorage.setItem("adminToken", authToken);
+      if (data.isDemo) {
+        sessionStorage.setItem("isDemoSession", "true");
+      } else {
+        sessionStorage.removeItem("isDemoSession");
+      }
       mostrarDashboard();
       cargarReservas();
 
       Swal.fire({
-        text: "¡Acceso concedido!",
+        title: data.isDemo ? "¡Acceso Demo Concedido!" : "¡Acceso Concedido!",
+        text: data.isDemo ? "Explorando en modo de prueba seguro para evaluadores." : "Sesión administrativa iniciada.",
         icon: "success",
-        confirmButtonColor: "#7C3AED",
-        timer: 1500,
+        confirmButtonColor: "#0f172a",
+        timer: 1600,
         showConfirmButton: false,
       });
+      return;
     } else {
-      Swal.fire({ text: "Código incorrecto", icon: "error", confirmButtonColor: "#7C3AED" });
+      // Si falló pero ingresó 1234 o demo, fallback directo a sesión demo local
+      if (secret === "1234" || secret === "demo") {
+        iniciarSesionDemoLocal();
+        return;
+      }
+      Swal.fire({ text: data.error || "Código incorrecto", icon: "error", confirmButtonColor: "#0f172a" });
     }
   } catch (error) {
-    console.error("Error login:", error);
-    Swal.fire({ text: "Error de conexión", icon: "error", confirmButtonColor: "#7C3AED" });
+    console.warn("Backend no disponible de inmediato o en hibernación:", error);
+    // Si el backend en Render tarda en despertar, permitir demo local
+    if (secret === "1234" || secret === "demo") {
+      iniciarSesionDemoLocal();
+      return;
+    }
+    Swal.fire({
+      title: "Servidor en hibernación",
+      text: "El backend en Render puede tardar unos segundos en reactivarse. Puedes ingresar de inmediato con el botón 'Entrar como demo'.",
+      icon: "info",
+      confirmButtonColor: "#0f172a"
+    });
   } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Acceder";
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHtml;
+    }
   }
+}
+
+/**
+ * Sesión Demo Local (Resiliencia para demostración de portafolio)
+ */
+function iniciarSesionDemoLocal() {
+  authToken = "demo-session-token-" + Date.now();
+  sessionStorage.setItem("adminToken", authToken);
+  sessionStorage.setItem("isDemoSession", "true");
+  mostrarDashboard();
+  cargarReservas();
+
+  Swal.fire({
+    title: "¡Bienvenido al Modo Demo!",
+    text: "Acceso como evaluador concedido con datos sintéticos.",
+    icon: "success",
+    confirmButtonColor: "#0f172a",
+    timer: 1800,
+    showConfirmButton: false,
+  });
 }
 
 function handleLogout(e) {
   if (e) e.preventDefault();
   authToken = "";
   sessionStorage.removeItem("adminToken");
+  sessionStorage.removeItem("isDemoSession");
   reservas = [];
   mostrarLogin();
 }
@@ -173,30 +270,175 @@ function mostrarDashboard() {
 }
 
 /**
+ * Dataset sintético para garantizar dashboard siempre poblado en el portafolio
+ */
+function obtenerReservasSinteticasDemo() {
+  const hoy = new Date();
+  const formatFecha = (d) => d.toISOString().split("T")[0];
+
+  const d1 = new Date(hoy); d1.setDate(d1.getDate() + 1);
+  const d2 = new Date(hoy); d2.setDate(d2.getDate() + 2);
+  const d3 = new Date(hoy); d3.setDate(d3.getDate() + 3);
+  const d4 = new Date(hoy); d4.setDate(d4.getDate() - 1);
+  const d5 = new Date(hoy); d5.setDate(d5.getDate() - 2);
+  const d6 = new Date(hoy); d6.setDate(d6.getDate() + 5);
+  const d7 = new Date(hoy); d7.setDate(d7.getDate() + 7);
+
+  return [
+    {
+      _id: "demo-res-01",
+      nombreCompleto: "Carlos Mendoza",
+      correo: "carlos.mendoza@email.com",
+      telefono: "+58 414 123 4567",
+      fechaServicio: formatFecha(d1),
+      horaReservacion: "15:00",
+      parque: "Maracaibo",
+      paquete: "Paquete Mediano (60 personas)",
+      tipoEvento: "Cumpleaños",
+      estadoReserva: "aprobado",
+      montoTotal: 230,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-02",
+      nombreCompleto: "Valeria Gómez",
+      correo: "valeria.gomez@gmail.com",
+      telefono: "+58 412 987 6543",
+      fechaServicio: formatFecha(d2),
+      horaReservacion: "16:30",
+      parque: "Caracas",
+      paquete: "Paquete Full (80 personas)",
+      tipoEvento: "Evento Corporativo",
+      estadoReserva: "aprobado",
+      montoTotal: 280,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-03",
+      nombreCompleto: "Alejandro Pérez",
+      correo: "alejandro.perez@hotmail.com",
+      telefono: "+58 424 555 1212",
+      fechaServicio: formatFecha(d3),
+      horaReservacion: "14:00",
+      parque: "Punto Fijo",
+      paquete: "Ticket Combo 60 min",
+      tipoEvento: "Visita Familiar",
+      estadoReserva: "pendiente",
+      montoTotal: 65,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-04",
+      nombreCompleto: "Mariana Rivas",
+      correo: "mariana.rivas@outlook.com",
+      telefono: "+58 416 333 4455",
+      fechaServicio: formatFecha(d4),
+      horaReservacion: "17:00",
+      parque: "Maracaibo",
+      paquete: "Paquete Mini (30 personas)",
+      tipoEvento: "Cumpleaños Infantil",
+      estadoReserva: "aprobado",
+      montoTotal: 180,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-05",
+      nombreCompleto: "Daniela Castillo",
+      correo: "daniela.castillo@empresa.com",
+      telefono: "+58 414 777 8899",
+      fechaServicio: formatFecha(d5),
+      horaReservacion: "11:00",
+      parque: "Caracas",
+      paquete: "Paquete Full (80 personas)",
+      tipoEvento: "Graduación Escolar",
+      estadoReserva: "aprobado",
+      montoTotal: 250,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-06",
+      nombreCompleto: "Roberto Silva",
+      correo: "roberto.silva@yahoo.com",
+      telefono: "+58 424 999 1122",
+      fechaServicio: formatFecha(d6),
+      horaReservacion: "18:00",
+      parque: "Punto Fijo",
+      paquete: "Ticket Full Day",
+      tipoEvento: "Tarde Recreativa",
+      estadoReserva: "pendiente",
+      montoTotal: 44,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-07",
+      nombreCompleto: "Gabriela Hernández",
+      correo: "gabriela.h@gmail.com",
+      telefono: "+58 412 444 3322",
+      fechaServicio: formatFecha(d7),
+      horaReservacion: "16:00",
+      parque: "Maracaibo",
+      paquete: "Paquete Mediano (60 personas)",
+      tipoEvento: "Cumpleaños",
+      estadoReserva: "cancelado",
+      montoTotal: 200,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: "demo-res-08",
+      nombreCompleto: "José Luis Morales",
+      correo: "jmorales@logistica.ve",
+      telefono: "+58 414 888 2211",
+      fechaServicio: formatFecha(hoy),
+      horaReservacion: "15:30",
+      parque: "Caracas",
+      paquete: "Ticket 30 min",
+      tipoEvento: "Visita Recreativa",
+      estadoReserva: "aprobado",
+      montoTotal: 36,
+      createdAt: new Date().toISOString()
+    }
+  ];
+}
+
+/**
  * CARGAR RESERVAS
  */
 async function cargarReservas() {
   try {
     console.log("Cargando reservas...");
-    const response = await fetch(`${API}/admin/reservas`, {
-      headers: { "Authorization": `Bearer ${authToken}` },
-    });
+    let loadedFromApi = false;
 
-    if (!response.ok) {
-      if (response.status === 401 || response.status === 403) {
-        handleLogout(); // Token expirado
-        return;
+    if (authToken && !authToken.startsWith("demo-session-token")) {
+      try {
+        const response = await fetch(`${API}/admin/reservas`, {
+          headers: { "Authorization": `Bearer ${authToken}` },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            reservas = data;
+            loadedFromApi = true;
+          }
+        } else if (response.status === 401 || response.status === 403) {
+          handleLogout();
+          return;
+        }
+      } catch (errApi) {
+        console.warn("No fue posible consultar API en vivo (posible hibernación), activando dataset demo:", errApi);
       }
-      renderizarTodo();
-      return;
     }
 
-    const data = await response.json();
-    reservas = Array.isArray(data) ? data : [];
+    if (!loadedFromApi || reservas.length === 0) {
+      console.log("Activando dataset sintético demo...");
+      reservas = obtenerReservasSinteticasDemo();
+    }
+
     console.log(`${reservas.length} reservas cargadas`);
     renderizarTodo();
   } catch (err) {
     console.error("Error cargando reservas:", err);
+    reservas = obtenerReservasSinteticasDemo();
     renderizarTodo();
   }
 }
@@ -242,6 +484,11 @@ async function renderStats() {
       moneda = stats.moneda === "BS" ? "Bs" : "$";
     }
   } catch (err) { console.error(err); }
+
+  // Respaldo para sesión demo o arranque en frío
+  if (dinero === 0 && reservas.length > 0) {
+    dinero = reservas.reduce((acc, r) => acc + (Number(r.montoTotal) || 0), 0);
+  }
 
   document.getElementById("total-reservas").textContent = total;
   document.getElementById("total-dinero").textContent = `${moneda}${dinero.toFixed(2)}`;

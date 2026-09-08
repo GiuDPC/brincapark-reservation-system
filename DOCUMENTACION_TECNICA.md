@@ -117,41 +117,53 @@ backend/src/
 - Query params: fecha, parque
 - Respuesta: Array de horarios ocupados
 
-#### Administrativos (Requieren autenticación)
+#### Administrativos (Requieren autenticación JWT)
 
-**GET /api/admin/reservations**
-- Descripción: Listar todas las reservas (admin)
-- Headers: x-admin-secret
+**POST /api/admin/login**
+- Descripción: Inicio de sesión administrativo y para evaluadores demo
+- Body: `{ "secret": "..." }`
+- Respuesta: `{ token, role, isDemo, message }`
+
+**GET /api/admin/reservas**
+- Descripción: Listar todas las reservas (admin / demo)
+- Headers: `Authorization: Bearer <token>`
 - Respuesta: Array de reservas
 
-**PATCH /api/admin/reservations/:id**
+**PATCH /api/admin/reservas/:id**
 - Descripción: Actualizar reserva
-- Headers: x-admin-secret
-- Body: Campos a actualizar
-- Respuesta: Reserva actualizada
+- Headers: `Authorization: Bearer <token>`
+- Body: `{ "estado": "pendiente" | "aprobado" | "cancelado" }`
+- Respuesta: Reserva actualizada (en sesión demo se simula protegiendo la base de datos principal)
 
-**DELETE /api/admin/reservations/:id**
+**DELETE /api/admin/reservas/:id**
 - Descripción: Eliminar reserva
-- Headers: x-admin-secret
-- Respuesta: Confirmación de eliminación
+- Headers: `Authorization: Bearer <token>`
+- Respuesta: Confirmación de eliminación (en sesión demo se simula protegiendo la base de datos principal)
 
 ### Middleware
 
 #### adminAuth
 
-Valida que las peticiones administrativas incluyan la clave secreta correcta.
+Valida que las peticiones administrativas incluyan un token JWT válido en el header `Authorization`:
 
-```javascript
-function adminAuth(req, res, next) {
-  const adminSecret = req.headers['x-admin-secret'];
-  
-  if (!adminSecret || adminSecret !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ 
-      error: 'No autorizado' 
-    });
+```typescript
+function adminAuth(req: AuthRequest, res: Response, next: NextFunction) {
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader || !authHeader.startsWith("Bearer")) {
+    return res.status(401).json({ message: "Acceso denegado" });
   }
-  
-  next();
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const jwtSecret = process.env.JWT_SECRET || "brincapark_jwt_secure_key_2026";
+    const decoded = jwt.verify(token, jwtSecret);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Acceso denegado" });
+  }
 }
 ```
 
